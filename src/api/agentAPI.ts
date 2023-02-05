@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { toast } from 'react-toastify';
 
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
+import ICreatePost from '../interfaces/ICreatePost';
 import { IEmailConfirmation } from '../interfaces/IEmailConfirmation';
 import { IErrorResponse } from '../interfaces/IErrorResponse';
 import IForgotPassword from '../interfaces/IForgotPassword';
@@ -26,20 +27,20 @@ axios.interceptors.response.use(
 
         const data = (error?.response?.data as IErrorResponse) || undefined;
         const status: number = error?.response?.status || 0;
-        const errorMsg =
-            data?.message ?? data?.errors?.[0] ?? data?.title ?? 'Somethig went wrong. Please try again later!';
+        const errorMsg = data?.errors?.[0] ?? data?.title ?? 'Somethig went wrong. Please try again later!';
 
         switch (status) {
             case 400:
                 toast.error(errorMsg);
                 break;
             case 401:
-                toast.error('Session expired! Please login again');
+                toast.error('Unauthorized');
                 break;
             case 500:
                 toast.error(errorMsg);
                 break;
             default:
+                toast.error(errorMsg);
                 break;
         }
         return Promise.reject(error.response);
@@ -61,8 +62,13 @@ const Account = {
     login: (data: ILoginUser) => request.post(ENDPOINT.Login, data),
 };
 
+const Post = {
+    generateFacebookPost: (data: ICreatePost) => request.post(ENDPOINT.GeneratePost, data),
+};
+
 const apiAgent = {
     Account,
+    Post,
 };
 
 export default apiAgent;

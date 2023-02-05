@@ -9,4 +9,5 @@ export const ENDPOINT = {
     ForgotPassword: '/api/auth/forgetpassword',
     ResetPassword: '/api/auth/resetpassword',
     Login2FA: '/api/auth/login/2fa',
+    GeneratePost: 'api/post/generate',
 };
