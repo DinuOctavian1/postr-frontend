@@ -6,6 +6,7 @@ import {
     Button,
     FormControl,
     FormControlLabel,
+    FormHelperText,
     FormLabel,
     Grid,
     Radio,
@@ -13,6 +14,8 @@ import {
     TextField,
     Typography,
 } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
+
 import validationSchema from './validationSchema';
 import apiAgent from '../../api/agentAPI';
 import IPostResponse from '../../interfaces/IPostResponse';
@@ -22,24 +25,30 @@ import SOCIAL_MEDIA_PLATFORMS from '../../constants/SocialMediaPlarforms';
 const Form = (): JSX.Element => {
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
     const [post, setPost] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const initialValues: ICreatePost = {
         postDescription: '',
         businessDescription: '',
         socialPlatform: 'FACEBOOK',
+        productDescription: '',
+        objective: '',
     };
 
     const formik = useFormik({
-        //validationSchema: validationSchema,
+        validationSchema: validationSchema,
         initialValues: initialValues,
-        onSubmit(values: ICreatePost) {
+        onSubmit: (values: ICreatePost) => {
+            setIsLoading(true);
             apiAgent.Post.generateFacebookPost(values)
                 .then((rsp: IPostResponse) => {
-                    console.log(rsp);
                     setPost(rsp.message);
                     setIsSubmitted(true);
                 })
-                .catch((err) => toast.error(err));
+                .catch((err) => toast.error(err))
+                .finally(() => {
+                    setIsLoading(false);
+                });
         },
     });
 
@@ -59,6 +68,18 @@ const Form = (): JSX.Element => {
                             helperText={formik.touched.businessDescription && formik.errors.businessDescription}
                         />
                     </Grid>
+                    <Grid item xs={12} mb={3}>
+                        <TextField
+                            label='Product *'
+                            variant='outlined'
+                            name={'productDescription'}
+                            fullWidth
+                            value={formik.values.productDescription}
+                            onChange={formik.handleChange}
+                            error={formik.touched.productDescription && Boolean(formik.errors.productDescription)}
+                            helperText={formik.touched.productDescription && formik.errors.productDescription}
+                        />
+                    </Grid>
                     <Grid item xs={12}>
                         <TextField
                             label='Write some words about the post *'
@@ -71,9 +92,21 @@ const Form = (): JSX.Element => {
                             helperText={formik.touched.postDescription && formik.errors.postDescription}
                         />
                     </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            label='The objective of the post:  *'
+                            variant='outlined'
+                            name={'objective'}
+                            fullWidth
+                            value={formik.values.objective}
+                            onChange={formik.handleChange}
+                            error={formik.touched.objective && Boolean(formik.errors.objective)}
+                            helperText={formik.touched.objective && formik.errors.objective}
+                        />
+                    </Grid>
                     <Grid item xs={12} mb={3}>
                         <FormControl>
-                            <FormLabel id='demo-controlled-radio-buttons-group'>Gender</FormLabel>
+                            <FormLabel id='demo-controlled-radio-buttons-group'>Social Media Platform</FormLabel>
                             <RadioGroup
                                 aria-labelledby='demo-controlled-radio-buttons-group'
                                 name='socialPlatform'
@@ -84,17 +117,41 @@ const Form = (): JSX.Element => {
                                     <FormControlLabel value={value} control={<Radio />} label={value} key={key} />
                                 ))}
                             </RadioGroup>
+                            {formik.errors.socialPlatform && formik.touched.socialPlatform ? (
+                                <FormHelperText error>
+                                    {formik.touched.socialPlatform && formik.errors.socialPlatform}
+                                </FormHelperText>
+                            ) : null}
                         </FormControl>
                     </Grid>
                     {isSubmitted ? (
-                        <Typography variant='h4' gutterBottom mt={5}>
-                            {post}
-                        </Typography>
+                        <>
+                            <Typography variant='h4' gutterBottom mt={5}>
+                                {post}
+                            </Typography>
+                            <Button
+                                size='large'
+                                variant='contained'
+                                onClick={() => {
+                                    formik.resetForm();
+                                    setPost('');
+                                    setIsSubmitted(false);
+                                }}
+                            >
+                                Clear
+                            </Button>
+                        </>
                     ) : (
                         <Grid item xs={12} display='flex' justifyContent='center'>
-                            <Button size={'large'} variant={'contained'} type={'submit'}>
-                                Generate Post
-                            </Button>
+                            {isLoading ? (
+                                <LoadingButton loading={true} variant='outlined'>
+                                    Fetch api
+                                </LoadingButton>
+                            ) : (
+                                <Button size={'large'} variant={'contained'} type={'submit'}>
+                                    Generate Post
+                                </Button>
+                            )}
                         </Grid>
                     )}
                 </Grid>
