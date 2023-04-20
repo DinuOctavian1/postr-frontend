@@ -56,7 +56,7 @@ const Form = (): JSX.Element => {
         <Box>
             <form onSubmit={formik.handleSubmit}>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} mb={3}>
+                    {/* <Grid item xs={12} mb={3}>
                         <TextField
                             label='Business description *'
                             variant='outlined'
@@ -67,7 +67,7 @@ const Form = (): JSX.Element => {
                             error={formik.touched.businessDescription && Boolean(formik.errors.businessDescription)}
                             helperText={formik.touched.businessDescription && formik.errors.businessDescription}
                         />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} mb={3}>
                         <TextField
                             label='Product *'
