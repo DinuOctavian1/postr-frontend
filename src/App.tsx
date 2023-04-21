@@ -3,12 +3,12 @@ import Page from './components/Page';
 import Routes from './routes/Routes';
 
 const App = (): JSX.Element => {
-    return (
-        <Page>
-            <BrowserRouter>
-                <Routes />
-            </BrowserRouter>
-        </Page>
-    );
+  return (
+    <Page>
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
+    </Page>
+  );
 };
 export default App;
