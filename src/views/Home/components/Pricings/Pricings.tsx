@@ -119,6 +119,93 @@ const mock = [
   },
 ];
 
+const pricingModels = [
+  {
+    title: 'Basic',
+    price: 10,
+    features: [
+      {
+        title: '10 Posts/Month',
+        isIncluded: true,
+      },
+      {
+        title: '1 User Account',
+        isIncluded: true,
+      },
+      {
+        title: 'Scheduling Options',
+        isIncluded: false,
+      },
+      {
+        title: 'Image Generation',
+        isIncluded: false,
+      },
+      {
+        title: 'Facebook, Twitter, Instagram',
+        isIncluded: true,
+      },
+    ],
+    isHighlighted: false,
+    btnText: 'Get Basic',
+  },
+  {
+    title: 'Professional',
+    price: 30,
+    features: [
+      {
+        title: '40 Post/Month',
+        isIncluded: true,
+      },
+      {
+        title: '1 User Account',
+        isIncluded: true,
+      },
+      {
+        title: 'Scheduling Options',
+        isIncluded: true,
+      },
+      {
+        title: 'Image Generation',
+        isIncluded: true,
+      },
+      {
+        title: 'Facebook, Twitter, Instagram',
+        isIncluded: true,
+      },
+    ],
+    isHighlighted: true,
+    btnText: 'Get Pro',
+  },
+  {
+    title: 'Enterprise',
+    price: 'Custom',
+    features: [
+      {
+        title: 'Unlimited Posts/Month',
+        isIncluded: true,
+      },
+      {
+        title: 'Multiple User Accounts',
+        isIncluded: true,
+      },
+      {
+        title: 'Scheduling Options',
+        isIncluded: true,
+      },
+      {
+        title: 'Image Generation',
+        isIncluded: true,
+      },
+      {
+        title: 'Facebook, Twitter, Instagram',
+        isIncluded: true,
+      },
+    ],
+    isHighlighted: false,
+    btnText: 'Contact Us',
+  },
+];
+
 const Pricing = (): JSX.Element => {
   const theme = useTheme();
 
@@ -131,7 +218,7 @@ const Pricing = (): JSX.Element => {
           align={'center'}
           gutterBottom
         >
-          Flexible and transparent pricing
+          Choose the Right Plan for Your Needs
         </Typography>
         <Typography
           variant={'h6'}
@@ -143,7 +230,7 @@ const Pricing = (): JSX.Element => {
         </Typography>
       </Box>
       <Grid container spacing={4}>
-        {mock.map((item, i) => (
+        {pricingModels.map((item, i) => (
           <Grid
             item
             xs={12}
@@ -179,15 +266,18 @@ const Pricing = (): JSX.Element => {
                     </Box>
                   </Typography>
                   <Box display={'flex'} alignItems={'flex-start'}>
-                    <Typography variant={'h4'} color={'primary'}>
-                      <Box
-                        component={'span'}
-                        fontWeight={600}
-                        marginRight={1 / 2}
-                      >
-                        $
-                      </Box>
-                    </Typography>
+                    {typeof item.price === 'number' && (
+                      <Typography variant={'h4'} color={'primary'}>
+                        <Box
+                          component={'span'}
+                          fontWeight={600}
+                          marginRight={1 / 2}
+                        >
+                          $
+                        </Box>
+                      </Typography>
+                    )}
+
                     <Typography variant={'h2'} color={'primary'} gutterBottom>
                       <Box component={'span'} fontWeight={600}>
                         {item.price}

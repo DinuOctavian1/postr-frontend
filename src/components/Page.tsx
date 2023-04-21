@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from 'theme';
 import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export const useDarkMode = (): [string, () => void, boolean] => {
   const [themeMode, setTheme] = useState('light');
@@ -48,10 +49,9 @@ export default function Page({ children }: Props): JSX.Element {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
-
     AOS.init({
       once: true,
-      delay: 50,
+      delay: 150,
       duration: 500,
       easing: 'ease-in-out',
     });

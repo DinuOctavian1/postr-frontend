@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -7,6 +6,9 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import PhoneSkeletonIllustration from 'svg/illustrations/PhoneSkeleton';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const Hero = (): JSX.Element => {
   const theme = useTheme();
@@ -15,7 +17,7 @@ const Hero = (): JSX.Element => {
   });
 
   return (
-    <Grid container spacing={0}>
+    <Grid container spacing={0} data-aos="fade-up">
       <Grid item container alignItems={'center'} xs={12} md={6}>
         <Box data-aos={isMd ? 'fade-right' : 'fade-up'}>
           <Box marginBottom={2}>
@@ -26,7 +28,7 @@ const Hero = (): JSX.Element => {
                 fontWeight: 700,
               }}
             >
-              Don't listen to what they say{' '}
+              Generate High-Quality Posts in{' '}
               <Typography
                 color={'primary'}
                 component={'span'}
@@ -38,15 +40,15 @@ const Hero = (): JSX.Element => {
                   )} 0%)`,
                 }}
               >
-                go and see
+                Minutes
               </Typography>
             </Typography>
           </Box>
           <Box marginBottom={3}>
             <Typography variant="h6" component="p" color="text.secondary">
-              Travelling with our app is easy.
+              Elevate your social media game
               <br />
-              Join the biggest community of travellers.
+              Post stunning content effortlessly
             </Typography>
           </Box>
           <Box display="flex" marginTop={1}>
@@ -56,14 +58,7 @@ const Hero = (): JSX.Element => {
               width={{ xs: 40, sm: 50 }}
               height={{ xs: 40, sm: 50 }}
             >
-              <Box
-                component={'img'}
-                src={
-                  'https://assets.maccarianagency.com/svg/icons/app-store-icon.svg'
-                }
-                alt={'app store'}
-                width={{ xs: 15, md: 20 }}
-              />
+              <TwitterIcon />
             </Box>
             <Box
               component={Avatar}
@@ -72,15 +67,16 @@ const Hero = (): JSX.Element => {
               width={{ xs: 40, sm: 50 }}
               height={{ xs: 40, sm: 50 }}
             >
-              <Box
-                component={'img'}
-                src={
-                  'https://assets.maccarianagency.com/svg/icons/play-store-icon.svg'
-                }
-                alt={'play store'}
-                sx={{ filter: 'brightness(0) invert(1)' }}
-                width={{ xs: 15, md: 20 }}
-              />
+              <InstagramIcon />
+            </Box>
+            <Box
+              component={Avatar}
+              bgcolor={'primary.main'}
+              marginLeft={1}
+              width={{ xs: 40, sm: 50 }}
+              height={{ xs: 40, sm: 50 }}
+            >
+              <FacebookIcon />
             </Box>
           </Box>
         </Box>

@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
-import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
@@ -10,6 +8,12 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
+import BurstModeIcon from '@mui/icons-material/BurstMode';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const Features = (): JSX.Element => {
   const theme = useTheme();
@@ -30,9 +34,9 @@ const Features = (): JSX.Element => {
             marginTop: theme.spacing(1),
           }}
         >
-          Always know what you'll pay.
+          What can Postr do for you.
         </Typography>
-        <Typography
+        {/* <Typography
           variant="h6"
           align={'center'}
           color={'text.secondary'}
@@ -42,9 +46,9 @@ const Features = (): JSX.Element => {
           bank
           <br />
           account within 2-3 business days.
-        </Typography>
+        </Typography> */}
         <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-          <Button
+          {/* <Button
             variant="contained"
             color="primary"
             size="large"
@@ -68,15 +72,20 @@ const Features = (): JSX.Element => {
             }
           >
             Learn more
-          </Button>
+          </Button> */}
         </Box>
       </Box>
-      <Grid container spacing={isMd ? 0 : 2}>
-        <Grid item xs={12} md={6}>
+      <Grid
+        container
+        spacing={isMd ? 0 : 2}
+        display="flex"
+        justifyContent={'center'}
+      >
+        <Grid item xs={12} md={7}>
           <Card data-aos={isMd ? 'fade-right' : 'fade-up'}>
             <CardContent sx={{ padding: { sm: 4 } }}>
               <Grid container spacing={4}>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <Box
                     display={'flex'}
                     flexDirection={'column'}
@@ -93,7 +102,7 @@ const Features = (): JSX.Element => {
                       per successful transaction
                     </Typography>
                   </Box>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={6}>
                   <Box
                     display={'flex'}
@@ -101,7 +110,7 @@ const Features = (): JSX.Element => {
                     alignItems={'center'}
                   >
                     <Box color={theme.palette.primary.main}>
-                      <svg
+                      {/* <svg
                         width={50}
                         height={50}
                         xmlns="http://www.w3.org/2000/svg"
@@ -115,10 +124,11 @@ const Features = (): JSX.Element => {
                           strokeWidth={2}
                           d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
                         />
-                      </svg>
+                      </svg> */}
+                      <DynamicFeedIcon fontSize={'large'} />
                     </Box>
                     <Typography sx={{ fontWeight: 700 }} align={'center'}>
-                      Account creation
+                      Generate Posts
                     </Typography>
                   </Box>
                 </Grid>
@@ -129,7 +139,7 @@ const Features = (): JSX.Element => {
                     alignItems={'center'}
                   >
                     <Box color={theme.palette.primary.main}>
-                      <svg
+                      {/* <svg
                         width={50}
                         height={50}
                         xmlns="http://www.w3.org/2000/svg"
@@ -143,14 +153,45 @@ const Features = (): JSX.Element => {
                           strokeWidth={2}
                           d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                         />
-                      </svg>
+                      </svg> */}
+                      <ScheduleIcon fontSize={'large'} />
                     </Box>
                     <Typography sx={{ fontWeight: 700 }} align={'center'}>
-                      Professional account
+                      Post Scheduling
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6}>
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                  >
+                    <Box color={theme.palette.primary.main}>
+                      <BurstModeIcon fontSize={'large'} />
+                    </Box>
+                    <Typography sx={{ fontWeight: 700 }} align={'center'}>
+                      Image Generation
+                    </Typography>
+                  </Box>
+                </Grid>
+                <Grid item xs={6}>
+                  <Box
+                    display={'flex'}
+                    flexDirection={'column'}
+                    alignItems={'center'}
+                  >
+                    <Box color={theme.palette.primary.main}>
+                      <TwitterIcon fontSize={'large'} />
+                      <FacebookIcon fontSize={'large'} />
+                      <InstagramIcon fontSize={'large'} />
+                    </Box>
+                    <Typography sx={{ fontWeight: 700 }} align={'center'}>
+                      Multiple Platforms
+                    </Typography>
+                  </Box>
+                </Grid>
+                {/* <Grid item xs={12}>
                   <Box display={'flex'} justifyContent={'center'}>
                     <Typography
                       variant={'caption'}
@@ -161,7 +202,7 @@ const Features = (): JSX.Element => {
                       then $2.5/monthly included VAT
                     </Typography>
                   </Box>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12}>
                   <Box marginTop={2} display={'flex'} justifyContent={'center'}>
                     <Button
@@ -195,7 +236,7 @@ const Features = (): JSX.Element => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item container xs={12} md={6} alignItems={'center'}>
+        {/* <Grid item container xs={12} md={6} alignItems={'center'}>
           <Box component={Card} bgcolor={theme.palette.primary.main}>
             <CardContent
               sx={{
@@ -249,7 +290,7 @@ const Features = (): JSX.Element => {
               </Box>
             </CardActions>
           </Box>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Box>
   );

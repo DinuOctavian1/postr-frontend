@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -10,7 +9,7 @@ const About = (): JSX.Element => {
   const theme = useTheme();
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={4} data-aos="fade-left">
       <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' } }}>
         <Box
           sx={{
@@ -80,13 +79,15 @@ const About = (): JSX.Element => {
                 fontWeight: 700,
               }}
             >
-              Now available on Google Play market and Apple Store
+              Discover the Power of Postr
             </Typography>
           </Box>
           <Box marginBottom={3}>
             <Typography variant="h6" component="p" color="text.secondary">
-              Don't listen to what they say go and see. Travelling with our app
-              is easy. Join the biggest community of travellers.
+              Save time and effort by automating your social media content
+              <br />
+              Easily post to Facebook, Instagram, and Twitter with just a few
+              clicks
             </Typography>
           </Box>
           <Box display="flex" marginTop={1}>
@@ -123,7 +124,7 @@ const About = (): JSX.Element => {
               />
             </Box>
           </Box>
-          <Box
+          {/* <Box
             height={1}
             width={1}
             maxHeight={300}
@@ -142,7 +143,7 @@ const About = (): JSX.Element => {
               boxShadow={4}
               borderRadius={2}
             />
-          </Box>
+          </Box> */}
         </Box>
       </Grid>
     </Grid>

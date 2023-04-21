@@ -11,8 +11,9 @@ import {
   Pricings,
   Download,
 } from './components';
+import Reviews from './components/Reviews';
 
-const MobileApp = (): JSX.Element => {
+const Home = (): JSX.Element => {
   const theme = useTheme();
 
   return (
@@ -73,11 +74,11 @@ const MobileApp = (): JSX.Element => {
           </Box>
         </Box>
       </Container>
-      <Box bgcolor={'alternate.main'}>
+      {/* <Box bgcolor={'alternate.main'}>
         <Container>
           <Payment />
         </Container>
-      </Box>
+      </Box> */}
       <Container>
         <Features />
       </Container>
@@ -103,14 +104,17 @@ const MobileApp = (): JSX.Element => {
           ></path>
         </Box>
       </Box>
-
+      <Divider />
+      <Container>
+        <Reviews />
+      </Container>
       <Divider />
       <Container>
         <Download />
+        <Divider />
       </Container>
-      <Divider />
     </Main>
   );
 };
 
-export default MobileApp;
+export default Home;

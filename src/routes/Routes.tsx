@@ -1,5 +1,5 @@
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
-import Home from '../views/Home/Home2';
+import Home from '../views/Home/Home';
 import ROUTE from './route';
 
 const Routes = (): JSX.Element => {
