@@ -284,9 +284,9 @@ const Pricing = (): JSX.Element => {
                       </Box>
                     </Typography>
                   </Box>
-                  <Typography variant={'subtitle2'} color={'text.secondary'}>
+                  {/* <Typography variant={'subtitle2'} color={'text.secondary'}>
                     Per user, per month
-                  </Typography>
+                  </Typography> */}
                 </Box>
                 <Grid container spacing={1}>
                   {item.features.map((feature, j) => (

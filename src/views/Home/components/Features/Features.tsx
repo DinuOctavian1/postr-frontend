@@ -5,9 +5,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import DynamicFeedIcon from '@mui/icons-material/DynamicFeed';
 import BurstModeIcon from '@mui/icons-material/BurstMode';
@@ -34,54 +32,19 @@ const Features = (): JSX.Element => {
             marginTop: theme.spacing(1),
           }}
         >
-          What can Postr do for you.
+          What can Postr do for you
         </Typography>
-        {/* <Typography
-          variant="h6"
-          align={'center'}
-          color={'text.secondary'}
-          data-aos={'fade-up'}
-        >
-          Once you're setup, instantly withdraw payments or deposit into your
-          bank
-          <br />
-          account within 2-3 business days.
-        </Typography> */}
-        <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-          {/* <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={
-              <Box
-                component={'svg'}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                width={24}
-                height={24}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </Box>
-            }
-          >
-            Learn more
-          </Button> */}
-        </Box>
+
+        <Box marginTop={2} display={'flex'} justifyContent={'center'}></Box>
       </Box>
       <Grid
         container
         spacing={isMd ? 0 : 2}
         display="flex"
         justifyContent={'center'}
+        alignItems={'center'}
       >
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={5}>
           <Card data-aos={isMd ? 'fade-right' : 'fade-up'}>
             <CardContent sx={{ padding: { sm: 4 } }}>
               <Grid container spacing={4}>
@@ -236,61 +199,9 @@ const Features = (): JSX.Element => {
             </CardContent>
           </Card>
         </Grid>
-        {/* <Grid item container xs={12} md={6} alignItems={'center'}>
-          <Box component={Card} bgcolor={theme.palette.primary.main}>
-            <CardContent
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: { sm: 4 },
-              }}
-            >
-              <Box color={theme.palette.common.white} marginBottom={4}>
-                <svg
-                  width={80}
-                  height={80}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z" />
-                </svg>
-              </Box>
-              <Typography
-                variant={'h4'}
-                gutterBottom
-                sx={{ fontWeight: 600, color: theme.palette.common.white }}
-              >
-                Customized
-              </Typography>
-              <Typography
-                gutterBottom
-                align={'center'}
-                sx={{ color: theme.palette.common.white }}
-              >
-                Design a custom package for your business.
-              </Typography>
-              <Typography
-                align={'center'}
-                sx={{ color: theme.palette.common.white }}
-              >
-                Available for businesses with large payments volume or unique
-                business models.
-              </Typography>
-            </CardContent>
-            <Divider />
-            <CardActions sx={{ justifyContent: 'center' }}>
-              <Box
-                component={Button}
-                color={theme.palette.common.white}
-                size={'large'}
-              >
-                Contact sales
-              </Box>
-            </CardActions>
-          </Box>
-        </Grid> */}
+        <Grid item container xs={12} md={5} alignItems={'center'}>
+          <Box component={'img'} src={'assets/features.png'} width={1} ml={5} />
+        </Grid>
       </Grid>
     </Box>
   );

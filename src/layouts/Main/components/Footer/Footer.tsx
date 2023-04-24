@@ -29,13 +29,9 @@ const Footer = (): JSX.Element => {
           >
             <Box
               component={'img'}
-              src={
-                mode === 'light'
-                  ? 'https://assets.maccarianagency.com/the-front/logos/logo.svg'
-                  : 'https://assets.maccarianagency.com/the-front/logos/logo-negative.svg'
-              }
-              height={1}
-              width={1}
+              src={mode === 'light' ? 'assets/logo.png' : 'assets/logo.png'}
+              height={0.7}
+              width={0.7}
             />
           </Box>
           <Box display="flex" flexWrap={'wrap'} alignItems={'center'}>
@@ -58,7 +54,7 @@ const Footer = (): JSX.Element => {
                 color="text.primary"
                 variant={'subtitle2'}
               >
-                Documentation
+                Termns & Conditions
               </Link>
             </Box>
             <Box marginTop={1}>
@@ -70,7 +66,7 @@ const Footer = (): JSX.Element => {
                 href="https://mui.com/store/items/the-front-landing-page/"
                 size="small"
               >
-                Purchase now
+                Try now
               </Button>
             </Box>
           </Box>
@@ -83,7 +79,7 @@ const Footer = (): JSX.Element => {
           color="text.secondary"
           gutterBottom
         >
-          &copy; theFront. 2021, Maccarian. All rights reserved
+          &copy; 2023, Postr. All rights reserved
         </Typography>
         <Typography
           align={'center'}

@@ -4,6 +4,9 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import PhoneSkeletonIllustration from 'svg/illustrations/PhoneSkeleton';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 const About = (): JSX.Element => {
   const theme = useTheme();
@@ -49,14 +52,14 @@ const About = (): JSX.Element => {
                   loading="lazy"
                   src={
                     theme.palette.mode === 'light'
-                      ? 'https://assets.maccarianagency.com/screenshots/crypto-mobile.png'
-                      : 'https://assets.maccarianagency.com/screenshots/crypto-mobile--dark.png'
+                      ? 'assets/section2.png'
+                      : 'assets/section2.png'
                   }
                   alt="Image Description"
                   width={1}
                   height={1}
                   sx={{
-                    objectFit: 'cover',
+                    objectFit: 'unset',
                     borderRadius: '2.5rem',
                     filter:
                       theme.palette.mode === 'dark'
@@ -97,14 +100,7 @@ const About = (): JSX.Element => {
               width={{ xs: 40, sm: 50 }}
               height={{ xs: 40, sm: 50 }}
             >
-              <Box
-                component={'img'}
-                src={
-                  'https://assets.maccarianagency.com/svg/icons/app-store-icon.svg'
-                }
-                alt={'app store'}
-                width={{ xs: 15, md: 20 }}
-              />
+              <TwitterIcon />
             </Box>
             <Box
               component={Avatar}
@@ -113,37 +109,18 @@ const About = (): JSX.Element => {
               width={{ xs: 40, sm: 50 }}
               height={{ xs: 40, sm: 50 }}
             >
-              <Box
-                component={'img'}
-                src={
-                  'https://assets.maccarianagency.com/svg/icons/play-store-icon.svg'
-                }
-                alt={'play store'}
-                sx={{ filter: 'brightness(0) invert(1)' }}
-                width={{ xs: 15, md: 20 }}
-              />
+              <InstagramIcon />
+            </Box>
+            <Box
+              component={Avatar}
+              bgcolor={'primary.main'}
+              marginLeft={1}
+              width={{ xs: 40, sm: 50 }}
+              height={{ xs: 40, sm: 50 }}
+            >
+              <FacebookIcon />
             </Box>
           </Box>
-          {/* <Box
-            height={1}
-            width={1}
-            maxHeight={300}
-            maxWidth={{ xs: '100%', sm: 400 }}
-            marginTop={3}
-          >
-            <Box
-              component={'iframe'}
-              title="video"
-              width="100%"
-              height="100%"
-              minHeight={250}
-              src="https://www.youtube.com/embed/ClIbn_IF31U"
-              frameBorder="0"
-              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-              boxShadow={4}
-              borderRadius={2}
-            />
-          </Box> */}
         </Box>
       </Grid>
     </Grid>

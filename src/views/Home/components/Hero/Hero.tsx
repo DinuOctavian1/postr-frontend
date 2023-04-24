@@ -123,8 +123,8 @@ const Hero = (): JSX.Element => {
                   component={'img'}
                   src={
                     theme.palette.mode === 'light'
-                      ? 'https://assets.maccarianagency.com/screenshots/crypto-mobile.png'
-                      : 'https://assets.maccarianagency.com/screenshots/crypto-mobile--dark.png'
+                      ? 'assets/hero_img.png'
+                      : 'assets/hero_img.png'
                   }
                   loading={'lazy'}
                   width={1}

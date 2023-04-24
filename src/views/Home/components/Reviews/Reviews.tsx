@@ -1,8 +1,5 @@
-import React from 'react';
 import { alpha, useTheme } from '@mui/material/styles';
 import Card from '@mui/material/Card';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -11,27 +8,31 @@ import Grid from '@mui/material/Grid';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { Box } from '@mui/material';
 
 const mock = [
   {
     feedback:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    name: 'Clara Bertoletti',
-    title: 'MUI lover',
+      // eslint-disable-next-line quotes
+      "I was hesitant at first, but now I can't imagine managing my social media without it. The templates and visuals are top-notch",
+    name: 'Jane Smith',
+    title: 'Influencer',
     avatar: 'https://assets.maccarianagency.com/avatars/img1.jpg',
   },
   {
     feedback:
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    name: 'Jhon Anderson',
-    title: 'Senior Frontend Developer',
+      // eslint-disable-next-line quotes
+      "Since using this tool, my engagement on social media has skyrocketed. It's so easy to use and the results speak for themselves.",
+    name: 'John Doe ',
+    title: 'Social Media Manager',
     avatar: 'https://assets.maccarianagency.com/avatars/img2.jpg',
   },
   {
     feedback:
-      'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    name: 'Chary Smith',
-    title: 'SEO at Comoti',
+      // eslint-disable-next-line quotes
+      "The customer support is amazing. They're always quick to respond and provide helpful solutions",
+    name: 'Tom Johnson',
+    title: 'Small Business Owner',
     avatar: 'https://assets.maccarianagency.com/avatars/img3.jpg',
   },
 ];
@@ -76,37 +77,10 @@ const Reviews = (): JSX.Element => {
           data-aos={'fade-up'}
         >
           Companies from across the globe have had fantastic experiences using
-          theFront.
+          Postr.
           <br />
           Here’s what they have to say.
         </Typography>
-        {/* <Box marginTop={2} display={'flex'} justifyContent={'center'}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={
-              <Box
-                component={'svg'}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                width={24}
-                height={24}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </Box>
-            }
-          >
-            View all
-          </Button>
-        </Box> */}
       </Box>
       <Grid container spacing={2}>
         {mock.map((item, i) => (

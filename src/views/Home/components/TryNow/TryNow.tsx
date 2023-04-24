@@ -1,9 +1,11 @@
-import React from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
-const Download = (): JSX.Element => {
+const TryNow = (): JSX.Element => {
   return (
     <Box>
       <Box marginBottom={4}>
@@ -15,11 +17,11 @@ const Download = (): JSX.Element => {
             fontWeight: 700,
           }}
         >
-          Everything your team could need.
+          Ready to take your social media game to the next level?
         </Typography>
         <Typography variant="h6" color={'text.secondary'} data-aos={'fade-up'}>
-          We make sure to include all the amenities and niceties that a growing
-          startup could possibly need.
+          Try it now and discover the power of hassle-free social media
+          management
         </Typography>
       </Box>
       <Box
@@ -30,9 +32,12 @@ const Download = (): JSX.Element => {
       >
         <Box>
           <Typography fontWeight={700} variant={'h6'} gutterBottom>
-            Apply in 15 minutes
+            Try for free
           </Typography>
-          <Typography>Get your dream mobile app without the hassle.</Typography>
+          <Typography>
+            Say goodbye to the stress and time-consuming task of content
+            creation and let Postr do the work for you
+          </Typography>
         </Box>
         <Box display="flex" marginTop={{ xs: 2, md: 0 }}>
           <Box display="flex" marginTop={1}>
@@ -42,14 +47,7 @@ const Download = (): JSX.Element => {
               width={{ xs: 40, sm: 50 }}
               height={{ xs: 40, sm: 50 }}
             >
-              <Box
-                component={'img'}
-                src={
-                  'https://assets.maccarianagency.com/svg/icons/app-store-icon.svg'
-                }
-                alt={'app store'}
-                width={{ xs: 15, md: 20 }}
-              />
+              <TwitterIcon />
             </Box>
             <Box
               component={Avatar}
@@ -58,15 +56,16 @@ const Download = (): JSX.Element => {
               width={{ xs: 40, sm: 50 }}
               height={{ xs: 40, sm: 50 }}
             >
-              <Box
-                component={'img'}
-                src={
-                  'https://assets.maccarianagency.com/svg/icons/play-store-icon.svg'
-                }
-                alt={'play store'}
-                sx={{ filter: 'brightness(0) invert(1)' }}
-                width={{ xs: 15, md: 20 }}
-              />
+              <InstagramIcon />
+            </Box>
+            <Box
+              component={Avatar}
+              bgcolor={'primary.main'}
+              marginLeft={1}
+              width={{ xs: 40, sm: 50 }}
+              height={{ xs: 40, sm: 50 }}
+            >
+              <FacebookIcon />
             </Box>
           </Box>
         </Box>
@@ -75,4 +74,4 @@ const Download = (): JSX.Element => {
   );
 };
 
-export default Download;
+export default TryNow;
