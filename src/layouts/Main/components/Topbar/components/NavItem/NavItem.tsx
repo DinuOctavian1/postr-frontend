@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 interface Props {
   title: string;
@@ -8,7 +9,12 @@ interface Props {
   colorInvert?: boolean;
 }
 
-const NavItem = ({ title, id, colorInvert = false }: Props): JSX.Element => {
+const NavItem = ({
+  title,
+  id,
+
+  colorInvert = false,
+}: Props): JSX.Element => {
   const [fontWeight, setFontWeight] = useState(400);
 
   const handleClick = (event, id) => {

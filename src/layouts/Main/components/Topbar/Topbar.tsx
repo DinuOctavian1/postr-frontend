@@ -6,6 +6,8 @@ import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { NavItem } from './components';
+import { Link } from 'react-router-dom';
+import ROUTE from 'routes/route';
 
 interface PageItem {
   href: string;
@@ -80,9 +82,8 @@ const Topbar = ({
         <Button
           variant="contained"
           color="primary"
-          component="a"
-          target="blank"
-          href="https://mui.com/store/items/the-front-landing-page/"
+          component={Link}
+          to={ROUTE.Signup}
           size="large"
           sx={{ marginLeft: 5, marginRight: 5 }}
         >
