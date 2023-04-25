@@ -1,48 +1,25 @@
-/* eslint-disable react/no-unescaped-entities */
-import React from 'react';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
-
-const validationSchema = yup.object({
-  firstName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  lastName: yup
-    .string()
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
-  email: yup
-    .string()
-    .trim()
-    .email('Please enter a valid email address')
-    .required('Email is required.'),
-  password: yup
-    .string()
-    .required('Please specify your password')
-    .min(8, 'The password should have at minimum length of 8'),
-});
+import validationSchema from './validationSchema';
+import apiAgent from 'api/agentAPI';
 
 const Form = (): JSX.Element => {
   const initialValues = {
-    firstName: '',
-    lastName: '',
+    username: '',
     email: '',
     password: '',
+    confirmedPassword: '',
   };
 
   const onSubmit = (values) => {
-    return values;
+    apiAgent.Account.signup(values).then((res) => {
+      console.log(res);
+    });
   };
 
   const formik = useFormik({
@@ -78,38 +55,20 @@ const Form = (): JSX.Element => {
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
-              Enter your first name
+              Enter your Username
             </Typography>
             <TextField
-              label="First name *"
+              label="Username *"
               variant="outlined"
-              name={'firstName'}
+              name={'username'}
               fullWidth
-              value={formik.values.firstName}
+              value={formik.values.username}
               onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
+              error={formik.touched.username && Boolean(formik.errors.username)}
               // @ts-ignore
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
-              Enter your last name
-            </Typography>
-            <TextField
-              label="Last name *"
-              variant="outlined"
-              name={'lastName'}
-              fullWidth
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              // @ts-ignore
-              helperText={formik.touched.lastName && formik.errors.lastName}
+              helperText={formik.touched.username && formik.errors.username}
             />
           </Grid>
           <Grid item xs={12}>
@@ -143,6 +102,29 @@ const Form = (): JSX.Element => {
               error={formik.touched.password && Boolean(formik.errors.password)}
               // @ts-ignore
               helperText={formik.touched.password && formik.errors.password}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
+              Confirm your password
+            </Typography>
+            <TextField
+              label="Confirm Password *"
+              variant="outlined"
+              name={'confirmedPassword'}
+              type={'password'}
+              fullWidth
+              value={formik.values.confirmedPassword}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.confirmedPassword &&
+                Boolean(formik.errors.confirmedPassword)
+              }
+              // @ts-ignore
+              helperText={
+                formik.touched.confirmedPassword &&
+                formik.errors.confirmedPassword
+              }
             />
           </Grid>
           <Grid item container xs={12}>

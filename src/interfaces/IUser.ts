@@ -1,5 +1,7 @@
-export default interface IUser {
-    username: string;
-    email: string;
-    twoFactorEnabled: boolean;
+interface IUser {
+  username: string;
+  email: string;
+  twoFactorEnabled: boolean;
 }
+
+export default IUser;

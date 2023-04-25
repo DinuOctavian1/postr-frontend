@@ -58,7 +58,7 @@ const request = {
 
 const Account = {
   getCurrentUser: () => request.get(ENDPOINT.GetUser),
-  createUser: (data: ISignupUser) => request.post(ENDPOINT.Register, data),
+  signup: (data: ISignupUser) => request.post(ENDPOINT.Signup, data),
   confirmEmail: (data: IEmailConfirmation) =>
     request.post(ENDPOINT.ConfirmEmail, data),
   forgotPassword: (data: IForgotPassword) =>

@@ -1,11 +1,11 @@
 export const BASE_URL = 'https://localhost:44345';
 
 export const ENDPOINT = {
-  Register: '/api/auth/register',
+  Signup: '/api/auth/signup',
   Login: '/api/auth/login',
   Logout: '/api/auth/logout',
   GetUser: '/api/auth/user',
-  ConfirmEmail: '/api/auth/confirmemail',
+  ConfirmEmail: '/api/auth/confirm-email',
   ForgotPassword: '/api/auth/forgetpassword',
   ResetPassword: '/api/auth/resetpassword',
   Login2FA: '/api/auth/login/2fa',

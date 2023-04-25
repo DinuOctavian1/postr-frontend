@@ -54,7 +54,8 @@
     "react-visibility-sensor": "^5.1.1",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^3.0.2",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "jotai": "^1.9.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
