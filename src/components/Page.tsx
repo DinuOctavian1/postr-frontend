@@ -5,6 +5,8 @@ import CssBaseline from '@mui/material/CssBaseline';
 import getTheme from 'theme';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const useDarkMode = (): [string, () => void, boolean] => {
   const [themeMode, setTheme] = useState('light');
@@ -65,6 +67,15 @@ export default function Page({ children }: Props): JSX.Element {
 
   return (
     <ThemeProvider theme={getTheme(themeMode, themeToggler)}>
+      <ToastContainer
+        theme="colored"
+        position="bottom-right"
+        closeOnClick={true}
+        hideProgressBar
+        style={{
+          width: '500px',
+        }}
+      />
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
       <Paper elevation={0}>{children}</Paper>

@@ -3,12 +3,12 @@ import { toast } from 'react-toastify';
 
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
 import ICreatePost from '../interfaces/ICreatePost';
-import { IEmailConfirmation } from '../interfaces/IEmailConfirmation';
-import { IErrorResponse } from '../interfaces/IErrorResponse';
-import IForgotPassword from '../interfaces/IForgotPassword';
-import ILoginUser from '../interfaces/ILoginUser';
-import IResetPassword from '../interfaces/IResetPassword';
-import ISignupUser from '../interfaces/ISignupUser';
+import IEmailConfirmationRequest from '../models/request/IEmailConfirmationRequest';
+// import { IErrorResponse } from '../interfaces/IErrorResponse';
+import IForgotPasswordRequest from '../models/request/IForgotPasswordRequest';
+import ILoginRequest from '../models/request/ILoginRequest';
+import IResetPasswordRequest from '../models/request/IResetPasswordRequest';
+import ISignupRequest from '../models/request/ISignupRequest';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -24,28 +24,8 @@ axios.interceptors.response.use(
       toast.error(error.message);
       return Promise.reject(error);
     }
-
-    const data = (error?.response?.data as IErrorResponse) || undefined;
-    const status: number = error?.response?.status || 0;
-    const errorMsg =
-      data?.errors?.[0] ??
-      data?.title ??
-      'Somethig went wrong. Please try again later!';
-
-    switch (status) {
-      case 400:
-        toast.error(errorMsg);
-        break;
-      case 401:
-        toast.error('Unauthorized');
-        break;
-      case 500:
-        toast.error(errorMsg);
-        break;
-      default:
-        toast.error(errorMsg);
-        break;
-    }
+    const data = error.response.data as string;
+    toast.error(data);
     return Promise.reject(error.response);
   },
 );
@@ -58,14 +38,14 @@ const request = {
 
 const Account = {
   getCurrentUser: () => request.get(ENDPOINT.GetUser),
-  signup: (data: ISignupUser) => request.post(ENDPOINT.Signup, data),
-  confirmEmail: (data: IEmailConfirmation) =>
+  signup: (data: ISignupRequest) => request.post(ENDPOINT.Signup, data),
+  confirmEmail: (data: IEmailConfirmationRequest) =>
     request.post(ENDPOINT.ConfirmEmail, data),
-  forgotPassword: (data: IForgotPassword) =>
+  forgotPassword: (data: IForgotPasswordRequest) =>
     request.post(ENDPOINT.ForgotPassword, data),
-  resetPassword: (data: IResetPassword) =>
+  resetPassword: (data: IResetPasswordRequest) =>
     request.post(ENDPOINT.ResetPassword, data),
-  login: (data: ILoginUser) => request.post(ENDPOINT.Login, data),
+  login: (data: ILoginRequest) => request.post(ENDPOINT.Login, data),
 };
 
 const Post = {

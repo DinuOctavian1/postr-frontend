@@ -1,8 +1,8 @@
-interface ISignupUser {
+interface ISignupRequest {
   username: string;
   email: string;
   password: string;
   confirmedPassword: string;
 }
 
-export default ISignupUser;
+export default ISignupRequest;
