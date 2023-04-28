@@ -7,10 +7,13 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useGetCurrentUser from 'hooks/useGetCurrentUser';
+import apiAgent from 'api/agentAPI';
 
 export const useDarkMode = (): [string, () => void, boolean] => {
   const [themeMode, setTheme] = useState('light');
   const [mountedComponent, setMountedComponent] = useState(false);
+  const [getCurrentUser] = useGetCurrentUser(apiAgent);
 
   const setMode = (mode: string) => {
     try {
@@ -35,6 +38,7 @@ export const useDarkMode = (): [string, () => void, boolean] => {
     }
 
     setMountedComponent(true);
+    getCurrentUser();
   }, []);
 
   return [themeMode, themeToggler, mountedComponent];
@@ -72,9 +76,6 @@ export default function Page({ children }: Props): JSX.Element {
         position="bottom-right"
         closeOnClick={true}
         hideProgressBar
-        style={{
-          width: '500px',
-        }}
       />
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />

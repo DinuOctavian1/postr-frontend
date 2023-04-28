@@ -200,7 +200,7 @@ const Features = (): JSX.Element => {
           </Card>
         </Grid>
         <Grid item container xs={12} md={5} alignItems={'center'}>
-          <Box component={'img'} src={'assets/features.png'} width={1} ml={5} />
+          <Box component={'img'} src={'assets/features.png'} width={1} ml={2} />
         </Grid>
       </Grid>
     </Box>

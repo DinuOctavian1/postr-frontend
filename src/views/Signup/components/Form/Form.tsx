@@ -2,13 +2,17 @@ import { useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import validationSchema from './validationSchema';
 import apiAgent from 'api/agentAPI';
+import { LoadingButton } from '@mui/lab';
+import { useSignup } from 'hooks';
+import { toast } from 'react-toastify';
 
 const Form = (): JSX.Element => {
+  const [signup, isLoading] = useSignup(apiAgent, toast);
+
   const initialValues = {
     username: '',
     email: '',
@@ -16,16 +20,10 @@ const Form = (): JSX.Element => {
     confirmedPassword: '',
   };
 
-  const onSubmit = (values) => {
-    apiAgent.Account.signup(values).then((res) => {
-      console.log(res);
-    });
-  };
-
   const formik = useFormik({
     initialValues,
     validationSchema: validationSchema,
-    onSubmit,
+    onSubmit: signup,
   });
 
   return (
@@ -150,9 +148,13 @@ const Form = (): JSX.Element => {
                   </Link>
                 </Typography>
               </Box>
-              <Button size={'large'} variant={'contained'} type={'submit'}>
+              <LoadingButton
+                variant={'contained'}
+                type={'submit'}
+                loading={isLoading}
+              >
                 Sign up
-              </Button>
+              </LoadingButton>
             </Box>
           </Grid>
           <Grid

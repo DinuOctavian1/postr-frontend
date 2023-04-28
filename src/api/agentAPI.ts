@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
 import ICreatePost from '../interfaces/ICreatePost';
 import IEmailConfirmationRequest from '../models/request/IEmailConfirmationRequest';
-// import { IErrorResponse } from '../interfaces/IErrorResponse';
 import IForgotPasswordRequest from '../models/request/IForgotPasswordRequest';
 import ILoginRequest from '../models/request/ILoginRequest';
 import IResetPasswordRequest from '../models/request/IResetPasswordRequest';

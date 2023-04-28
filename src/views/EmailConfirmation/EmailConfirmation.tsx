@@ -1,5 +1,5 @@
 import apiAgent from 'api/agentAPI';
-import IEmailConfirmation from 'interfaces/IEmailConfirmation';
+import IEmailConfirmationRequest from 'models/request/IEmailConfirmationRequest';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -13,7 +13,7 @@ const EmailConfirmation = () => {
   const navigate = useNavigate();
   const [user, setUser] = useAtom(state.user);
 
-  const emailConfirmationModel: IEmailConfirmation = {
+  const emailConfirmationModel: IEmailConfirmationRequest = {
     userId: searchParams.get('userid'),
     token: searchParams.get('token'),
   };

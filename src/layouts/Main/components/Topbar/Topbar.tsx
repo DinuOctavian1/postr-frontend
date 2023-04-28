@@ -57,7 +57,7 @@ const Topbar = ({
       <Box sx={{ display: { xs: 'none', md: 'flex' } }} alignItems={'center'}>
         <Box sx={{ display: 'inline-flex' }}>
           {pages.map((page, i) => (
-            <Box marginLeft={4}>
+            <Box marginLeft={4} key={i}>
               <NavItem
                 key={i}
                 title={page.title}
