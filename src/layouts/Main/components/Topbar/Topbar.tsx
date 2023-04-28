@@ -8,6 +8,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { NavItem } from './components';
 import { Link } from 'react-router-dom';
 import ROUTE from 'routes/route';
+import { useAtom } from 'jotai';
+import state from 'utils/state';
+import { Avatar } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
 
 interface PageItem {
   href: string;
@@ -28,6 +32,8 @@ const Topbar = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
+  const [user] = useAtom(state.user);
+  console.log(user);
 
   return (
     <Box
@@ -68,28 +74,36 @@ const Topbar = ({
           ))}
         </Box>
       </Box>
-      <Box marginLeft={2}>
-        <Button
-          variant="contained"
-          color="secondary"
-          component={Link}
-          to={ROUTE.Login}
-          size="large"
-        >
-          Login
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          component={Link}
-          to={ROUTE.Signup}
-          size="large"
-          sx={{ marginLeft: 5, marginRight: 5 }}
-        >
-          Sign Up
-        </Button>
-        <ThemeModeToggler />
-      </Box>
+      {user?.username ? (
+        <Box marginLeft={2}>
+          <Avatar sx={{ bgcolor: deepOrange[500] }}>
+            {user?.username[0].toUpperCase()}
+          </Avatar>
+        </Box>
+      ) : (
+        <Box marginLeft={2}>
+          <Button
+            variant="contained"
+            color="secondary"
+            component={Link}
+            to={ROUTE.Login}
+            size="large"
+          >
+            Login
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to={ROUTE.Signup}
+            size="large"
+            sx={{ marginLeft: 5, marginRight: 5 }}
+          >
+            Sign Up
+          </Button>
+        </Box>
+      )}
+      <ThemeModeToggler />
 
       <Box sx={{ display: { xs: 'flex', md: 'none' } }} alignItems={'center'}>
         <Button

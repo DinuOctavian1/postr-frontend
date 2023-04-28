@@ -26,7 +26,14 @@ const Login = (): JSX.Element => {
         <Container>
           <Grid container spacing={6}>
             {isMd ? (
-              <Grid item container justifyContent={'center'} xs={12} md={6}>
+              <Grid
+                item
+                container
+                justifyContent={'center'}
+                xs={12}
+                md={6}
+                data-aos="fade-right"
+              >
                 <Box height={1} width={1} maxWidth={500}>
                   <Box
                     component={'img'}

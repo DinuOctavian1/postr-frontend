@@ -37,7 +37,7 @@ const Signup = (): JSX.Element => {
             </Grid>
             {isMd ? (
               <Grid item container justifyContent={'center'} xs={12} md={6}>
-                <Box height={1} width={1} maxWidth={500}>
+                <Box height={1} width={1} maxWidth={500} data-aos="fade-left">
                   <Box
                     component={'img'}
                     src={'assets/signup.png'}

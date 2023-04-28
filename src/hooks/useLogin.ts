@@ -12,6 +12,7 @@ const useLogin = (
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const login = (model: ILoginRequest): void => {
+    setIsLoading(true);
     apiAgent.Account.login(model)
       .then((rsp: IAuthResponse) => {
         toast.success(rsp.message);
