@@ -1,5 +1,6 @@
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
 import EmailConfirmation from 'views/EmailConfirmation/EmailConfirmation';
+import Login from 'views/Login';
 import Signup from 'views/Signup';
 import Home from '../views/Home/Home';
 import ROUTE from './route';
@@ -10,6 +11,7 @@ const Routes = (): JSX.Element => {
       <Route path={ROUTE.Home} element={<Home />} />
       <Route path={ROUTE.Signup} element={<Signup />} />
       <Route path={ROUTE.EmailConfirmation} element={<EmailConfirmation />} />
+      <Route path={ROUTE.Login} element={<Login />} />
     </ReactRoutes>
   );
 };

@@ -72,9 +72,8 @@ const Topbar = ({
         <Button
           variant="contained"
           color="secondary"
-          component="a"
-          target="blank"
-          href="https://mui.com/store/items/the-front-landing-page/"
+          component={Link}
+          to={ROUTE.Login}
           size="large"
         >
           Login
