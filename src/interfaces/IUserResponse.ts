@@ -1,6 +1,6 @@
 import IUser from './IUser';
 
-interface IResponse {
+interface IUserResponse {
   message: string;
   isSuccess: boolean;
   errors: string[];
@@ -8,4 +8,4 @@ interface IResponse {
   user?: IUser;
 }
 
-export default IResponse;
+export default IUserResponse;

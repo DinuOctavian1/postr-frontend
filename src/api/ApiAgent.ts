@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import IUserResponse from 'interfaces/IUserResponse';
 import { toast } from 'react-toastify';
 
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
@@ -12,7 +13,7 @@ import ISignupRequest from '../models/request/ISignupRequest';
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
 
-const responseBody = (response: AxiosResponse) => response.data;
+const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
 axios.interceptors.response.use(
   (response: AxiosResponse) => {
@@ -29,22 +30,26 @@ axios.interceptors.response.use(
   },
 );
 const request = {
-  get: (url: string) => axios.get(url).then(responseBody),
-  post: (url: string, body: any) => axios.post(url, body).then(responseBody),
-  put: (url: string, body: any) => axios.put(url).then(responseBody),
-  delete: (url: string) => axios.delete(url).then(responseBody),
+  get: <T>(url: string) => axios.get<T>(url).then(responseBody),
+  post: <T>(url: string, body: any) =>
+    axios.post<T>(url, body).then(responseBody),
+  put: <T>(url: string, body: any) => axios.put<T>(url).then(responseBody),
+  delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 };
 
 const Account = {
-  getCurrentUser: () => request.get(ENDPOINT.GetUser),
-  signup: (data: ISignupRequest) => request.post(ENDPOINT.Signup, data),
+  getCurrentUser: () => request.get<IUserResponse>(ENDPOINT.GetUser),
+  signup: (data: ISignupRequest) =>
+    request.post<IUserResponse>(ENDPOINT.Signup, data),
   confirmEmail: (data: IEmailConfirmationRequest) =>
-    request.post(ENDPOINT.ConfirmEmail, data),
+    request.post<IUserResponse>(ENDPOINT.ConfirmEmail, data),
   forgotPassword: (data: IForgotPasswordRequest) =>
-    request.post(ENDPOINT.ForgotPassword, data),
+    request.post<IUserResponse>(ENDPOINT.ForgotPassword, data),
   resetPassword: (data: IResetPasswordRequest) =>
-    request.post(ENDPOINT.ResetPassword, data),
-  login: (data: ILoginRequest) => request.post(ENDPOINT.Login, data),
+    request.post<IUserResponse>(ENDPOINT.ResetPassword, data),
+  login: (data: ILoginRequest) =>
+    request.post<IUserResponse>(ENDPOINT.Login, data),
+  logout: () => request.get<IUserResponse>(ENDPOINT.Logout),
 };
 
 const Post = {

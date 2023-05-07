@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import validationSchema from './validationSchema';
-import apiAgent from 'api/agentAPI';
+import apiAgent from 'api/ApiAgent';
 import { LoadingButton } from '@mui/lab';
 import { useSignup } from 'hooks';
 import { toast } from 'react-toastify';

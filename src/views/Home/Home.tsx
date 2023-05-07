@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Main from 'layouts/Main';
 import Container from 'components/Container';
-import { Hero, About, Features, Payment, Pricings, Trynow } from './components';
+import { Hero, About, Features, Pricings, Trynow } from './components';
 import Reviews from './components/Reviews';
 
 const Home = (): JSX.Element => {
@@ -67,11 +67,7 @@ const Home = (): JSX.Element => {
           </Box>
         </Box>
       </Container>
-      {/* <Box bgcolor={'alternate.main'}>
-        <Container>
-          <Payment />
-        </Container>
-      </Box> */}
+
       <Container>
         <Features />
       </Container>
