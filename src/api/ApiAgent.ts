@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import IUserResponse from 'interfaces/IUserResponse';
+import IAuthResponse from 'models/response/IAuthResponse';
 import { toast } from 'react-toastify';
 
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
@@ -38,18 +38,18 @@ const request = {
 };
 
 const Account = {
-  getCurrentUser: () => request.get<IUserResponse>(ENDPOINT.GetUser),
+  getCurrentUser: () => request.get<IAuthResponse>(ENDPOINT.GetUser),
   signup: (data: ISignupRequest) =>
-    request.post<IUserResponse>(ENDPOINT.Signup, data),
+    request.post<IAuthResponse>(ENDPOINT.Signup, data),
   confirmEmail: (data: IEmailConfirmationRequest) =>
-    request.post<IUserResponse>(ENDPOINT.ConfirmEmail, data),
+    request.post<IAuthResponse>(ENDPOINT.ConfirmEmail, data),
   forgotPassword: (data: IForgotPasswordRequest) =>
-    request.post<IUserResponse>(ENDPOINT.ForgotPassword, data),
+    request.post<IAuthResponse>(ENDPOINT.ForgotPassword, data),
   resetPassword: (data: IResetPasswordRequest) =>
-    request.post<IUserResponse>(ENDPOINT.ResetPassword, data),
+    request.post<IAuthResponse>(ENDPOINT.ResetPassword, data),
   login: (data: ILoginRequest) =>
-    request.post<IUserResponse>(ENDPOINT.Login, data),
-  logout: () => request.get<IUserResponse>(ENDPOINT.Logout),
+    request.post<IAuthResponse>(ENDPOINT.Login, data),
+  logout: () => request.get<IAuthResponse>(ENDPOINT.Logout),
 };
 
 const Post = {

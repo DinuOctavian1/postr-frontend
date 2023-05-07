@@ -1,17 +1,16 @@
-import apiAgent from 'api/agentAPI';
+import apiAgent from 'api/ApiAgent';
 import IEmailConfirmationRequest from 'models/request/IEmailConfirmationRequest';
 import { useAtom } from 'jotai';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ROUTE from 'routes/route';
 import state from 'utils/state';
 
 const EmailConfirmation = () => {
-  const [errorMsg, setErrorMsg] = useState<string>('');
   const [searchParams] = useSearchParams();
+  const [, setUser] = useAtom(state.user);
   const navigate = useNavigate();
-  const [user, setUser] = useAtom(state.user);
 
   const emailConfirmationModel: IEmailConfirmationRequest = {
     userId: searchParams.get('userid'),
@@ -20,21 +19,20 @@ const EmailConfirmation = () => {
 
   useEffect(() => {
     apiAgent.Account.confirmEmail(emailConfirmationModel)
-      .then((rsp: string) => {
-        console.log(rsp);
-        toast.success(rsp);
-        //setUser(rsp?.user);
+      .then((rsp) => {
+        toast.success(rsp.message);
+        setUser(rsp.data);
         // storageService.set('ISLOGGED', true);
       })
-      .catch((rsp: string) => {
-        setErrorMsg(rsp);
+      .catch((rsp) => {
+        toast.error(rsp.message);
       })
       .finally(() => {
         navigate(ROUTE.Home);
       });
   }, []);
 
-  return <>{errorMsg}</>;
+  return <></>;
 };
 
 export default EmailConfirmation;
