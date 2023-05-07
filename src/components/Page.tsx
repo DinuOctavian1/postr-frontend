@@ -8,7 +8,7 @@ import 'aos/dist/aos.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import useGetCurrentUser from 'hooks/useGetCurrentUser';
-import apiAgent from 'api/agentAPI';
+import apiAgent from 'api/ApiAgent';
 
 export const useDarkMode = (): [string, () => void, boolean] => {
   const [themeMode, setTheme] = useState('light');

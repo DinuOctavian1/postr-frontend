@@ -6,12 +6,15 @@ import { alpha, useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { NavItem } from './components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ROUTE from 'routes/route';
 import { useAtom } from 'jotai';
 import state from 'utils/state';
 import { Avatar } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
+import { useLogout } from 'hooks';
+import apiAgent from 'api/ApiAgent';
+import { toast } from 'react-toastify';
 
 interface PageItem {
   href: string;
@@ -32,7 +35,10 @@ const Topbar = ({
 }: Props): JSX.Element => {
   const theme = useTheme();
   const { mode } = theme.palette;
-  const [user] = useAtom(state.user);
+  const [user, setUser] = useAtom(state.user);
+  const [logout, isLogged] = useLogout(apiAgent, toast);
+  const navigate = useNavigate();
+
   console.log(user);
 
   return (
@@ -75,11 +81,28 @@ const Topbar = ({
         </Box>
       </Box>
       {user?.username ? (
-        <Box marginLeft={2}>
-          <Avatar sx={{ bgcolor: deepOrange[500] }}>
-            {user?.username[0].toUpperCase()}
-          </Avatar>
-        </Box>
+        <>
+          <Box marginLeft={2} display={'inline-flex'}>
+            <Box marginRight={5}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  logout();
+                  if (!isLogged) {
+                    setUser(null);
+                    navigate(ROUTE.Home);
+                  }
+                }}
+              >
+                Logout
+              </Button>
+            </Box>
+            <Avatar sx={{ bgcolor: deepOrange[500] }}>
+              {user?.username[0].toUpperCase()}
+            </Avatar>
+          </Box>
+        </>
       ) : (
         <Box marginLeft={2}>
           <Button

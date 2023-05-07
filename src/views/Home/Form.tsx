@@ -17,7 +17,7 @@ import {
 import LoadingButton from '@mui/lab/LoadingButton';
 
 import validationSchema from './validationSchema';
-import apiAgent from '../../api/agentAPI';
+import apiAgent from '../../api/ApiAgent';
 import IPostResponse from '../../interfaces/IPostResponse';
 import { toast } from 'react-toastify';
 import SOCIAL_MEDIA_PLATFORMS from '../../constants/SocialMediaPlarforms';

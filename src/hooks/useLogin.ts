@@ -7,8 +7,9 @@ import state from 'utils/state';
 const useLogin = (
   apiAgent,
   toast,
-): [(model: ILoginRequest) => void, boolean] => {
-  const [user, setUser] = useAtom(state.user);
+): [(model: ILoginRequest) => void, boolean, boolean] => {
+  const [, setUser] = useAtom(state.user);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const login = (model: ILoginRequest): void => {
@@ -17,6 +18,7 @@ const useLogin = (
       .then((rsp: IAuthResponse) => {
         toast.success(rsp.message);
         setUser(rsp.data);
+        setIsSuccess(true);
       })
       .catch((err) => {
         toast.error(err);
@@ -24,7 +26,7 @@ const useLogin = (
       .finally(() => setIsLoading(false));
   };
 
-  return [login, isLoading];
+  return [login, isLoading, isSuccess];
 };
 
 export default useLogin;

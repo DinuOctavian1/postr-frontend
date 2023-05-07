@@ -13,7 +13,6 @@ const useGetCurrentUser = (apiAgent): [() => void, IUser, boolean] => {
       .then((rsp: IAuthResponse) => {
         if (rsp?.data) {
           setUser(rsp?.data);
-          console.log(rsp);
         } else {
           setUser(null);
         }

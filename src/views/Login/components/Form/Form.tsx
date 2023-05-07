@@ -7,17 +7,27 @@ import Link from '@mui/material/Link';
 import validationSchema from './validation';
 import ILoginRequest from 'models/request/ILoginRequest';
 import { useLogin } from 'hooks';
-import apiAgent from 'api/agentAPI';
+import apiAgent from 'api/ApiAgent';
 import { toast } from 'react-toastify';
 import { LoadingButton } from '@mui/lab';
+import { useNavigate } from 'react-router-dom';
+import ROUTE from 'routes/route';
+import { useEffect } from 'react';
 
 const Form = (): JSX.Element => {
-  const [login, isLoading] = useLogin(apiAgent, toast);
+  const [login, isLoading, isSuccess] = useLogin(apiAgent, toast);
+  const navigate = useNavigate();
 
   const initialValues: ILoginRequest = {
     email: '',
     password: '',
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(ROUTE.Home);
+    }
+  }, [isSuccess]);
 
   const formik = useFormik({
     initialValues,
