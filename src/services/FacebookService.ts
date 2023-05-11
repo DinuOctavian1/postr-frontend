@@ -61,11 +61,9 @@ class FacebookService implements IExternalLoginService {
     return FacebookService.permissions;
   };
 
-  logout = async () => {
-    await new Promise((resolve) => {
-      // FacebookLogin.logout((response) => {
-      //   resolve(response);
-      // });
+  logout = () => {
+    FB.logout(function (response) {
+      console.log(response);
     });
   };
 }

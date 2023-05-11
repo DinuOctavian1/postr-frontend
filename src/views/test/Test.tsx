@@ -1,22 +1,12 @@
 import { Main } from 'layouts';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import FacebookService from 'services/FacebookService';
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
 import useFbLogin from 'hooks/useFbLogin';
-import useFacebookSDK from 'config/FacebookSDK';
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
 import useGetFBLoginStatus from 'hooks/useGetFBLoginStatus';
-import IGetFBUserfromLogin from 'models/response/facebook/IGetFBUserFromLogin';
 import useFbGetUserPages from 'hooks/useFbGetUserPages';
 import usePostOnFacebook from 'hooks/usePostOnFacebook';
-
-const logout = () => {
-  FB.logout(function (response) {
-    // Person is now logged out
-    console.log(response);
-  });
-};
+import useFBLogout from 'hooks/useFBLogout';
 
 export const Test = () => {
   const loggedUser: IFBLoggedUser = useGetFBLoginStatus(
@@ -32,6 +22,8 @@ export const Test = () => {
   const { postOnFb, response } = usePostOnFacebook(
     FacebookService.getInstance(),
   );
+
+  const logout = useFBLogout(FacebookService.getInstance());
 
   return (
     <Main>

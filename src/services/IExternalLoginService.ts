@@ -14,6 +14,7 @@ interface IExternalLoginService {
     pageId: string,
     pageAccessToken: string,
   ) => Promise<any>;
+  logout: () => void;
 }
 
 export default IExternalLoginService;
