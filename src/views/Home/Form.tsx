@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import ICreatePost from '../../interfaces/ICreatePost';
+import ICreatePost from '../../models/interfaces/ICreatePost';
 import {
   Box,
   Button,
@@ -18,7 +18,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 import validationSchema from './validationSchema';
 import apiAgent from '../../api/ApiAgent';
-import IPostResponse from '../../interfaces/IPostResponse';
+import IPostResponse from '../../models/interfaces/IPostResponse';
 import { toast } from 'react-toastify';
 import SOCIAL_MEDIA_PLATFORMS from '../../constants/SocialMediaPlarforms';
 

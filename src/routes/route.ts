@@ -10,6 +10,7 @@ const ROUTE = {
   AccountGeneral: '/account-general',
   AccountSecurity: '/account-security',
   AccountDelete: '/account-delete',
+  Test: '/test',
   NotFound: '*',
 };
 

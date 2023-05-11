@@ -1,4 +1,4 @@
-import IUser from 'interfaces/IUser';
+import IUser from 'models/interfaces/IUser';
 import { atom } from 'jotai';
 
 const state = {
