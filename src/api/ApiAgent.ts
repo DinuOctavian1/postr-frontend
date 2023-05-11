@@ -1,9 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import IAuthResponse from 'models/response/IAuthResponse';
+import IGetFacebookPagesResponse from 'models/response/facebook/IGetFBPagesResponse';
 import { toast } from 'react-toastify';
 
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
-import ICreatePost from '../interfaces/ICreatePost';
+import ICreatePost from '../models/interfaces/ICreatePost';
 import IEmailConfirmationRequest from '../models/request/IEmailConfirmationRequest';
 import IForgotPasswordRequest from '../models/request/IForgotPasswordRequest';
 import ILoginRequest from '../models/request/ILoginRequest';
@@ -52,6 +53,13 @@ const Account = {
   logout: () => request.get<IAuthResponse>(ENDPOINT.Logout),
 };
 
+const Facebook = {
+  getFbPages: (userId: string, accesToken: string) =>
+    request.get<IGetFacebookPagesResponse>(
+      `https://graph.facebook.com/${userId}/accounts?access_token=${accesToken}`,
+    ),
+};
+
 const Post = {
   generateFacebookPost: (data: ICreatePost) =>
     request.post(ENDPOINT.GeneratePost, data),
@@ -60,6 +68,7 @@ const Post = {
 const apiAgent = {
   Account,
   Post,
+  Facebook,
 };
 
 export default apiAgent;

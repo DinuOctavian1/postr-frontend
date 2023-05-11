@@ -1,4 +1,4 @@
-import IUser from 'interfaces/IUser';
+import IUser from 'models/interfaces/IUser';
 import { useAtom } from 'jotai';
 import IAuthResponse from 'models/response/IAuthResponse';
 import { useState } from 'react';
