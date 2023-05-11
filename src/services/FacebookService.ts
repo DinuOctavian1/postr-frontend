@@ -2,7 +2,6 @@ import apiAgent from 'api/ApiAgent';
 import IFBLoginStatusResponse from 'models/response/facebook/IFBLoginStatusResponse';
 import IGetFacebookPagesResponse from 'models/response/facebook/IGetFBPagesResponse';
 import IGetFBUserfromLogin from 'models/response/facebook/IGetFBUserFromLogin';
-import FacebookLogin from 'react-facebook-login';
 import IExternalLoginService from './IExternalLoginService';
 
 class FacebookService implements IExternalLoginService {
@@ -50,6 +49,10 @@ class FacebookService implements IExternalLoginService {
     return response;
   }
 
+  async postAsync(text: string, pageId: string, pageAccessToken: string) {
+    return await apiAgent.Facebook.createPost(text, pageId, pageAccessToken);
+  }
+
   getAppId = () => {
     return FacebookService.fbAppId;
   };
@@ -60,9 +63,9 @@ class FacebookService implements IExternalLoginService {
 
   logout = async () => {
     await new Promise((resolve) => {
-      FacebookLogin.logout((response) => {
-        resolve(response);
-      });
+      // FacebookLogin.logout((response) => {
+      //   resolve(response);
+      // });
     });
   };
 }

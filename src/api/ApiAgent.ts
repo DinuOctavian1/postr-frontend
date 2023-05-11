@@ -67,6 +67,18 @@ const Facebook = {
 
     return response;
   },
+
+  createPost: (text: string, pageId: string, pageAccessToken: string) => {
+    const currentWithCredentials = axios.defaults.withCredentials;
+    axios.defaults.withCredentials = false;
+    const response = request.post(
+      `https://graph.facebook.com/${pageId}/feed?access_token=${pageAccessToken}`,
+      { message: text },
+    );
+    axios.defaults.withCredentials = currentWithCredentials;
+
+    return response;
+  },
 };
 
 const Post = {

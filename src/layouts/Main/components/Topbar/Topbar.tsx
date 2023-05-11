@@ -15,6 +15,7 @@ import { deepOrange } from '@mui/material/colors';
 import { useLogout } from 'hooks';
 import apiAgent from 'api/ApiAgent';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 
 interface PageItem {
   href: string;
@@ -36,6 +37,7 @@ const Topbar = ({
   const theme = useTheme();
   const { mode } = theme.palette;
   const [user, setUser] = useAtom(state.user);
+  //const [user, setUser] = useState<any>(state.user);
   const [logout, isLogged] = useLogout(apiAgent, toast);
   const navigate = useNavigate();
 

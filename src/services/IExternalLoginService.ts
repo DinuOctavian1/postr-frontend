@@ -9,6 +9,11 @@ interface IExternalLoginService {
     userId: string,
     accesToken: string,
   ) => Promise<IGetFacebookPagesResponse>;
+  postAsync: (
+    text: string,
+    pageId: string,
+    pageAccessToken: string,
+  ) => Promise<any>;
 }
 
 export default IExternalLoginService;
