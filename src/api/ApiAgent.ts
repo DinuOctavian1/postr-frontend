@@ -54,10 +54,19 @@ const Account = {
 };
 
 const Facebook = {
-  getFbPages: (userId: string, accesToken: string) =>
-    request.get<IGetFacebookPagesResponse>(
-      `https://graph.facebook.com/${userId}/accounts?access_token=${accesToken}`,
-    ),
+  getFbPages: (userId: string, userAccesToken: string) => {
+    const currentWithCredentials = axios.defaults.withCredentials;
+
+    axios.defaults.withCredentials = false;
+
+    const response = request.get<IGetFacebookPagesResponse>(
+      `https://graph.facebook.com/${userId}/accounts?access_token=${userAccesToken}`,
+    );
+
+    axios.defaults.withCredentials = currentWithCredentials;
+
+    return response;
+  },
 };
 
 const Post = {

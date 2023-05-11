@@ -18,11 +18,11 @@ class FacebookService implements IExternalLoginService {
     return FacebookService.instance;
   }
 
-  async getPagesDetailsAsync(
+  async getPagesAsync(
     userId: string,
-    accesToken: string,
+    userAccesToken: string,
   ): Promise<IGetFacebookPagesResponse> {
-    return await apiAgent.Facebook.getFbPages(userId, accesToken);
+    return await apiAgent.Facebook.getFbPages(userId, userAccesToken);
   }
 
   getLoginStatus(): IFBLoginStatusResponse {
