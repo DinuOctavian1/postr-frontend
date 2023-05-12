@@ -33,20 +33,21 @@ class FacebookService implements IExternalLoginService {
     return response;
   }
 
-  login(): IGetFBUserfromLogin {
-    let response: any = {};
-    FB.login(
-      (resp) => {
-        response = resp;
-        if (resp.authResponse) {
-          console.log('Welcome!  Fetching your information.... ');
-        } else {
-          console.log('User cancelled login or did not fully authorize.');
-        }
-      },
-      { scope: this.getPagePermission() },
-    );
-    return response;
+  loginAsync(): Promise<IGetFBUserfromLogin> {
+    return new Promise((resolve, reject) => {
+      FB.login(
+        (resp: any) => {
+          if (resp.authResponse) {
+            console.log('Welcome! Fetching your information....');
+            resolve(resp);
+          } else {
+            console.log('User cancelled login or did not fully authorize.');
+            reject(new Error('Login failed.'));
+          }
+        },
+        { scope: this.getPagePermission() },
+      );
+    });
   }
 
   async postAsync(text: string, pageId: string, pageAccessToken: string) {
@@ -61,9 +62,12 @@ class FacebookService implements IExternalLoginService {
     return FacebookService.permissions;
   };
 
-  logout = () => {
-    FB.logout(function (response) {
-      console.log(response);
+  logoutAsync = (): Promise<any> => {
+    return new Promise((resolve) => {
+      FB.logout((response) => {
+        resolve(response);
+        console.log(response);
+      });
     });
   };
 }

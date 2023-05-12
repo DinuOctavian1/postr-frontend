@@ -16,9 +16,7 @@ export const CreatePost = () => {
     FacebookService.getInstance(),
   );
   const [getPages, pages] = useFbGetUserPages(FacebookService.getInstance());
-  const { login, fbUser: IGetFBUserfromLogin } = useFbLogin(
-    FacebookService.getInstance(),
-  );
+  const { login, fbUser } = useFbLogin(FacebookService.getInstance());
   const { postOnFb, response } = usePostOnFacebook(
     FacebookService.getInstance(),
   );
@@ -26,10 +24,10 @@ export const CreatePost = () => {
   const [selectedPage, setSelectedPage] = useState<IFacebookPage>(null);
 
   useEffect(() => {
-    if (loggedUser.isLogged) {
+    if (loggedUser.isLogged || fbUser?.name) {
       getPages(loggedUser.userId, loggedUser.token);
     }
-  }, []);
+  }, [fbUser]);
 
   if (!loggedUser.isLogged) {
     return (

@@ -4,7 +4,7 @@ import IGetFBUserfromLogin from 'models/response/facebook/IGetFBUserFromLogin';
 
 interface IExternalLoginService {
   getLoginStatus: () => IFBLoginStatusResponse;
-  login: () => IGetFBUserfromLogin;
+  loginAsync: () => Promise<IGetFBUserfromLogin>;
   getPagesAsync: (
     userId: string,
     accesToken: string,
@@ -14,7 +14,7 @@ interface IExternalLoginService {
     pageId: string,
     pageAccessToken: string,
   ) => Promise<any>;
-  logout: () => void;
+  logoutAsync: () => Promise<any>;
 }
 
 export default IExternalLoginService;
