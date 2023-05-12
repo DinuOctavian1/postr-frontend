@@ -12,8 +12,13 @@ const useFbGetUserPages = (
 
   const getPages = (userId: string, accessToken: string) => {
     externalLoginService.getPagesAsync(userId, accessToken).then((res) => {
+      console.log(res);
       if (res?.data) {
-        setPages(res.data);
+        const pagesWithIcons = res.data.map((page: IFacebookPage) => ({
+          ...page,
+          iconUrl: `https://graph.facebook.com/${page.id}/picture?type=square`,
+        }));
+        setPages(pagesWithIcons);
       }
     });
   };

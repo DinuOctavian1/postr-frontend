@@ -5,6 +5,7 @@ interface IFacebookPage {
   id: string;
   name: string;
   tasks: string[];
+  iconUrl: string;
 }
 
 export default IFacebookPage;
