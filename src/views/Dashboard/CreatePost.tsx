@@ -1,6 +1,6 @@
 import { Main } from 'layouts';
 import FacebookService from 'services/FacebookService';
-import { Button, Typography } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import useFbLogin from 'hooks/useFbLogin';
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
 import useGetFBLoginStatus from 'hooks/useGetFBLoginStatus';
@@ -8,8 +8,10 @@ import useFbGetUserPages from 'hooks/useFbGetUserPages';
 import usePostOnFacebook from 'hooks/usePostOnFacebook';
 import useFBLogout from 'hooks/useFBLogout';
 import { useEffect, useState } from 'react';
-import PagesList from './components/PagesList';
 import IFacebookPage from 'models/facebook/IFacebookPage';
+
+import { Form } from './components/form/Form';
+import { Box } from '@mui/system';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useGetFBLoginStatus(
@@ -31,46 +33,54 @@ export const CreatePost = () => {
 
   if (!loggedUser.isLogged) {
     return (
-      <Button variant="contained" color="primary" onClick={() => login()}>
-        Login
-      </Button>
+      <Main>
+        <Button variant="contained" color="primary" onClick={() => login()}>
+          Connect with Facebook
+        </Button>
+      </Main>
     );
   }
 
-  console.log('selectedPage', selectedPage);
   return (
     <Main>
-      <Typography variant="h3">Select the Page to post on:</Typography>
-      {pages.length > 0 && (
-        <PagesList pages={pages} setSelectedPage={setSelectedPage} />
-      )}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          postOnFb('Hello world 2', pages[0].id, pages[0].access_token);
-        }}
-      >
-        Hello World
-      </Button>
-      {/* <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          getPages(loggedUser.userId, loggedUser.token);
-        }}
-      >
-        getpage token
-      </Button> */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          logout();
-        }}
-      >
-        logout
-      </Button>
+      <Container>
+        <Box textAlign={'center'} paddingY={4}>
+          <Typography variant="h3">Create your post</Typography>
+          <Grid
+            container
+            spacing={4}
+            display={'flex'}
+            justifyContent={'center'}
+          >
+            <Grid item xs={12}>
+              {pages.length > 0 && (
+                <Box>
+                  <Form pages={pages} />
+                </Box>
+              )}
+            </Grid>
+          </Grid>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              postOnFb('Hello world 2', pages[0].id, pages[0].access_token);
+            }}
+          >
+            Post on Facebook
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              logout();
+            }}
+          >
+            logout
+          </Button>
+        </Box>
+      </Container>
     </Main>
   );
 };
