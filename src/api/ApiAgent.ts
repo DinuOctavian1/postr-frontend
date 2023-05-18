@@ -4,7 +4,7 @@ import IGetFacebookPagesResponse from 'models/response/facebook/IGetFBPagesRespo
 import { toast } from 'react-toastify';
 
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
-import ICreatePost from '../models/interfaces/ICreatePost';
+import IGeneratePostRequest from '../models/request/ICreatePostRequest';
 import IEmailConfirmationRequest from '../models/request/IEmailConfirmationRequest';
 import IForgotPasswordRequest from '../models/request/IForgotPasswordRequest';
 import ILoginRequest from '../models/request/ILoginRequest';
@@ -82,7 +82,7 @@ const Facebook = {
 };
 
 const Post = {
-  generateFacebookPost: (data: ICreatePost) =>
+  generateFacebookPost: (data: IGeneratePostRequest) =>
     request.post(ENDPOINT.GeneratePost, data),
 };
 

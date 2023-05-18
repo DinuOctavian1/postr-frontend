@@ -2,7 +2,7 @@ import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
 import IFBLoginStatusResponse from 'models/response/facebook/IFBLoginStatusResponse';
 import IExternalLoginService from 'services/IExternalLoginService';
 
-const useGetFBLoginStatus = (
+const useFBGetLoginStatus = (
   extenalLoginService: IExternalLoginService,
 ): IFBLoggedUser => {
   const loggedUser: IFBLoggedUser = {
@@ -22,4 +22,4 @@ const useGetFBLoginStatus = (
   return loggedUser;
 };
 
-export default useGetFBLoginStatus;
+export default useFBGetLoginStatus;

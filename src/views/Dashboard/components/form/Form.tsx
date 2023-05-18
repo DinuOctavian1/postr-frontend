@@ -1,21 +1,23 @@
-import {
-  Box,
-  Button,
-  Grid,
-  InputLabel,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import apiAgent from 'api/ApiAgent';
 import { useFormik } from 'formik';
+import { useGeneratePost } from 'hooks';
 import IFacebookPage from 'models/facebook/IFacebookPage';
+import IGeneratePostRequest from 'models/request/ICreatePostRequest';
+import { useEffect, useState } from 'react';
 import { PagesList } from './PagesList';
 import validationSchema from './validatoinSchema';
 
 interface Props {
   pages: IFacebookPage[];
+  handleSetPage: (page: IFacebookPage) => void;
+  handlePostChange: (post: string) => void;
 }
 
-export const Form = ({ pages }: Props) => {
+export const Form = ({ pages, handleSetPage, handlePostChange }: Props) => {
+  const { post, generatePost, isLoading } = useGeneratePost(apiAgent);
+
   const initialValues: {
     selectedPage: IFacebookPage | null;
     postDescription: string;
@@ -24,12 +26,35 @@ export const Form = ({ pages }: Props) => {
     postDescription: '',
   };
 
+  useEffect(() => {
+    handlePostChange(post);
+  }, [post]);
+
+  const editPost = (post: string) => {
+    handlePostChange(post);
+  };
+
   const formik = useFormik({
     initialValues,
     //validationSchema: validationSchema,
 
     onSubmit: (values: any) => {
-      console.log('values', values);
+      handleSetPage(values.selectedPage);
+
+      const pagesCategories: string[] = values.selectedPage?.category_list.map(
+        (category) => category.name,
+      );
+
+      pagesCategories.unshift(values.selectedPage?.category);
+
+      const requestModel: IGeneratePostRequest = {
+        postDescription: values.postDescription,
+        pageCategories: pagesCategories.join(','),
+        pageName: values.selectedPage?.name,
+        socialMediaPlatform: 'FACEBOOK',
+      };
+
+      generatePost(requestModel);
     },
   });
 
@@ -55,15 +80,28 @@ export const Form = ({ pages }: Props) => {
                 multiline
                 rows={2}
                 fullWidth
+                value={formik.values.postDescription}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.postDescription &&
+                  Boolean(formik.errors.postDescription)
+                }
+                // @ts-ignore
+                helperText={
+                  formik.touched.postDescription &&
+                  formik.errors.postDescription
+                }
               />
-              <Button
+              <LoadingButton
                 size={'large'}
                 variant="contained"
                 color="primary"
                 sx={{ marginLeft: '5%' }}
+                type={'submit'}
+                loading={isLoading}
               >
                 Generate
-              </Button>
+              </LoadingButton>
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -72,17 +110,15 @@ export const Form = ({ pages }: Props) => {
             </Typography>
             <TextField
               id="generatedPost"
-              label="Generated post"
               variant="outlined"
+              defaultValue={post}
+              onChange={(e) => editPost(e.target.value)}
               multiline
-              rows={4}
+              rows={5}
               fullWidth
             />
           </Grid>
         </Grid>
-        <Button size={'large'} variant={'contained'} type={'submit'}>
-          submit
-        </Button>
       </form>
     </>
   );
