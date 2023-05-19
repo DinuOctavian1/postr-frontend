@@ -36,7 +36,7 @@ export const Form = ({ pages, handleSetPage, handlePostChange }: Props) => {
 
   const formik = useFormik({
     initialValues,
-    //validationSchema: validationSchema,
+    validationSchema: validationSchema,
 
     onSubmit: (values: any) => {
       handleSetPage(values.selectedPage);
