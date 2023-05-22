@@ -104,20 +104,6 @@ export const Form = ({ pages, handleSetPage, handlePostChange }: Props) => {
               </LoadingButton>
             </Box>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6" gutterBottom>
-              Genearated Post
-            </Typography>
-            <TextField
-              id="generatedPost"
-              variant="outlined"
-              defaultValue={post}
-              onChange={(e) => editPost(e.target.value)}
-              multiline
-              rows={5}
-              fullWidth
-            />
-          </Grid>
         </Grid>
       </form>
     </>

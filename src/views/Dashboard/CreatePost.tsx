@@ -1,6 +1,6 @@
 import { Main } from 'layouts';
 import FacebookService from 'services/FacebookService';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Button, Container, Grid, TextField, Typography } from '@mui/material';
 import useFbLogin from 'hooks/useFbLogin';
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
 import useFBGetLoginStatus from 'hooks/usFBGetLoginStatus';
@@ -85,12 +85,27 @@ export const CreatePost = () => {
                 </Box>
               )}
             </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" gutterBottom textAlign={'left'}>
+                Genearated Post
+              </Typography>
+              <TextField
+                id="generatedPost"
+                variant="outlined"
+                defaultValue={post}
+                onChange={(e) => setPost(e.target.value)}
+                multiline
+                rows={5}
+                fullWidth
+              />
+            </Grid>
           </Grid>
           <LoadingButton
             variant="contained"
             color="primary"
             onClick={() => {
               postOnFb(post, selectedPage.id, selectedPage.access_token);
+              setPost('');
             }}
             disabled={selectedPage === null || post === ''}
             loading={isLoading}
