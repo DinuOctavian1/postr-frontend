@@ -83,6 +83,18 @@ const Topbar = ({
       </Box>
       {user?.username ? (
         <>
+          <Button
+            variant="contained"
+            color="primary"
+            component={Link}
+            to={ROUTE.CreatePost}
+            size="large"
+          >
+            Create Post
+          </Button>
+          <Avatar sx={{ bgcolor: deepOrange[500] }}>
+            {user?.username[0].toUpperCase()}
+          </Avatar>
           <Box marginLeft={2} display={'inline-flex'}>
             <Box marginRight={5}>
               <Button
@@ -99,9 +111,6 @@ const Topbar = ({
                 Logout
               </Button>
             </Box>
-            <Avatar sx={{ bgcolor: deepOrange[500] }}>
-              {user?.username[0].toUpperCase()}
-            </Avatar>
           </Box>
         </>
       ) : (

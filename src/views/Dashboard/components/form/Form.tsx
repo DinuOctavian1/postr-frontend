@@ -1,11 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Box, Grid, TextField, Typography } from '@mui/material';
 import apiAgent from 'api/ApiAgent';
 import { useFormik } from 'formik';
 import { useGeneratePost } from 'hooks';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { PagesList } from './PagesList';
 import validationSchema from './validatoinSchema';
 

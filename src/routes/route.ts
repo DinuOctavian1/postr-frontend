@@ -3,6 +3,7 @@ const ROUTE = {
   Signup: '/signup',
   Login: '/login',
   Logout: '/logout',
+  CreatePost: '/create-post',
   PasswordForgot: '/forgot-password',
   EmailConfirmation: '/confirm-email',
   PasswordReset: '/reset-password',

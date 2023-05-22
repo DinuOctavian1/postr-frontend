@@ -16,7 +16,7 @@ const Routes = (): JSX.Element => {
       <Route path={ROUTE.Login} element={<Login />} />
 
       <Route element={<FacebookSDKWrapper />}>
-        <Route path={ROUTE.Test} element={<CreatePost />} />
+        <Route path={ROUTE.CreatePost} element={<CreatePost />} />
       </Route>
     </ReactRoutes>
   );
