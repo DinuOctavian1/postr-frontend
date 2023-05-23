@@ -98,24 +98,15 @@ export const CreatePost = () => {
                 handlePostSubmission={handlePostSubmission}
                 selectedPage={selectedPage}
                 isLoading={isLoading}
+                response={response}
+                facebookService={FacebookService.getInstance()}
               />
             </Grid>
           </Grid>
 
-          {response && (
-            <Button
-              variant="contained"
-              color="primary"
-              href={FacebookService.getInstance().generatePostUrl(response.id)}
-              target="_blank"
-              sx={{ marginTop: '3rem', marginLeft: '1rem' }}
-            >
-              View last post
-            </Button>
-          )}
           <Button
             variant="contained"
-            color="primary"
+            color="error"
             sx={{ marginTop: '3rem' }}
             onClick={() => {
               logout();

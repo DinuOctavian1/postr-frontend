@@ -1,8 +1,10 @@
 import { LoadingButton } from '@mui/lab';
-import { Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import IFacebookPage from 'models/facebook/IFacebookPage';
+import IFacebookPostResponse from 'models/response/facebook/IFacebookPostResponse';
 import { useEffect } from 'react';
+import IExternalLoginService from 'services/IExternalLoginService';
 import validationSchema from './validationSchema';
 
 interface Props {
@@ -14,6 +16,8 @@ interface Props {
   ) => void;
   selectedPage: IFacebookPage;
   isLoading: boolean;
+  response: IFacebookPostResponse;
+  facebookService: IExternalLoginService;
 }
 
 export const PostForm = ({
@@ -21,6 +25,8 @@ export const PostForm = ({
   handlePostSubmission: handlePostSubmission,
   selectedPage,
   isLoading,
+  response,
+  facebookService,
 }: Props) => {
   const initialValues: {
     selectedPage: IFacebookPage | null;
@@ -80,6 +86,18 @@ export const PostForm = ({
         >
           Post on Facebook
         </LoadingButton>
+
+        {response && (
+          <Button
+            variant="contained"
+            color="primary"
+            href={facebookService.generatePostUrl(response.id)}
+            target="_blank"
+            sx={{ marginTop: '3rem', marginLeft: '1rem' }}
+          >
+            View last post
+          </Button>
+        )}
       </form>
     </>
   );

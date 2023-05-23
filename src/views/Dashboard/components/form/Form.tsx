@@ -36,7 +36,7 @@ export const Form = ({ pages, handleSetPage, handlePostGeneration }: Props) => {
 
     onSubmit: (values: any) => {
       handleSetPage(values.selectedPage);
-      console.log('values', values);
+
       const pagesCategories: string[] = values.selectedPage?.category_list.map(
         (category) => category.name,
       );
@@ -72,7 +72,7 @@ export const Form = ({ pages, handleSetPage, handlePostGeneration }: Props) => {
               </Typography>
               <PagesList pages={pages} formik={formik} />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={4}>
               <Typography variant="h6" gutterBottom>
                 Describe your post
               </Typography>
