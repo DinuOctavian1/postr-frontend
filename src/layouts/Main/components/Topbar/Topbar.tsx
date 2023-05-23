@@ -36,7 +36,8 @@ const Topbar = ({
   const theme = useTheme();
   const { mode } = theme.palette;
   const [user, setUser] = useAtom(state.user);
-  //const [user, setUser] = useState<any>(state.user);
+
+  // const [user, setUser] = useState<any>(state.user);
   const [logout, isLogged] = useLogout(apiAgent, toast);
   const navigate = useNavigate();
 

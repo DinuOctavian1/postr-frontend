@@ -1,10 +1,10 @@
-import IFBLoginStatusResponse from 'models/response/facebook/IFBLoginStatusResponse';
-import IGetFacebookPagesResponse from 'models/response/facebook/IGetFBPagesResponse';
-import IGetFBUserfromLogin from 'models/response/facebook/IGetFBUserFromLogin';
+import IFacebookLoginStatusResponse from 'models/response/facebook/IFacebookLoginStatusResponse';
+import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
+import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 
 interface IExternalLoginService {
-  getLoginStatus: () => IFBLoginStatusResponse;
-  loginAsync: () => Promise<IGetFBUserfromLogin>;
+  getLoginStatus: () => IFacebookLoginStatusResponse;
+  loginAsync: () => Promise<IFacebookGetUserfromLogin>;
   getPagesAsync: (
     userId: string,
     accesToken: string,
@@ -15,6 +15,7 @@ interface IExternalLoginService {
     pageAccessToken: string,
   ) => Promise<any>;
   logoutAsync: () => Promise<any>;
+  generatePostUrl: (postId: string) => string;
 }
 
 export default IExternalLoginService;

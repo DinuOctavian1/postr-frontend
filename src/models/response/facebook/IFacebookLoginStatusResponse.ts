@@ -1,4 +1,4 @@
-interface IFBLoginStatusResponse {
+interface IFacebookLoginStatusResponse {
   status: 'connected' | 'not_authorized' | 'unknown';
   authResponse: {
     accessToken: string;
@@ -8,4 +8,4 @@ interface IFBLoginStatusResponse {
   };
 }
 
-export default IFBLoginStatusResponse;
+export default IFacebookLoginStatusResponse;

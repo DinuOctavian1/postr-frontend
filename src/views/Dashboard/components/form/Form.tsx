@@ -12,10 +12,10 @@ import validationSchema from './validatoinSchema';
 interface Props {
   pages: IFacebookPage[];
   handleSetPage: (page: IFacebookPage) => void;
-  handlePostChange: (post: string) => void;
+  handlePostGeneration: (post: string) => void;
 }
 
-export const Form = ({ pages, handleSetPage, handlePostChange }: Props) => {
+export const Form = ({ pages, handleSetPage, handlePostGeneration }: Props) => {
   const { post, generatePost, isLoading } = useGeneratePost(apiAgent);
 
   const initialValues: {
@@ -27,12 +27,8 @@ export const Form = ({ pages, handleSetPage, handlePostChange }: Props) => {
   };
 
   useEffect(() => {
-    handlePostChange(post);
+    handlePostGeneration(post);
   }, [post]);
-
-  const editPost = (post: string) => {
-    handlePostChange(post);
-  };
 
   const formik = useFormik({
     initialValues,
@@ -40,7 +36,7 @@ export const Form = ({ pages, handleSetPage, handlePostChange }: Props) => {
 
     onSubmit: (values: any) => {
       handleSetPage(values.selectedPage);
-
+      console.log('values', values);
       const pagesCategories: string[] = values.selectedPage?.category_list.map(
         (category) => category.name,
       );
@@ -55,6 +51,7 @@ export const Form = ({ pages, handleSetPage, handlePostChange }: Props) => {
       };
 
       generatePost(requestModel);
+      handlePostGeneration(post);
     },
   });
 

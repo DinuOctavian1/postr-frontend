@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import IAuthResponse from 'models/response/IAuthResponse';
-import IGetFacebookPagesResponse from 'models/response/facebook/IGetFBPagesResponse';
+import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
 import { toast } from 'react-toastify';
 
 import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';

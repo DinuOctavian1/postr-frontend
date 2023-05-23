@@ -1,6 +1,6 @@
 import { Main } from 'layouts';
 import FacebookService from 'services/FacebookService';
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Button, Container, Grid, Typography } from '@mui/material';
 import useFbLogin from 'hooks/useFbLogin';
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
 import useFBGetLoginStatus from 'hooks/usFBGetLoginStatus';
@@ -12,8 +12,8 @@ import IFacebookPage from 'models/facebook/IFacebookPage';
 
 import { Form } from './components/form/Form';
 import { Box } from '@mui/system';
-import { LoadingButton } from '@mui/lab';
 import { toast } from 'react-toastify';
+import { PostForm } from './components/PostForm';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -25,16 +25,31 @@ export const CreatePost = () => {
     FacebookService.getInstance(),
     toast,
   );
-  const handlePostChange = (newPost: string) => {
-    setPost(newPost);
-  };
 
-  const handleSetPage = (page: IFacebookPage) => {
-    setSelectedPage(page);
-  };
   const logout = useFBLogout(FacebookService.getInstance());
   const [selectedPage, setSelectedPage] = useState<IFacebookPage>(null);
   const [post, setPost] = useState<string>('');
+  const [editedPost, setEditedPost] = useState<string>('');
+
+  const handlePostGeneration = (newPost: string) => {
+    setPost(newPost);
+  };
+
+  const handleSetPageChange = (page: IFacebookPage) => {
+    setSelectedPage(page);
+  };
+
+  const handleEditedPost = (post: string) => {
+    setEditedPost(post);
+  };
+
+  const handlePostSubmission = (
+    post: string,
+    pageId: string,
+    pageAccessToken: string,
+  ) => {
+    postOnFb(post, pageId, pageAccessToken);
+  };
 
   useEffect(() => {
     if (loggedUser.isLogged || fbUser?.name) {
@@ -79,13 +94,13 @@ export const CreatePost = () => {
                 <Box>
                   <Form
                     pages={pages}
-                    handleSetPage={handleSetPage}
-                    handlePostChange={handlePostChange}
+                    handleSetPage={handleSetPageChange}
+                    handlePostGeneration={handlePostGeneration}
                   />
                 </Box>
               )}
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Typography variant="h6" gutterBottom textAlign={'left'}>
                 Genearated Post
               </Typography>
@@ -93,27 +108,54 @@ export const CreatePost = () => {
                 id="generatedPost"
                 variant="outlined"
                 defaultValue={post}
-                onChange={(e) => setPost(e.target.value)}
+                onChange={(e: any) => {
+                  setEditedPost(e.target.value);
+                }}
                 multiline
                 rows={5}
                 fullWidth
               />
             </Grid>
+          </Grid> */}
+            <Grid item xs={12}>
+              <PostForm
+                post={post}
+                handlePostSubmission={handlePostSubmission}
+                selectedPage={selectedPage}
+                isLoading={isLoading}
+              />
+            </Grid>
           </Grid>
-          <LoadingButton
+          {/* <LoadingButton
             variant="contained"
             color="primary"
             onClick={() => {
-              postOnFb(post, selectedPage.id, selectedPage.access_token);
+              const postTobePosted = editedPost ? editedPost : post;
+              postOnFb(
+                postTobePosted,
+                selectedPage?.id,
+                selectedPage?.access_token,
+              );
               setPost('');
             }}
-            disabled={selectedPage === null || post === ''}
+            //disabled={selectedPage === null || post === ''}
             loading={isLoading}
             sx={{ marginTop: '3rem' }}
           >
             Post on Facebook
-          </LoadingButton>
+          </LoadingButton> */}
 
+          {response && (
+            <Button
+              variant="contained"
+              color="primary"
+              href={FacebookService.getInstance().generatePostUrl(response.id)}
+              target="_blank"
+              sx={{ marginTop: '3rem', marginLeft: '1rem' }}
+            >
+              View last post
+            </Button>
+          )}
           {/* <Button
             variant="contained"
             color="primary"

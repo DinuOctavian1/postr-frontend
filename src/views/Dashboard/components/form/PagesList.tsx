@@ -24,7 +24,6 @@ export const PagesList = ({ pages, formik }: IProps) => {
           ? formik.initialValues.selectedPage.id
           : ''
       }
-      //value={formik.values.selectedPage}
       onChange={(event) => handle(event, 'selectedPage')}
       name="selectedPage"
       fullWidth

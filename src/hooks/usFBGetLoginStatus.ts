@@ -1,5 +1,5 @@
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
-import IFBLoginStatusResponse from 'models/response/facebook/IFBLoginStatusResponse';
+import IFacebookLoginStatusResponse from 'models/response/facebook/IFacebookLoginStatusResponse';
 import IExternalLoginService from 'services/IExternalLoginService';
 
 const useFBGetLoginStatus = (
@@ -11,7 +11,8 @@ const useFBGetLoginStatus = (
     isLogged: false,
   };
 
-  const response: IFBLoginStatusResponse = extenalLoginService.getLoginStatus();
+  const response: IFacebookLoginStatusResponse =
+    extenalLoginService.getLoginStatus();
 
   if (response.status === 'connected' && response.authResponse) {
     loggedUser.token = response?.authResponse?.accessToken;

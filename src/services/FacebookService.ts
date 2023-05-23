@@ -1,7 +1,7 @@
 import apiAgent from 'api/ApiAgent';
-import IFBLoginStatusResponse from 'models/response/facebook/IFBLoginStatusResponse';
-import IGetFacebookPagesResponse from 'models/response/facebook/IGetFBPagesResponse';
-import IGetFBUserfromLogin from 'models/response/facebook/IGetFBUserFromLogin';
+import IFacebookLoginStatusResponse from 'models/response/facebook/IFacebookLoginStatusResponse';
+import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
+import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 import IExternalLoginService from './IExternalLoginService';
 
 class FacebookService implements IExternalLoginService {
@@ -24,7 +24,7 @@ class FacebookService implements IExternalLoginService {
     return await apiAgent.Facebook.getFbPages(userId, userAccesToken);
   }
 
-  getLoginStatus(): IFBLoginStatusResponse {
+  getLoginStatus(): IFacebookLoginStatusResponse {
     let response: any = {};
     FB.getLoginStatus((res) => {
       response = res;
@@ -33,7 +33,7 @@ class FacebookService implements IExternalLoginService {
     return response;
   }
 
-  loginAsync(): Promise<IGetFBUserfromLogin> {
+  loginAsync(): Promise<IFacebookGetUserfromLogin> {
     return new Promise((resolve, reject) => {
       FB.login(
         (resp: any) => {
@@ -69,6 +69,10 @@ class FacebookService implements IExternalLoginService {
         console.log(response);
       });
     });
+  };
+
+  generatePostUrl = (postId: string) => {
+    return `https://www.facebook.com/${postId}`;
   };
 }
 
