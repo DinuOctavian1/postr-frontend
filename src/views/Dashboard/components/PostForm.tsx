@@ -53,7 +53,7 @@ export const PostForm = ({
         <Grid container spacing={4} textAlign={'left'}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom textAlign={'left'}>
-              Genearated Post
+              Generated Post
             </Typography>
             <TextField
               id="editedPost"

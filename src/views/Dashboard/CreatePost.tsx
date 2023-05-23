@@ -14,6 +14,7 @@ import { Form } from './components/form/Form';
 import { Box } from '@mui/system';
 import { toast } from 'react-toastify';
 import { PostForm } from './components/PostForm';
+import { Connect } from './components/Connect';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -29,7 +30,6 @@ export const CreatePost = () => {
   const logout = useFBLogout(FacebookService.getInstance());
   const [selectedPage, setSelectedPage] = useState<IFacebookPage>(null);
   const [post, setPost] = useState<string>('');
-  const [editedPost, setEditedPost] = useState<string>('');
 
   const handlePostGeneration = (newPost: string) => {
     setPost(newPost);
@@ -37,10 +37,6 @@ export const CreatePost = () => {
 
   const handleSetPageChange = (page: IFacebookPage) => {
     setSelectedPage(page);
-  };
-
-  const handleEditedPost = (post: string) => {
-    setEditedPost(post);
   };
 
   const handlePostSubmission = (
@@ -60,20 +56,7 @@ export const CreatePost = () => {
   if (!loggedUser.isLogged) {
     return (
       <Main>
-        <Container
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '69vh',
-          }}
-        >
-          <Box>
-            <Button variant="contained" color="primary" onClick={() => login()}>
-              Connect with Facebook
-            </Button>
-          </Box>
-        </Container>
+        <Connect login={login} />
       </Main>
     );
   }
@@ -82,7 +65,15 @@ export const CreatePost = () => {
     <Main>
       <Container>
         <Box textAlign={'center'} paddingY={4}>
-          <Typography variant="h3">Create your post</Typography>
+          <Typography
+            variant="h3"
+            color="text.primary"
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            Create your post
+          </Typography>
           <Grid
             container
             spacing={4}
@@ -100,23 +91,7 @@ export const CreatePost = () => {
                 </Box>
               )}
             </Grid>
-            {/* <Grid item xs={12}>
-              <Typography variant="h6" gutterBottom textAlign={'left'}>
-                Genearated Post
-              </Typography>
-              <TextField
-                id="generatedPost"
-                variant="outlined"
-                defaultValue={post}
-                onChange={(e: any) => {
-                  setEditedPost(e.target.value);
-                }}
-                multiline
-                rows={5}
-                fullWidth
-              />
-            </Grid>
-          </Grid> */}
+
             <Grid item xs={12}>
               <PostForm
                 post={post}
@@ -126,24 +101,6 @@ export const CreatePost = () => {
               />
             </Grid>
           </Grid>
-          {/* <LoadingButton
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              const postTobePosted = editedPost ? editedPost : post;
-              postOnFb(
-                postTobePosted,
-                selectedPage?.id,
-                selectedPage?.access_token,
-              );
-              setPost('');
-            }}
-            //disabled={selectedPage === null || post === ''}
-            loading={isLoading}
-            sx={{ marginTop: '3rem' }}
-          >
-            Post on Facebook
-          </LoadingButton> */}
 
           {response && (
             <Button
@@ -156,15 +113,16 @@ export const CreatePost = () => {
               View last post
             </Button>
           )}
-          {/* <Button
+          <Button
             variant="contained"
             color="primary"
+            sx={{ marginTop: '3rem' }}
             onClick={() => {
               logout();
             }}
           >
-            logout
-          </Button> */}
+            Disconnect Facebook
+          </Button>
         </Box>
       </Container>
     </Main>

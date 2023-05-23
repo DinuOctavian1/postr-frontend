@@ -58,48 +58,59 @@ export const Form = ({ pages, handleSetPage, handlePostGeneration }: Props) => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={4} textAlign={'left'}>
-          <Grid item xs={12}>
-            <Typography variant="h6" gutterBottom>
-              Select your page
-            </Typography>
-            <PagesList pages={pages} formik={formik} />
+        <Grid
+          container
+          spacing={4}
+          textAlign={'left'}
+          display={'flex'}
+          alignItems={'center'}
+        >
+          <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
+              <Typography variant="h6" gutterBottom>
+                Select your page
+              </Typography>
+              <PagesList pages={pages} formik={formik} />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h6" gutterBottom>
+                Describe your post
+              </Typography>
+              <Box display={'inline-flex'} width={1} alignItems={'center'}>
+                <TextField
+                  id="postDescription"
+                  label="Post description"
+                  variant="outlined"
+                  multiline
+                  rows={2}
+                  fullWidth
+                  value={formik.values.postDescription}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.postDescription &&
+                    Boolean(formik.errors.postDescription)
+                  }
+                  // @ts-ignore
+                  helperText={
+                    formik.touched.postDescription &&
+                    formik.errors.postDescription
+                  }
+                />
+                <LoadingButton
+                  size={'large'}
+                  variant="contained"
+                  color="primary"
+                  sx={{ marginLeft: '5%' }}
+                  type={'submit'}
+                  loading={isLoading}
+                >
+                  Generate
+                </LoadingButton>
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6" gutterBottom>
-              Describe your post
-            </Typography>
-            <Box display={'inline-flex'} width={1} alignItems={'center'}>
-              <TextField
-                id="postDescription"
-                label="Post description"
-                variant="outlined"
-                multiline
-                rows={2}
-                fullWidth
-                value={formik.values.postDescription}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.postDescription &&
-                  Boolean(formik.errors.postDescription)
-                }
-                // @ts-ignore
-                helperText={
-                  formik.touched.postDescription &&
-                  formik.errors.postDescription
-                }
-              />
-              <LoadingButton
-                size={'large'}
-                variant="contained"
-                color="primary"
-                sx={{ marginLeft: '5%' }}
-                type={'submit'}
-                loading={isLoading}
-              >
-                Generate
-              </LoadingButton>
-            </Box>
+          <Grid item xs={12} md={6}>
+            <img src="assets/generate_post.png" alt="post image" />
           </Grid>
         </Grid>
       </form>
