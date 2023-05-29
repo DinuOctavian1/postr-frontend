@@ -2,6 +2,8 @@ import { useAtom } from 'jotai';
 import ILoginRequest from 'models/request/ILoginRequest';
 import IAuthResponse from 'models/response/IAuthResponse';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ROUTE from 'routes/route';
 import state from 'utils/state';
 
 const useLogin = (
@@ -11,6 +13,7 @@ const useLogin = (
   const [, setUser] = useAtom(state.user);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const login = (model: ILoginRequest): void => {
     setIsLoading(true);
@@ -19,6 +22,7 @@ const useLogin = (
         toast.success(rsp.message);
         setUser(rsp.data);
         setIsSuccess(true);
+        navigate(ROUTE.CreatePost);
       })
       .catch((err) => {
         toast.error(err);

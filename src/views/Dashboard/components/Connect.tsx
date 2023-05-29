@@ -1,5 +1,6 @@
 import { Box, Button, Container, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 interface Props {
   login: () => void;
@@ -42,6 +43,7 @@ export const Connect = ({ login }: Props) => {
         </Grid>
         <Box display={'flex'} justifyContent="center" mb={15}>
           <Button variant="contained" color="primary" onClick={() => login()}>
+            <FacebookIcon sx={{ marginRight: 1 }} />
             Connect with Facebook
           </Button>
         </Box>
