@@ -15,6 +15,7 @@ import { Box } from '@mui/system';
 import { toast } from 'react-toastify';
 import { PostForm } from './components/PostForm';
 import { Connect } from './components/Connect';
+import { useFbSchdulePost } from 'hooks';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -30,6 +31,11 @@ export const CreatePost = () => {
   const logout = useFBLogout(FacebookService.getInstance());
   const [selectedPage, setSelectedPage] = useState<IFacebookPage>(null);
   const [post, setPost] = useState<string>('');
+  const {
+    isLoading: isScheduleBtnLoading,
+    resp,
+    schedulePost,
+  } = useFbSchdulePost(FacebookService.getInstance());
 
   const handlePostGeneration = (newPost: string) => {
     setPost(newPost);
@@ -96,8 +102,10 @@ export const CreatePost = () => {
               <PostForm
                 post={post}
                 handlePostSubmission={handlePostSubmission}
+                handleSchedulePost={schedulePost}
                 selectedPage={selectedPage}
                 isLoading={isLoading}
+                isScheduleBtnLoading={isScheduleBtnLoading}
                 response={response}
                 facebookService={FacebookService.getInstance()}
               />

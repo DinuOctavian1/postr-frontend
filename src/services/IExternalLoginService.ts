@@ -16,6 +16,12 @@ interface IExternalLoginService {
   ) => Promise<any>;
   logoutAsync: () => Promise<any>;
   generatePostUrl: (postId: string) => string;
+  schedulePostAsync: (
+    text: string,
+    pageId: string,
+    pageAccessToken: string,
+    publishDate: number,
+  ) => Promise<any>;
 }
 
 export default IExternalLoginService;

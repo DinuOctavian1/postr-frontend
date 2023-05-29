@@ -60,7 +60,7 @@ export const Form = ({ pages, handleSetPage, handlePostGeneration }: Props) => {
       <form onSubmit={formik.handleSubmit}>
         <Grid
           container
-          spacing={4}
+          spacing={2}
           textAlign={'left'}
           display={'flex'}
           alignItems={'center'}

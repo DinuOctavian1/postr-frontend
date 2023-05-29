@@ -1,11 +1,12 @@
 import { LoadingButton } from '@mui/lab';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IFacebookPostResponse from 'models/response/facebook/IFacebookPostResponse';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import IExternalLoginService from 'services/IExternalLoginService';
 import validationSchema from './validationSchema';
+import FacebookIcon from '@mui/icons-material/Facebook';
 
 interface Props {
   post: string;
@@ -16,15 +17,29 @@ interface Props {
   ) => void;
   selectedPage: IFacebookPage;
   isLoading: boolean;
+  isScheduleBtnLoading: boolean;
   response: IFacebookPostResponse;
   facebookService: IExternalLoginService;
+  handleSchedulePost: (
+    text: string,
+    pageId: string,
+    pageAccessToken: string,
+    timestamp: number,
+  ) => void;
 }
+
+const BtnType = {
+  POST: 'post',
+  SCHEDULE: 'schedule',
+} as const;
 
 export const PostForm = ({
   post,
   handlePostSubmission: handlePostSubmission,
+  handleSchedulePost: handleSchedulePost,
   selectedPage,
   isLoading,
+  isScheduleBtnLoading,
   response,
   facebookService,
 }: Props) => {
@@ -35,12 +50,25 @@ export const PostForm = ({
     selectedPage: selectedPage,
     editedPost: post,
   };
+  const [clickedBtn, setClickedBtn] = useState<string | null>(null);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: validationSchema,
     onSubmit: (values: any) => {
+      if (clickedBtn === BtnType.SCHEDULE) {
+        const date = new Date(Date.now() + 10 * 60 * 1000);
+        const timestamp = Math.floor(date.getTime() / 1000);
+        handleSchedulePost(
+          values.editedPost,
+          selectedPage.id,
+          selectedPage.access_token,
+          timestamp,
+        );
+        return;
+      }
+
       handlePostSubmission(
         values.editedPost,
         selectedPage.id,
@@ -77,27 +105,48 @@ export const PostForm = ({
             />
           </Grid>
         </Grid>
-        <LoadingButton
-          variant="contained"
-          color="primary"
-          loading={isLoading}
-          sx={{ marginTop: '3rem' }}
-          type="submit"
-        >
-          Post on Facebook
-        </LoadingButton>
-
-        {response && (
-          <Button
+        <Box display={'flex'} justifyContent={'space-evenly'}>
+          <LoadingButton
+            startIcon={<FacebookIcon />}
             variant="contained"
             color="primary"
-            href={facebookService.generatePostUrl(response.id)}
-            target="_blank"
-            sx={{ marginTop: '3rem', marginLeft: '1rem' }}
+            loading={isLoading}
+            sx={{ marginTop: '3rem' }}
+            type="submit"
+            name={BtnType.POST}
+            onClick={(event) => {
+              setClickedBtn(event.currentTarget.name);
+            }}
           >
-            View last post
-          </Button>
-        )}
+            Post
+          </LoadingButton>
+          <LoadingButton
+            startIcon={<FacebookIcon />}
+            variant="contained"
+            color="primary"
+            loading={isScheduleBtnLoading}
+            sx={{ marginTop: '3rem' }}
+            type="submit"
+            name={BtnType.SCHEDULE}
+            onClick={(event) => {
+              setClickedBtn(event.currentTarget.name);
+            }}
+          >
+            Schedule Post
+          </LoadingButton>
+
+          {response && (
+            <Button
+              variant="contained"
+              color="primary"
+              href={facebookService.generatePostUrl(response.id)}
+              target="_blank"
+              sx={{ marginTop: '3rem', marginLeft: '1rem' }}
+            >
+              View last post
+            </Button>
+          )}
+        </Box>
       </form>
     </>
   );

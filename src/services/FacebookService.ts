@@ -54,6 +54,20 @@ class FacebookService implements IExternalLoginService {
     return await apiAgent.Facebook.createPost(text, pageId, pageAccessToken);
   }
 
+  async schedulePostAsync(
+    text: string,
+    pageId: string,
+    pageAccessToken: string,
+    publishDate: number,
+  ) {
+    return await apiAgent.Facebook.schedulePost(
+      text,
+      pageId,
+      pageAccessToken,
+      publishDate,
+    );
+  }
+
   getAppId = () => {
     return FacebookService.fbAppId;
   };
