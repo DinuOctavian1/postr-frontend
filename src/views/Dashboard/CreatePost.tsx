@@ -10,10 +10,10 @@ import useFBLogout from 'hooks/useFBLogout';
 import { useEffect, useState } from 'react';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 
-import { Form } from './components/form/Form';
+import { GeneratePostForm } from './components/generatePostForm/GeneratePostForm';
 import { Box } from '@mui/system';
 import { toast } from 'react-toastify';
-import { PostForm } from './components/PostForm';
+import { PostForm } from './components/postForm/PostForm';
 import { Connect } from './components/Connect';
 import { useFbSchdulePost } from 'hooks';
 
@@ -89,7 +89,7 @@ export const CreatePost = () => {
             <Grid item xs={12} mt={3}>
               {pages.length > 0 && (
                 <Box>
-                  <Form
+                  <GeneratePostForm
                     pages={pages}
                     handleSetPage={handleSetPageChange}
                     handlePostGeneration={handlePostGeneration}

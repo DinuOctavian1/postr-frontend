@@ -15,7 +15,11 @@ interface Props {
   handlePostGeneration: (post: string) => void;
 }
 
-export const Form = ({ pages, handleSetPage, handlePostGeneration }: Props) => {
+export const GeneratePostForm = ({
+  pages,
+  handleSetPage,
+  handlePostGeneration,
+}: Props) => {
   const { post, generatePost, isLoading } = useGeneratePost(apiAgent);
 
   const initialValues: {

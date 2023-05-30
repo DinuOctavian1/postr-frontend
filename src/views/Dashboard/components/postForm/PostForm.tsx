@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import IExternalLoginService from 'services/IExternalLoginService';
 import validationSchema from './validationSchema';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import DatePicker from './DatePicker';
+import dayjs from 'dayjs';
 
 interface Props {
   post: string;
@@ -51,15 +53,21 @@ export const PostForm = ({
     editedPost: post,
   };
   const [clickedBtn, setClickedBtn] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState(dayjs());
+
+  const handleSetSelectedDate = (unixDate: Date) => {
+    setSelectedDate(dayjs(unixDate));
+  };
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialValues,
     validationSchema: validationSchema,
+
     onSubmit: (values: any) => {
       if (clickedBtn === BtnType.SCHEDULE) {
-        const date = new Date(Date.now() + 10 * 60 * 1000);
-        const timestamp = Math.floor(date.getTime() / 1000);
+        const timestamp = Math.floor(selectedDate.valueOf() / 1000);
+
         handleSchedulePost(
           values.editedPost,
           selectedPage.id,
@@ -105,29 +113,39 @@ export const PostForm = ({
             />
           </Grid>
         </Grid>
-        <Box display={'flex'} justifyContent={'space-evenly'}>
+        <Box
+          display={'flex'}
+          justifyContent={'space-evenly'}
+          alignItems={'center'}
+          marginTop={7}
+          marginBottom={7}
+        >
           <LoadingButton
             startIcon={<FacebookIcon />}
+            size="large"
             variant="contained"
             color="primary"
             loading={isLoading}
-            sx={{ marginTop: '3rem' }}
             type="submit"
             name={BtnType.POST}
             onClick={(event) => {
               setClickedBtn(event.currentTarget.name);
             }}
           >
-            Post
+            Post Now
           </LoadingButton>
+          <Typography variant="h6" gutterBottom>
+            OR
+          </Typography>
           <LoadingButton
             startIcon={<FacebookIcon />}
+            size="large"
             variant="contained"
             color="primary"
             loading={isScheduleBtnLoading}
-            sx={{ marginTop: '3rem' }}
             type="submit"
             name={BtnType.SCHEDULE}
+            //disabled={clickedBtn === BtnType.SCHEDULE}
             onClick={(event) => {
               setClickedBtn(event.currentTarget.name);
             }}
@@ -135,13 +153,17 @@ export const PostForm = ({
             Schedule Post
           </LoadingButton>
 
+          {clickedBtn !== BtnType.SCHEDULE && (
+            <DatePicker handleSelectedDate={handleSetSelectedDate} />
+          )}
+
           {response && (
             <Button
               variant="contained"
               color="primary"
               href={facebookService.generatePostUrl(response.id)}
               target="_blank"
-              sx={{ marginTop: '3rem', marginLeft: '1rem' }}
+              sx={{ marginLeft: '1rem' }}
             >
               View last post
             </Button>
