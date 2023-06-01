@@ -10,6 +10,7 @@ interface Props {
 }
 
 export default function DatePiker({ handleSelectedDate }: Props) {
+  const [open, setOpen] = useState(true);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       {/* <DemoContainer components={['DateTimePicker']}> */}
@@ -19,7 +20,9 @@ export default function DatePiker({ handleSelectedDate }: Props) {
         //value={value}
         onChange={(newValue: Date) => {
           handleSelectedDate(newValue);
+          setOpen(false);
         }}
+        open={open}
       />
       {/* </DemoContainer> */}
     </LocalizationProvider>

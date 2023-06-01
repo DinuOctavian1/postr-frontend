@@ -7,8 +7,7 @@ import { useEffect, useState } from 'react';
 import IExternalLoginService from 'services/IExternalLoginService';
 import validationSchema from './validationSchema';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import DatePicker from './DatePicker';
-import dayjs from 'dayjs';
+import ScheduleModal from '../schedule/ScheduleModal';
 
 interface Props {
   post: string;
@@ -53,11 +52,13 @@ export const PostForm = ({
     editedPost: post,
   };
   const [clickedBtn, setClickedBtn] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState(dayjs());
-
-  const handleSetSelectedDate = (unixDate: Date) => {
-    setSelectedDate(dayjs(unixDate));
-  };
+  // const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [openModal, setOpenModal] = useState(false);
+  const [postToBeScheduled, setpostToBeScheduled] = useState<any>({
+    text: '',
+    pageId: '',
+    pageAccessToken: '',
+  });
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -65,15 +66,18 @@ export const PostForm = ({
     validationSchema: validationSchema,
 
     onSubmit: (values: any) => {
+      console.log('values', values);
       if (clickedBtn === BtnType.SCHEDULE) {
-        const timestamp = Math.floor(selectedDate.valueOf() / 1000);
+        setpostToBeScheduled((postToBeScheduled) => {
+          return {
+            ...postToBeScheduled,
+            text: values.editedPost,
+            pageId: selectedPage.id,
+            pageAccessToken: selectedPage.access_token,
+          };
+        });
+        setOpenModal(true);
 
-        handleSchedulePost(
-          values.editedPost,
-          selectedPage.id,
-          selectedPage.access_token,
-          timestamp,
-        );
         return;
       }
 
@@ -145,18 +149,19 @@ export const PostForm = ({
             loading={isScheduleBtnLoading}
             type="submit"
             name={BtnType.SCHEDULE}
-            //disabled={clickedBtn === BtnType.SCHEDULE}
+            disabled={openModal}
             onClick={(event) => {
               setClickedBtn(event.currentTarget.name);
             }}
           >
             Schedule Post
           </LoadingButton>
-
-          {clickedBtn !== BtnType.SCHEDULE && (
-            <DatePicker handleSelectedDate={handleSetSelectedDate} />
-          )}
-
+          <ScheduleModal
+            open={openModal}
+            post={postToBeScheduled}
+            handleClose={() => setOpenModal(false)}
+            handleSchedulePost={handleSchedulePost}
+          />
           {response && (
             <Button
               variant="contained"
