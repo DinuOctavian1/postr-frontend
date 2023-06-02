@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import { PostForm } from './components/postForm/PostForm';
 import { Connect } from './components/Connect';
 import { useFbSchdulePost } from 'hooks';
+import { PagesList } from './components/selectPages/PagesList';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -89,10 +90,16 @@ export const CreatePost = () => {
             <Grid item xs={12} mt={3}>
               {pages.length > 0 && (
                 <Box>
-                  <GeneratePostForm
+                  <Typography variant="h6" gutterBottom>
+                    Select your page
+                  </Typography>
+                  <PagesList
                     pages={pages}
-                    handleSetPage={handleSetPageChange}
+                    handleSetPageChange={handleSetPageChange}
+                  />
+                  <GeneratePostForm
                     handlePostGeneration={handlePostGeneration}
+                    selectedPage={selectedPage}
                   />
                 </Box>
               )}

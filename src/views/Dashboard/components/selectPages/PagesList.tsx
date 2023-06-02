@@ -1,30 +1,28 @@
 import { Avatar, Box, MenuItem, Select, Typography } from '@mui/material';
 import IFacebookPage from 'models/facebook/IFacebookPage';
+import { useEffect } from 'react';
 
 interface IProps {
   pages: IFacebookPage[];
-  formik: any;
+  handleSetPageChange: (page: IFacebookPage) => void;
 }
 
-export const PagesList = ({ pages, formik }: IProps) => {
-  const handle = (event: any, id: string) => {
-    const selectedPageId = id;
-    console.log('selectedPageId', selectedPageId);
+export const PagesList = ({ pages, handleSetPageChange }: IProps) => {
+  useEffect(() => {
+    handleSetPageChange(pages[0]);
+  }, []);
+
+  const handle = (event: any) => {
     const page = pages.find((page) => page.id === event.target.value);
-    console.log('page', page);
-    formik.setFieldValue(id, page);
+    handleSetPageChange(page);
   };
 
   return (
     <Select
       labelId="page-label"
       id="selectedPage"
-      defaultValue={
-        formik.initialValues.selectedPage
-          ? formik.initialValues.selectedPage.id
-          : ''
-      }
-      onChange={(event) => handle(event, 'selectedPage')}
+      defaultValue={pages[0].id}
+      onChange={(event) => handle(event)}
       name="selectedPage"
       fullWidth
     >

@@ -6,27 +6,24 @@ import { useGeneratePost } from 'hooks';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import { useEffect } from 'react';
-import { PagesList } from './PagesList';
 import validationSchema from './validatoinSchema';
 
 interface Props {
-  pages: IFacebookPage[];
-  handleSetPage: (page: IFacebookPage) => void;
   handlePostGeneration: (post: string) => void;
+  selectedPage: IFacebookPage;
 }
 
 export const GeneratePostForm = ({
-  pages,
-  handleSetPage,
   handlePostGeneration,
+  selectedPage,
 }: Props) => {
   const { post, generatePost, isLoading } = useGeneratePost(apiAgent);
 
   const initialValues: {
-    selectedPage: IFacebookPage | null;
+    selectedPage: IFacebookPage;
     postDescription: string;
   } = {
-    selectedPage: pages.length > 0 ? pages[0] : null,
+    selectedPage: selectedPage,
     postDescription: '',
   };
 
@@ -39,18 +36,17 @@ export const GeneratePostForm = ({
     validationSchema: validationSchema,
 
     onSubmit: (values: any) => {
-      handleSetPage(values.selectedPage);
-
-      const pagesCategories: string[] = values.selectedPage?.category_list.map(
-        (category) => category.name,
-      );
+      const pagesCategories: string[] =
+        initialValues.selectedPage?.category_list.map(
+          (category) => category.name,
+        );
 
       pagesCategories.unshift(values.selectedPage?.category);
 
       const requestModel: IGeneratePostRequest = {
         postDescription: values.postDescription,
         pageCategories: pagesCategories.join(','),
-        pageName: values.selectedPage?.name,
+        pageName: initialValues.selectedPage?.name,
         socialMediaPlatform: 'FACEBOOK',
       };
 
@@ -70,12 +66,6 @@ export const GeneratePostForm = ({
           alignItems={'center'}
         >
           <Grid item xs={12} md={6}>
-            <Grid item xs={12}>
-              <Typography variant="h6" gutterBottom>
-                Select your page
-              </Typography>
-              <PagesList pages={pages} formik={formik} />
-            </Grid>
             <Grid item xs={12} mt={4}>
               <Typography variant="h6" gutterBottom>
                 Describe your post
