@@ -52,7 +52,6 @@ export const PostForm = ({
     editedPost: post,
   };
   const [clickedBtn, setClickedBtn] = useState<string | null>(null);
-  // const [selectedDate, setSelectedDate] = useState(dayjs());
   const [openModal, setOpenModal] = useState(false);
   const [postToBeScheduled, setpostToBeScheduled] = useState<any>({
     text: '',
@@ -99,7 +98,7 @@ export const PostForm = ({
         <Grid container spacing={4} textAlign={'left'}>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom textAlign={'left'}>
-              Generated Post
+              Post to be published
             </Typography>
             <TextField
               id="editedPost"
