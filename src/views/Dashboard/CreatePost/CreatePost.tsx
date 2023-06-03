@@ -14,9 +14,10 @@ import { GeneratePostForm } from './components/generatePostForm/GeneratePostForm
 import { Box } from '@mui/system';
 import { toast } from 'react-toastify';
 import { PostForm } from './components/postForm/PostForm';
-import { Connect } from './components/Connect';
+import { ConnectAccount } from './components/ConnectAccount';
 import { useFbSchdulePost } from 'hooks';
 import { PagesList } from './components/selectPages/PagesList';
+import { CreatePostModal } from './components/createPostModal';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -63,7 +64,7 @@ export const CreatePost = () => {
   if (!loggedUser.isLogged) {
     return (
       <Main>
-        <Connect login={login} />
+        <ConnectAccount login={login} />
       </Main>
     );
   }
@@ -71,6 +72,9 @@ export const CreatePost = () => {
   return (
     <Main>
       <Container>
+        <CreatePostModal pages={pages} handleSetPage={handleSetPageChange} />
+      </Container>
+      {/* <Container>
         <Box textAlign={'center'} paddingY={4}>
           <Typography
             variant="h3"
@@ -130,7 +134,7 @@ export const CreatePost = () => {
             Disconnect Facebook
           </Button>
         </Box>
-      </Container>
+      </Container> */}
     </Main>
   );
 };

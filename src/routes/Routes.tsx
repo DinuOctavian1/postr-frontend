@@ -1,6 +1,6 @@
 import FacebookSDKWrapper from 'config/FacebookSDKWrapper';
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
-import { CreatePost } from 'views/Dashboard/CreatePost';
+import { CreatePost } from 'views/Dashboard/CreatePost/CreatePost';
 import EmailConfirmation from 'views/EmailConfirmation/EmailConfirmation';
 import Login from 'views/Login';
 import Signup from 'views/Signup';

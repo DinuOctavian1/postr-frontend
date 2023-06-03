@@ -6,7 +6,7 @@ interface Props {
   login: () => void;
 }
 
-export const Connect = ({ login }: Props) => {
+export const ConnectAccount = ({ login }: Props) => {
   return (
     <>
       <Container maxWidth="lg">
