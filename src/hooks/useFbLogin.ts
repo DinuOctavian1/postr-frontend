@@ -9,7 +9,6 @@ const useFbLogin = (
 
   const login = () => {
     externalLoginService.loginAsync().then((res) => {
-      console.log(res);
       setFbuser(res);
     });
   };

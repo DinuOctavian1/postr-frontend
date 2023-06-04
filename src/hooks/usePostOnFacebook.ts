@@ -1,3 +1,4 @@
+import IFBPostRRequest from 'models/request/facebook/IFBPostRRequest';
 import IFacebookPostResponse from 'models/response/facebook/IFacebookPostResponse';
 import { useState } from 'react';
 import IExternalLoginService from 'services/IExternalLoginService';
@@ -6,17 +7,17 @@ const usePostOnFacebook = (
   externalLoginService: IExternalLoginService,
   toastify: any,
 ): {
-  postOnFb: (text: string, pageId: string, pageAccessToken: string) => void;
+  postOnFb: (request: IFBPostRRequest) => void;
   response: IFacebookPostResponse;
   isLoading: boolean;
 } => {
   const [response, setResponse] = useState<IFacebookPostResponse>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const postOnFb = (text: string, pageId: string, pageAccessToken: string) => {
+  const postOnFb = (request: IFBPostRRequest) => {
     setIsLoading(true);
     externalLoginService
-      .postAsync(text, pageId, pageAccessToken)
+      .postAsync(request.text, request.pageId, request.pageAccessToken)
       .then((res: IFacebookPostResponse) => {
         setResponse(res);
         if (res?.id) {

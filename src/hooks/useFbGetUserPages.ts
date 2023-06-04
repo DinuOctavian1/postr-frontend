@@ -12,7 +12,6 @@ const useFbGetUserPages = (
 
   const getPages = (userId: string, accessToken: string) => {
     externalLoginService.getPagesAsync(userId, accessToken).then((res) => {
-      console.log(res);
       if (res?.data) {
         const pagesWithIcons = res.data.map((page: IFacebookPage) => ({
           ...page,
