@@ -75,24 +75,25 @@ export const CreatePost = () => {
     setOpen(false);
   };
 
+  const showCreatePostModal = () => {
+    setOpen(true);
+  };
+
   useEffect(() => {
     if (loggedUser.isLogged || fbUser?.name) {
       getPages(loggedUser.userId, loggedUser.token);
-      setOpen(true);
     }
   }, [fbUser]);
-
-  if (!loggedUser.isLogged) {
-    return (
-      <Main>
-        <ConnectAccount login={login} />
-      </Main>
-    );
-  }
 
   return (
     <Main>
       <Container>
+        <ConnectAccount
+          login={login}
+          pages={pages ?? null}
+          showModal={showCreatePostModal}
+        />
+
         <CreatePostModal
           open={open}
           handleClose={handleClose}
