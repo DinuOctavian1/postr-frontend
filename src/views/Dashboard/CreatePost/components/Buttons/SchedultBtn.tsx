@@ -1,25 +1,22 @@
 import { LoadingButton } from '@mui/lab';
-import BtnType from './BtnType';
 
 interface Props {
   isLoading: boolean;
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const GeneratePostBtn = ({ isLoading, handleClick }: Props) => {
+const ScheduleBtn = ({ isLoading, handleClick }: Props) => {
   return (
     <LoadingButton
       variant="contained"
       type="submit"
       loading={isLoading}
-      color="secondary"
-      sx={{ fontWeight: 'bold' }}
-      name={BtnType.GENERATE}
+      color="primary"
       onClick={handleClick}
     >
-      Generate AI Content
+      Schedule for later
     </LoadingButton>
   );
 };
 
-export default GeneratePostBtn;
+export default ScheduleBtn;

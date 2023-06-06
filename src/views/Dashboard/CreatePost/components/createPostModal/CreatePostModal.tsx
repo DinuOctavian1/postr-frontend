@@ -9,12 +9,12 @@ import {
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import { useState } from 'react';
-import { PostNowBtn } from '../postForm/buttons';
-import ScheduleBtn from '../postForm/buttons/SchedultBtn';
-import { PostForm } from '../postForm/PostForm';
-import FacebookPostPreview from '../postPreview/FacebookPostPreview';
-import ScheduleModal from '../schedule/ScheduleModal';
-import { PagesList } from '../selectPages/PagesList';
+import { PostNowBtn } from '../Buttons';
+import ScheduleBtn from '../Buttons/SchedultBtn';
+import { PostForm } from './GeneratePostForm/GeneratePostForm';
+import FacebookPostPreview from './PostPreview/FacebookPostPreview';
+import ScheduleModal from './Schedule/ScheduleModal';
+import { SelectPage } from './SelectPage/SelectPage';
 import CloseIcon from '@mui/icons-material/Close';
 
 interface CreatePostModalProps {
@@ -110,7 +110,7 @@ const CreatePostModal = ({
                     Publish to:
                   </Typography>
                 </Box>
-                <PagesList pages={pages} handleSetPageChange={handleSetPage} />
+                <SelectPage pages={pages} handleSetPageChange={handleSetPage} />
                 <Box mt={5}>
                   <PostForm
                     post={post}

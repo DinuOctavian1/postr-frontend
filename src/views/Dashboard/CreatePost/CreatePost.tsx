@@ -1,6 +1,6 @@
 import { Main } from 'layouts';
 import FacebookService from 'services/FacebookService';
-import { Button, Container, Grid, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 import useFbLogin from 'hooks/useFbLogin';
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
 import useFBGetLoginStatus from 'hooks/usFBGetLoginStatus';
@@ -10,14 +10,13 @@ import useFBLogout from 'hooks/useFBLogout';
 import { useEffect, useState } from 'react';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 
-import { GeneratePostForm } from './components/generatePostForm/GeneratePostForm';
-import { Box } from '@mui/system';
 import { toast } from 'react-toastify';
-import { PostForm } from './components/postForm/PostForm';
-import { ConnectAccount } from './components/ConnectAccount';
-import { useFbSchdulePost } from 'hooks';
-import { PagesList } from './components/selectPages/PagesList';
+import { ConnectAccount } from './components/ConnectAccounts/ConnectAccount';
+import { useFbSchdulePost, useGeneratePost } from 'hooks';
 import { CreatePostModal } from './components/createPostModal';
+import IFBPostRRequest from 'models/request/facebook/IFBPostRRequest';
+import apiAgent from 'api/ApiAgent';
+import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -39,7 +38,13 @@ export const CreatePost = () => {
     schedulePost,
   } = useFbSchdulePost(FacebookService.getInstance());
 
-  const handlePostGeneration = (newPost: string) => {
+  const {
+    post: generatedPost,
+    generatePost,
+    isLoading: isGeneratedPostLoading,
+  } = useGeneratePost(apiAgent);
+
+  const handleSetPost = (newPost: string) => {
     setPost(newPost);
   };
 
@@ -47,17 +52,33 @@ export const CreatePost = () => {
     setSelectedPage(page);
   };
 
-  const handlePostSubmission = (
+  const handlePostNow = (
     post: string,
     pageId: string,
     pageAccessToken: string,
   ) => {
-    postOnFb(post, pageId, pageAccessToken);
+    const model: IFBPostRRequest = {
+      text: post,
+      pageId: pageId,
+      pageAccessToken: pageAccessToken,
+    };
+
+    postOnFb(model);
+  };
+
+  const hanlePostGeneration = (data: IGeneratePostRequest) => {
+    generatePost(data);
+  };
+
+  const [open, setOpen] = useState<boolean>(false);
+  const handleClose = () => {
+    setOpen(false);
   };
 
   useEffect(() => {
     if (loggedUser.isLogged || fbUser?.name) {
       getPages(loggedUser.userId, loggedUser.token);
+      setOpen(true);
     }
   }, [fbUser]);
 
@@ -72,69 +93,23 @@ export const CreatePost = () => {
   return (
     <Main>
       <Container>
-        <CreatePostModal pages={pages} handleSetPage={handleSetPageChange} />
+        <CreatePostModal
+          open={open}
+          handleClose={handleClose}
+          pages={pages}
+          handleSetPage={handleSetPageChange}
+          post={post}
+          generatedPost={generatedPost}
+          isGeneratedPostLoading={isGeneratedPostLoading}
+          handlePostNow={handlePostNow}
+          selectedPage={selectedPage}
+          isLoading={isLoading}
+          isScheduleBtnLoading={isScheduleBtnLoading}
+          handleSchedulePost={schedulePost}
+          handleSetPost={handleSetPost}
+          handleGeneratePost={hanlePostGeneration}
+        />
       </Container>
-      {/* <Container>
-        <Box textAlign={'center'} paddingY={4}>
-          <Typography
-            variant="h3"
-            color="text.primary"
-            sx={{
-              fontWeight: 700,
-            }}
-          >
-            Create your post
-          </Typography>
-          <Grid
-            container
-            spacing={4}
-            display={'flex'}
-            justifyContent={'center'}
-          >
-            <Grid item xs={12} mt={3}>
-              {pages.length > 0 && (
-                <Box>
-                  <Typography variant="h6" gutterBottom>
-                    Select your page
-                  </Typography>
-                  <PagesList
-                    pages={pages}
-                    handleSetPageChange={handleSetPageChange}
-                  />
-                  <GeneratePostForm
-                    handlePostGeneration={handlePostGeneration}
-                    selectedPage={selectedPage}
-                  />
-                </Box>
-              )}
-            </Grid>
-
-            <Grid item xs={12}>
-              <PostForm
-                post={post}
-                handlePostSubmission={handlePostSubmission}
-                handleSchedulePost={schedulePost}
-                selectedPage={selectedPage}
-                isLoading={isLoading}
-                isScheduleBtnLoading={isScheduleBtnLoading}
-                response={response}
-                facebookService={FacebookService.getInstance()}
-              />
-            </Grid>
-          </Grid>
-
-          <Button
-            variant="contained"
-            color="error"
-            sx={{ marginTop: '3rem' }}
-            onClick={() => {
-              logout();
-            }}
-          >
-            Disconnect Facebook
-          </Button>
-        </Box>
-      </Container> */}
     </Main>
   );
 };

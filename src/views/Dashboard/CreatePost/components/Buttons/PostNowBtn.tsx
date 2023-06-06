@@ -1,6 +1,5 @@
 import { LoadingButton } from '@mui/lab';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import BtnType from './BtnType';
 
 interface Props {
   isLoading: boolean;
@@ -16,7 +15,6 @@ const PostNowBtn = ({ isLoading, handleClick }: Props) => {
       color="primary"
       loading={isLoading}
       type="submit"
-      name={BtnType.POST}
       onClick={handleClick}
     >
       Post Now

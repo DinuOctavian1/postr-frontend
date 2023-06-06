@@ -1,6 +1,8 @@
 import { Box, Button, Container, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 interface Props {
   login: () => void;
@@ -41,10 +43,28 @@ export const ConnectAccount = ({ login }: Props) => {
             </Box>
           </Grid>
         </Grid>
-        <Box display={'flex'} justifyContent="center" mb={15}>
+        <Box display={'flex'} justifyContent="space-evenly" mb={15}>
           <Button variant="contained" color="primary" onClick={() => login()}>
             <FacebookIcon sx={{ marginRight: 1 }} />
-            Connect with Facebook
+            Connect Facebook
+          </Button>
+          <Button
+            disabled
+            variant="contained"
+            color="primary"
+            onClick={() => console.log('click')}
+          >
+            <InstagramIcon sx={{ marginRight: 1 }} />
+            Connect Instagram
+          </Button>
+          <Button
+            disabled
+            variant="contained"
+            color="primary"
+            onClick={() => console.log('click')}
+          >
+            <TwitterIcon sx={{ marginRight: 1 }} />
+            Connect Twitter
           </Button>
         </Box>
       </Container>

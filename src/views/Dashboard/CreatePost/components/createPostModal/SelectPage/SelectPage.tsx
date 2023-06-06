@@ -31,7 +31,7 @@ const MenuProps = {
   },
 };
 
-export const PagesList = ({ pages, handleSetPageChange }: IProps) => {
+export const SelectPage = ({ pages, handleSetPageChange }: IProps) => {
   const [selectedPage, setSelectedPage] = useState<IFacebookPage>(pages[0]);
 
   useEffect(() => {
