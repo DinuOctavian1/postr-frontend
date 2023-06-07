@@ -82,6 +82,7 @@ export const CreatePost = () => {
   useEffect(() => {
     if (loggedUser.isLogged || fbUser?.name) {
       getPages(loggedUser.userId, loggedUser.token);
+      //logout();
     }
   }, [fbUser]);
 

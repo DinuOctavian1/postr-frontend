@@ -1,5 +1,6 @@
 import { Avatar, Box, Button, Chip, Container, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -75,12 +76,14 @@ export const ConnectAccount = ({ login, pages, showModal }: Props) => {
             Twitter
           </Button>
         </Box>
-        {pages.length > 0 && (
+        {pages.length > 0 ? (
           <Box>
-            <Box display={'flex'} mb={3}>
-              <Typography variant="h5" color="green">
-                {pages.length}
-              </Typography>
+            <Box display={'flex'} mb={3} alignItems={'center'}>
+              <CheckCircleOutlineIcon
+                sx={{ marginRight: 1, color: 'green', fontSize: '18px' }}
+                // fontSize={'small'}
+              />
+              <Typography variant="h5">{pages.length}</Typography>
               <Typography
                 variant="h6"
                 color="text.secondary"
@@ -102,12 +105,34 @@ export const ConnectAccount = ({ login, pages, showModal }: Props) => {
               ))}
             </Box>
           </Box>
+        ) : (
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            mb={3}
+            justifyContent={'center'}
+          >
+            <Box display={'flex'}>
+              <Typography variant="h5">0</Typography>
+              <Typography
+                variant="h6"
+                color="text.secondary"
+                sx={{ marginLeft: 1 }}
+              >
+                social accounts connected
+              </Typography>
+            </Box>
+            <Typography variant="h6" color="error">
+              Connect your social accounts to start creating posts
+            </Typography>
+          </Box>
         )}
         <Box display={'flex'} justifyContent="flex-end" mb={5}>
           <Button
             variant="contained"
             color="primary"
             size={'large'}
+            disabled={pages.length === 0}
             onClick={showModal}
           >
             Next

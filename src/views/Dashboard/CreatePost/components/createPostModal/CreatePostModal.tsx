@@ -140,10 +140,12 @@ const CreatePostModal = ({
                         selectedPage.access_token,
                       )
                     }
+                    disabled={post === ''}
                   />
                   <ScheduleBtn
                     isLoading={isScheduleBtnLoading}
                     handleClick={() => setOpenModal(true)}
+                    disabled={post === ''}
                   />
                 </Box>
               </Grid>

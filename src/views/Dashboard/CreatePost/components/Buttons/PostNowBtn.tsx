@@ -4,9 +4,10 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 interface Props {
   isLoading: boolean;
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled: boolean;
 }
 
-const PostNowBtn = ({ isLoading, handleClick }: Props) => {
+const PostNowBtn = ({ isLoading, handleClick, disabled = false }: Props) => {
   return (
     <LoadingButton
       startIcon={<FacebookIcon />}
@@ -16,6 +17,7 @@ const PostNowBtn = ({ isLoading, handleClick }: Props) => {
       loading={isLoading}
       type="submit"
       onClick={handleClick}
+      disabled={disabled}
     >
       Post Now
     </LoadingButton>
