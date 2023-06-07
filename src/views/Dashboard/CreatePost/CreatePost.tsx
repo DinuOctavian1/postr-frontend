@@ -14,9 +14,10 @@ import { toast } from 'react-toastify';
 import { ConnectAccount } from './components/ConnectAccounts/ConnectAccount';
 import { useFbSchdulePost, useGeneratePost } from 'hooks';
 import { CreatePostModal } from './components/createPostModal';
-import IFBPostRRequest from 'models/request/facebook/IFBPostRRequest';
+import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 import apiAgent from 'api/ApiAgent';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
+import IPost from 'models/interfaces/IPost';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -31,7 +32,10 @@ export const CreatePost = () => {
 
   const logout = useFBLogout(FacebookService.getInstance());
   const [selectedPage, setSelectedPage] = useState<IFacebookPage>(null);
-  const [post, setPost] = useState<string>('');
+  const [post, setPost] = useState<IPost>({
+    text: '',
+    imageUrl: '',
+  });
   const {
     isLoading: isScheduleBtnLoading,
     resp,
@@ -44,7 +48,7 @@ export const CreatePost = () => {
     isLoading: isGeneratedPostLoading,
   } = useGeneratePost(apiAgent);
 
-  const handleSetPost = (newPost: string) => {
+  const handleSetPost = (newPost: IPost) => {
     setPost(newPost);
   };
 
@@ -57,7 +61,7 @@ export const CreatePost = () => {
     pageId: string,
     pageAccessToken: string,
   ) => {
-    const model: IFBPostRRequest = {
+    const model: IFBPostRequest = {
       text: post,
       pageId: pageId,
       pageAccessToken: pageAccessToken,

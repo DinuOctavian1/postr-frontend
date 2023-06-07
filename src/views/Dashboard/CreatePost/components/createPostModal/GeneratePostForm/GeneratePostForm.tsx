@@ -4,7 +4,9 @@ import IFacebookPage from 'models/facebook/IFacebookPage';
 import { useEffect } from 'react';
 import validationSchema from './validationSchema';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
-import GeneratePostBtn from '../../Buttons/GeneratePostBtn';
+import GeneratePostBtn from '../Buttons/GeneratePostBtn';
+import UploadImageBtn from '../Buttons/UploadImageBtn';
+import IPost from 'models/interfaces/IPost';
 
 interface Props {
   post: string;
@@ -12,7 +14,7 @@ interface Props {
   selectedPage: IFacebookPage;
   isGeneratedPostLoading: boolean;
   handleGeneratePost: (data: IGeneratePostRequest) => void;
-  handleSetPost: (newPost: string) => void;
+  handleSetPost: (newPost: IPost) => void;
 }
 
 export const PostForm = ({
@@ -54,12 +56,16 @@ export const PostForm = ({
 
   const handlePostChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     formik.setFieldValue('post', event.target.value);
-    handleSetPost(event.target.value);
+    handleSetPost({
+      text: event.target.value,
+    });
   };
 
   useEffect(() => {
     formik.setFieldValue('post', generatedPost);
-    handleSetPost(generatedPost);
+    handleSetPost({
+      text: generatedPost,
+    });
   }, [generatedPost]);
 
   return (
@@ -87,6 +93,9 @@ export const PostForm = ({
         </Grid>
         <Box mt={5}>
           <GeneratePostBtn isLoading={isGeneratedPostLoading} />
+          <Box ml={4} display={'inline-block'}>
+            <UploadImageBtn />
+          </Box>
         </Box>
 
         {/* <Box mt={5}>

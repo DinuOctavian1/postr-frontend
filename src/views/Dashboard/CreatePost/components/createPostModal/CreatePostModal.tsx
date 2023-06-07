@@ -9,20 +9,21 @@ import {
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import { useState } from 'react';
-import { PostNowBtn } from '../Buttons';
-import ScheduleBtn from '../Buttons/SchedultBtn';
+import { PostNowBtn } from './Buttons';
+import ScheduleBtn from './Buttons/SchedultBtn';
 import { PostForm } from './GeneratePostForm/GeneratePostForm';
 import FacebookPostPreview from './PostPreview/FacebookPostPreview';
 import ScheduleModal from './Schedule/ScheduleModal';
 import { SelectPage } from './SelectPage/SelectPage';
 import CloseIcon from '@mui/icons-material/Close';
+import IPost from 'models/interfaces/IPost';
 
 interface CreatePostModalProps {
   open: boolean;
   handleClose: () => void;
   pages: IFacebookPage[];
   handleSetPage: (page: IFacebookPage) => void;
-  post: string;
+  post: IPost;
   generatedPost: string;
   isGeneratedPostLoading: boolean;
   handlePostNow: (
@@ -39,7 +40,7 @@ interface CreatePostModalProps {
     pageAccessToken: string,
     timestamp: number,
   ) => void;
-  handleSetPost: (post: string) => void;
+  handleSetPost: (post: IPost) => void;
   handleGeneratePost: (data: IGeneratePostRequest) => void;
 }
 
@@ -84,12 +85,12 @@ const CreatePostModal = ({
         sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
         <>
-          <Box sx={{ position: 'absolute', top: 0, right: 0, p: 1 }}>
-            <IconButton onClick={handleClose} aria-label="close">
-              <CloseIcon />
-            </IconButton>
-          </Box>
           <Box sx={style}>
+            <Box sx={{ position: 'absolute', top: 0, right: 0, p: 1 }}>
+              <IconButton onClick={handleClose} aria-label="close">
+                <CloseIcon />
+              </IconButton>
+            </Box>
             <Typography
               variant="h5"
               id="modal-modal-title"
@@ -113,7 +114,7 @@ const CreatePostModal = ({
                 <SelectPage pages={pages} handleSetPageChange={handleSetPage} />
                 <Box mt={5}>
                   <PostForm
-                    post={post}
+                    post={post.text}
                     generatedPost={generatedPost}
                     selectedPage={selectedPage}
                     isGeneratedPostLoading={isGeneratedPostLoading}
@@ -125,7 +126,7 @@ const CreatePostModal = ({
               <Grid item xs={12} md={5}>
                 <Box mb={1} display={'flex'} justifyContent={'center'}>
                   <FacebookPostPreview
-                    post={post}
+                    post={post.text}
                     iconUrl={selectedPage?.iconUrl}
                     name={selectedPage?.name}
                   />
@@ -135,17 +136,17 @@ const CreatePostModal = ({
                     isLoading={isLoading}
                     handleClick={() =>
                       handlePostNow(
-                        post,
+                        post.text,
                         selectedPage.id,
                         selectedPage.access_token,
                       )
                     }
-                    disabled={post === ''}
+                    disabled={post?.text === ''}
                   />
                   <ScheduleBtn
                     isLoading={isScheduleBtnLoading}
                     handleClick={() => setOpenModal(true)}
-                    disabled={post === ''}
+                    disabled={post?.text === ''}
                   />
                 </Box>
               </Grid>
@@ -156,7 +157,7 @@ const CreatePostModal = ({
       <ScheduleModal
         open={openModal}
         post={{
-          text: post,
+          text: post?.text,
           pageId: selectedPage?.id,
           pageAccessToken: selectedPage?.access_token,
         }}
