@@ -10,4 +10,5 @@ export const ENDPOINT = {
   ResetPassword: '/api/auth/resetpassword',
   Login2FA: '/api/auth/login/2fa',
   GeneratePost: 'api/post/generate',
+  UploadFile: 'api/post/upload',
 };

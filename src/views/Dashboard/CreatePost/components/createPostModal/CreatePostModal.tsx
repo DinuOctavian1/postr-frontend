@@ -11,14 +11,18 @@ import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import { useState } from 'react';
 import { PostNowBtn } from './Buttons';
 import ScheduleBtn from './Buttons/SchedultBtn';
-import { PostForm } from './GeneratePostForm/GeneratePostForm';
+import { GeneratePostForm } from './GeneratePostForm/GeneratePostForm';
 import FacebookPostPreview from './PostPreview/FacebookPostPreview';
 import ScheduleModal from './Schedule/ScheduleModal';
 import { SelectPage } from './SelectPage/SelectPage';
 import CloseIcon from '@mui/icons-material/Close';
 import IPost from 'models/interfaces/IPost';
+import UploadImageBtn from './Buttons/UploadImageBtn';
 
 interface CreatePostModalProps {
+  handleUploadFile: (file: FormData) => void;
+  fileUrl: string;
+  isFileLoading: boolean;
   open: boolean;
   handleClose: () => void;
   pages: IFacebookPage[];
@@ -58,6 +62,9 @@ const style = {
 };
 
 const CreatePostModal = ({
+  handleUploadFile,
+  fileUrl,
+  isFileLoading,
   open,
   handleClose,
   pages,
@@ -113,7 +120,7 @@ const CreatePostModal = ({
                 </Box>
                 <SelectPage pages={pages} handleSetPageChange={handleSetPage} />
                 <Box mt={5}>
-                  <PostForm
+                  <GeneratePostForm
                     post={post.text}
                     generatedPost={generatedPost}
                     selectedPage={selectedPage}
@@ -122,11 +129,18 @@ const CreatePostModal = ({
                     handleSetPost={handleSetPost}
                   />
                 </Box>
+                <Box ml={4} display={'inline-block'}>
+                  <UploadImageBtn
+                    handleUploadFile={handleUploadFile}
+                    fileUrl={fileUrl}
+                    handleSetPost={handleSetPost}
+                  />
+                </Box>
               </Grid>
               <Grid item xs={12} md={5}>
                 <Box mb={1} display={'flex'} justifyContent={'center'}>
                   <FacebookPostPreview
-                    post={post.text}
+                    post={post}
                     iconUrl={selectedPage?.iconUrl}
                     name={selectedPage?.name}
                   />

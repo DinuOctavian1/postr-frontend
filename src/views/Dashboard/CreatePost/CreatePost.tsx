@@ -18,6 +18,7 @@ import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 import apiAgent from 'api/ApiAgent';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import IPost from 'models/interfaces/IPost';
+import useUploadFile from 'hooks/useUploadFile';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -36,6 +37,7 @@ export const CreatePost = () => {
     text: '',
     imageUrl: '',
   });
+
   const {
     isLoading: isScheduleBtnLoading,
     resp,
@@ -48,8 +50,21 @@ export const CreatePost = () => {
     isLoading: isGeneratedPostLoading,
   } = useGeneratePost(apiAgent);
 
+  const {
+    uploadFile,
+    fileUrl,
+    isLoading: isFileLoading,
+  } = useUploadFile(apiAgent);
+
+  const handleUploadFile = (file: FormData) => {
+    uploadFile(file);
+  };
+
   const handleSetPost = (newPost: IPost) => {
-    setPost(newPost);
+    setPost((prevPost) => ({
+      ...prevPost,
+      ...newPost,
+    }));
   };
 
   const handleSetPageChange = (page: IFacebookPage) => {
@@ -100,6 +115,9 @@ export const CreatePost = () => {
         />
 
         <CreatePostModal
+          handleUploadFile={handleUploadFile}
+          fileUrl={fileUrl}
+          isFileLoading={isFileLoading}
           open={open}
           handleClose={handleClose}
           pages={pages}

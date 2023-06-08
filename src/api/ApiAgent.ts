@@ -106,6 +106,10 @@ const Facebook = {
 const Post = {
   generateFacebookPost: (data: IGeneratePostRequest) =>
     request.post(ENDPOINT.GeneratePost, data),
+
+  uploadFile: (file: File) => {
+    return request.post(ENDPOINT.UploadFile, file);
+  },
 };
 
 const apiAgent = {

@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import validationSchema from './validationSchema';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import GeneratePostBtn from '../Buttons/GeneratePostBtn';
-import UploadImageBtn from '../Buttons/UploadImageBtn';
 import IPost from 'models/interfaces/IPost';
 
 interface Props {
@@ -17,7 +16,7 @@ interface Props {
   handleSetPost: (newPost: IPost) => void;
 }
 
-export const PostForm = ({
+export const GeneratePostForm = ({
   post,
   generatedPost,
   selectedPage,
@@ -93,9 +92,6 @@ export const PostForm = ({
         </Grid>
         <Box mt={5}>
           <GeneratePostBtn isLoading={isGeneratedPostLoading} />
-          <Box ml={4} display={'inline-block'}>
-            <UploadImageBtn />
-          </Box>
         </Box>
 
         {/* <Box mt={5}>
