@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import IAuthResponse from 'models/response/IAuthResponse';
 import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
@@ -10,6 +11,7 @@ import IForgotPasswordRequest from '../models/request/IForgotPasswordRequest';
 import ILoginRequest from '../models/request/ILoginRequest';
 import IResetPasswordRequest from '../models/request/IResetPasswordRequest';
 import ISignupRequest from '../models/request/ISignupRequest';
+import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -32,7 +34,7 @@ axios.interceptors.response.use(
 );
 const request = {
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
-  post: <T>(url: string, body: any) =>
+  post: <T>(url: string, body: any, params?: any) =>
     axios.post<T>(url, body).then(responseBody),
   put: <T>(url: string, body: any) => axios.put<T>(url).then(responseBody),
   delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
@@ -68,13 +70,26 @@ const Facebook = {
     return response;
   },
 
-  createPost: (text: string, pageId: string, pageAccessToken: string) => {
+  postNow: async (requestModel: IFBPostRequest) => {
     const currentWithCredentials = axios.defaults.withCredentials;
     axios.defaults.withCredentials = false;
-    const response = request.post(
-      `https://graph.facebook.com/${pageId}/feed?access_token=${pageAccessToken}`,
-      { message: text },
-    );
+
+    const url = requestModel.mediaUrl
+      ? `https://graph.facebook.com/${requestModel.pageId}/photos`
+      : `https://graph.facebook.com/${requestModel.pageId}/feed`;
+
+    const requestData = requestModel.mediaUrl
+      ? {
+          url: requestModel.mediaUrl,
+          caption: requestModel.text,
+          access_token: requestModel.pageAccessToken,
+        }
+      : {
+          message: requestModel.text,
+          access_token: requestModel.pageAccessToken,
+        };
+
+    const response = request.post(url, requestData);
     axios.defaults.withCredentials = currentWithCredentials;
 
     return response;

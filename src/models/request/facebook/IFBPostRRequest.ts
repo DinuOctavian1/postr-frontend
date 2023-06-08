@@ -1,7 +1,8 @@
-interface IFBPostRRequest {
+interface IFBPostRequest {
   text: string;
   pageId: string;
   pageAccessToken: string;
+  mediaUrl?: string;
 }
 
-export default IFBPostRRequest;
+export default IFBPostRequest;

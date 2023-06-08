@@ -71,18 +71,8 @@ export const CreatePost = () => {
     setSelectedPage(page);
   };
 
-  const handlePostNow = (
-    post: string,
-    pageId: string,
-    pageAccessToken: string,
-  ) => {
-    const model: IFBPostRequest = {
-      text: post,
-      pageId: pageId,
-      pageAccessToken: pageAccessToken,
-    };
-
-    postOnFb(model);
+  const handlePostNow = (postModel: IFBPostRequest) => {
+    postOnFb(postModel);
   };
 
   const hanlePostGeneration = (data: IGeneratePostRequest) => {

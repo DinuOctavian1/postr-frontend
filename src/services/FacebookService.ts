@@ -3,6 +3,7 @@ import IFacebookLoginStatusResponse from 'models/response/facebook/IFacebookLogi
 import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
 import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 import IExternalLoginService from './IExternalLoginService';
+import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 
 class FacebookService implements IExternalLoginService {
   static readonly fbAppId: string = process.env.REACT_APP_FACEBOOK_APP_ID;
@@ -50,8 +51,8 @@ class FacebookService implements IExternalLoginService {
     });
   }
 
-  async postAsync(text: string, pageId: string, pageAccessToken: string) {
-    return await apiAgent.Facebook.createPost(text, pageId, pageAccessToken);
+  async postAsync(requestModel: IFBPostRequest) {
+    return await apiAgent.Facebook.postNow(requestModel);
   }
 
   async schedulePostAsync(

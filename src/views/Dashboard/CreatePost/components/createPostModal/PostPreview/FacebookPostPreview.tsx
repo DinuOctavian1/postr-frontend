@@ -73,20 +73,6 @@ const FacebookPostPreview = ({ post, iconUrl, name }: Props) => {
             )
           }
         />
-        {!post.imageUrl ? (
-          <Skeleton
-            sx={{ height: 270 }}
-            animation="wave"
-            variant="rectangular"
-          />
-        ) : (
-          <CardMedia
-            component="img"
-            height="140"
-            image={post.imageUrl}
-            alt="Nicola Sturgeon on a TED talk stage"
-          />
-        )}
         <CardContent>
           {!post.text ? (
             <Box>
@@ -99,6 +85,20 @@ const FacebookPostPreview = ({ post, iconUrl, name }: Props) => {
             </Typography>
           )}
         </CardContent>
+        {!post.imageUrl ? (
+          <Skeleton
+            sx={{ height: 280 }}
+            animation="wave"
+            variant="rectangular"
+          />
+        ) : (
+          <CardMedia
+            component="img"
+            height="140"
+            image={post.imageUrl}
+            alt="post image"
+          />
+        )}
 
         <CardActions
           disableSpacing

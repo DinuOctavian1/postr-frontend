@@ -18,6 +18,7 @@ import { SelectPage } from './SelectPage/SelectPage';
 import CloseIcon from '@mui/icons-material/Close';
 import IPost from 'models/interfaces/IPost';
 import UploadImageBtn from './Buttons/UploadImageBtn';
+import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 
 interface CreatePostModalProps {
   handleUploadFile: (file: FormData) => void;
@@ -30,11 +31,7 @@ interface CreatePostModalProps {
   post: IPost;
   generatedPost: string;
   isGeneratedPostLoading: boolean;
-  handlePostNow: (
-    text: string,
-    pageId: string,
-    pageAccessToken: string,
-  ) => void;
+  handlePostNow: (postModel: IFBPostRequest) => void;
   selectedPage: IFacebookPage;
   isLoading: boolean;
   isScheduleBtnLoading: boolean;
@@ -148,13 +145,15 @@ const CreatePostModal = ({
                 <Box mt={5} display={'flex'} justifyContent={'space-evenly'}>
                   <PostNowBtn
                     isLoading={isLoading}
-                    handleClick={() =>
-                      handlePostNow(
-                        post.text,
-                        selectedPage.id,
-                        selectedPage.access_token,
-                      )
-                    }
+                    handleClick={() => {
+                      const postModel: IFBPostRequest = {
+                        text: post.text,
+                        pageId: selectedPage.id,
+                        pageAccessToken: selectedPage.access_token,
+                        mediaUrl: post?.imageUrl,
+                      };
+                      handlePostNow(postModel);
+                    }}
                     disabled={post?.text === ''}
                   />
                   <ScheduleBtn
