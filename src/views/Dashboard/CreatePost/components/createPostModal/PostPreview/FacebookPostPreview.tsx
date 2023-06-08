@@ -16,20 +16,15 @@ import ReplyIcon from '@mui/icons-material/ReplyOutlined';
 
 import { Skeleton } from '@mui/material';
 import { MoreHoriz } from '@mui/icons-material';
+import IPost from 'models/interfaces/IPost';
 
 interface Props {
-  post: string;
+  post: IPost;
   iconUrl: string;
   name: string;
-  imageUrl?: string;
 }
 
-const FacebookPostPreview = ({
-  post,
-  iconUrl,
-  name,
-  imageUrl = null,
-}: Props) => {
+const FacebookPostPreview = ({ post, iconUrl, name }: Props) => {
   const theme = useTheme();
   const isMd = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
@@ -78,7 +73,7 @@ const FacebookPostPreview = ({
             )
           }
         />
-        {!imageUrl ? (
+        {!post.imageUrl ? (
           <Skeleton
             sx={{ height: 270 }}
             animation="wave"
@@ -88,19 +83,19 @@ const FacebookPostPreview = ({
           <CardMedia
             component="img"
             height="140"
-            image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
+            image={post.imageUrl}
             alt="Nicola Sturgeon on a TED talk stage"
           />
         )}
         <CardContent>
-          {!post ? (
+          {!post.text ? (
             <Box>
               <Skeleton animation={'wave'} />
               <Skeleton animation={'wave'} sx={{ width: 200 }} />
             </Box>
           ) : (
             <Typography variant="body2" color="text.secondary">
-              {post}
+              {post.text}
             </Typography>
           )}
         </CardContent>
