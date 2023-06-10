@@ -34,9 +34,9 @@ axios.interceptors.response.use(
 );
 
 const modifyWithCredentials = (value: boolean) => {
-  const currentWithCredentials = axios.defaults.withCredentials;
+  const previousValue = axios.defaults.withCredentials;
   axios.defaults.withCredentials = value;
-  return currentWithCredentials;
+  return previousValue;
 };
 
 const resetWithCredentials = (previousValue: boolean) => {
@@ -68,12 +68,13 @@ const Account = {
 
 const Facebook = {
   getFbPages: (userId: string, userAccesToken: string) => {
-    const previousWithCredentials = modifyWithCredentials(false);
+    const currentWithCredentials = modifyWithCredentials(false);
 
     const response = request.get<IGetFacebookPagesResponse>(
-      ENDPOINT_FACEBOOK.GetPages(userId, userAccesToken),
+      `https://graph.facebook.com/${userId}/accounts?access_token=${userAccesToken}`,
     );
-    resetWithCredentials(previousWithCredentials);
+
+    resetWithCredentials(currentWithCredentials);
 
     return response;
   },

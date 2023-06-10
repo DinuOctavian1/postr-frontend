@@ -15,9 +15,10 @@ export const ENDPOINT = {
 
 export const ENDPOINT_FACEBOOK = {
   GetPages: (userId: string, userAccessToken: string) =>
-    `/api/facebook/${userId}/accounts?access_token=${userAccessToken}`,
-  PostTextWithPhoto: (pageId: string) => `/api/facebook/${pageId}/photos`,
-  PostText: (pageId: string) => `/api/facebook/${pageId}/feed`,
+    `https://graph.facebook.com/${userId}/accounts?access_token=${userAccessToken}`,
+  PostTextWithPhoto: (pageId: string) =>
+    `https://graph.facebook.com/${pageId}/photos`,
+  PostText: (pageId: string) => `https://graph.facebook.com/${pageId}/feed`,
   SchedulePost: (pageId: string, pageAccessToken: string) =>
     `https://graph.facebook.com/${pageId}/feed?access_token=${pageAccessToken}`,
 };
