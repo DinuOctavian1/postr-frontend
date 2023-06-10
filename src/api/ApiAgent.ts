@@ -4,7 +4,7 @@ import IAuthResponse from 'models/response/IAuthResponse';
 import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
 import { toast } from 'react-toastify';
 
-import { BASE_URL, ENDPOINT } from '../config/apiEndpoints';
+import { BASE_URL, ENDPOINT, ENDPOINT_FACEBOOK } from '../config/apiEndpoints';
 import IGeneratePostRequest from '../models/request/ICreatePostRequest';
 import IEmailConfirmationRequest from '../models/request/IEmailConfirmationRequest';
 import IForgotPasswordRequest from '../models/request/IForgotPasswordRequest';
@@ -32,9 +32,20 @@ axios.interceptors.response.use(
     return Promise.reject(error.response);
   },
 );
+
+const modifyWithCredentials = (value: boolean) => {
+  const currentWithCredentials = axios.defaults.withCredentials;
+  axios.defaults.withCredentials = value;
+  return currentWithCredentials;
+};
+
+const resetWithCredentials = (previousValue: boolean) => {
+  axios.defaults.withCredentials = previousValue;
+};
+
 const request = {
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
-  post: <T>(url: string, body: any, params?: any) =>
+  post: <T>(url: string, body: any) =>
     axios.post<T>(url, body).then(responseBody),
   put: <T>(url: string, body: any) => axios.put<T>(url).then(responseBody),
   delete: <T>(url: string) => axios.delete<T>(url).then(responseBody),
@@ -57,26 +68,22 @@ const Account = {
 
 const Facebook = {
   getFbPages: (userId: string, userAccesToken: string) => {
-    const currentWithCredentials = axios.defaults.withCredentials;
-
-    axios.defaults.withCredentials = false;
+    const previousWithCredentials = modifyWithCredentials(false);
 
     const response = request.get<IGetFacebookPagesResponse>(
-      `https://graph.facebook.com/${userId}/accounts?access_token=${userAccesToken}`,
+      ENDPOINT_FACEBOOK.GetPages(userId, userAccesToken),
     );
-
-    axios.defaults.withCredentials = currentWithCredentials;
+    resetWithCredentials(previousWithCredentials);
 
     return response;
   },
 
   postNow: async (requestModel: IFBPostRequest) => {
-    const currentWithCredentials = axios.defaults.withCredentials;
-    axios.defaults.withCredentials = false;
+    const previousWithCredentials = modifyWithCredentials(false);
 
     const url = requestModel.mediaUrl
-      ? `https://graph.facebook.com/${requestModel.pageId}/photos`
-      : `https://graph.facebook.com/${requestModel.pageId}/feed`;
+      ? ENDPOINT_FACEBOOK.PostTextWithPhoto(requestModel.pageId)
+      : ENDPOINT_FACEBOOK.PostText(requestModel.pageId);
 
     const requestData = requestModel.mediaUrl
       ? {
@@ -90,7 +97,8 @@ const Facebook = {
         };
 
     const response = request.post(url, requestData);
-    axios.defaults.withCredentials = currentWithCredentials;
+
+    resetWithCredentials(previousWithCredentials);
 
     return response;
   },
@@ -101,10 +109,10 @@ const Facebook = {
     pageAccessToken: string,
     publishDate: number,
   ) => {
-    const currentWithCredentials = axios.defaults.withCredentials;
-    axios.defaults.withCredentials = false;
+    const currentWithCredentials = modifyWithCredentials(false);
+
     const response = request.post(
-      `https://graph.facebook.com/${pageId}/feed?access_token=${pageAccessToken}`,
+      ENDPOINT_FACEBOOK.SchedulePost(pageId, pageAccessToken),
       {
         message: text,
         published: false,
@@ -112,7 +120,8 @@ const Facebook = {
         pageAccessToken: pageAccessToken,
       },
     );
-    axios.defaults.withCredentials = currentWithCredentials;
+
+    resetWithCredentials(currentWithCredentials);
 
     return response;
   },

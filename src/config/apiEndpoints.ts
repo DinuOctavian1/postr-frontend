@@ -12,3 +12,12 @@ export const ENDPOINT = {
   GeneratePost: 'api/post/generate',
   UploadFile: 'api/post/upload',
 };
+
+export const ENDPOINT_FACEBOOK = {
+  GetPages: (userId: string, userAccessToken: string) =>
+    `/api/facebook/${userId}/accounts?access_token=${userAccessToken}`,
+  PostTextWithPhoto: (pageId: string) => `/api/facebook/${pageId}/photos`,
+  PostText: (pageId: string) => `/api/facebook/${pageId}/feed`,
+  SchedulePost: (pageId: string, pageAccessToken: string) =>
+    `https://graph.facebook.com/${pageId}/feed?access_token=${pageAccessToken}`,
+};
