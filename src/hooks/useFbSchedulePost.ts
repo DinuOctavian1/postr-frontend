@@ -1,3 +1,4 @@
+import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
 import { useState } from 'react';
 import IExternalLoginService from 'services/IExternalLoginService';
 
@@ -6,25 +7,15 @@ const useFbSchdulePost = (
 ): {
   isLoading: boolean;
   resp: any;
-  schedulePost: (
-    message: string,
-    pageId: string,
-    pageAccessToken: string,
-    publishDate: number,
-  ) => void;
+  schedulePost: (model: IFacebookSchedulePosts) => void;
 } => {
   const [isLoading, setIsLoading] = useState(false);
   const [resp, setResp] = useState<any>(null);
 
-  const schedulePost = (
-    message: string,
-    pageId: string,
-    pageAccessToken: string,
-    publishDate: number,
-  ) => {
+  const schedulePost = (model: IFacebookSchedulePosts) => {
     setIsLoading(true);
     loginProvider
-      .schedulePostAsync(message, pageId, pageAccessToken, publishDate)
+      .schedulePostAsync(model)
       .then((response) => {
         setResp(response);
         setIsLoading(false);

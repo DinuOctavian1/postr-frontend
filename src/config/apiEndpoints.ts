@@ -19,6 +19,8 @@ export const ENDPOINT_FACEBOOK = {
   PostTextWithPhoto: (pageId: string) =>
     `https://graph.facebook.com/${pageId}/photos`,
   PostText: (pageId: string) => `https://graph.facebook.com/${pageId}/feed`,
-  SchedulePost: (pageId: string, pageAccessToken: string) =>
+  SchedulePostWithText: (pageId: string, pageAccessToken: string) =>
     `https://graph.facebook.com/${pageId}/feed?access_token=${pageAccessToken}`,
+  SchedulePostWithPhoto: (pageId: string, pageAccessToken: string) =>
+    `https://graph.facebook.com/${pageId}/photos?access_token=${pageAccessToken}`,
 };

@@ -12,6 +12,7 @@ import ILoginRequest from '../models/request/ILoginRequest';
 import IResetPasswordRequest from '../models/request/IResetPasswordRequest';
 import ISignupRequest from '../models/request/ISignupRequest';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
+import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -71,7 +72,7 @@ const Facebook = {
     const currentWithCredentials = modifyWithCredentials(false);
 
     const response = request.get<IGetFacebookPagesResponse>(
-      `https://graph.facebook.com/${userId}/accounts?access_token=${userAccesToken}`,
+      ENDPOINT_FACEBOOK.GetPages(userId, userAccesToken),
     );
 
     resetWithCredentials(currentWithCredentials);
@@ -104,23 +105,34 @@ const Facebook = {
     return response;
   },
 
-  schedulePost: (
-    text: string,
-    pageId: string,
-    pageAccessToken: string,
-    publishDate: number,
-  ) => {
+  schedulePost: (model: IFacebookSchedulePosts) => {
+    const facebookUrl = model.post.imageUrl
+      ? ENDPOINT_FACEBOOK.SchedulePostWithPhoto(
+          model.pageId,
+          model.pageAccessToken,
+        )
+      : ENDPOINT_FACEBOOK.SchedulePostWithText(
+          model.pageId,
+          model.pageAccessToken,
+        );
+
+    const requestData = model.post.imageUrl
+      ? {
+          message: model.post.text,
+          published: false,
+          scheduled_publish_time: model.publishDate,
+          pageAccessToken: model.pageAccessToken,
+          url: model.post.imageUrl,
+        }
+      : {
+          message: model.post.text,
+          published: false,
+          scheduled_publish_time: model.publishDate,
+          pageAccessToken: model.pageAccessToken,
+        };
     const currentWithCredentials = modifyWithCredentials(false);
 
-    const response = request.post(
-      ENDPOINT_FACEBOOK.SchedulePost(pageId, pageAccessToken),
-      {
-        message: text,
-        published: false,
-        scheduled_publish_time: publishDate,
-        pageAccessToken: pageAccessToken,
-      },
-    );
+    const response = request.post(facebookUrl, requestData);
 
     resetWithCredentials(currentWithCredentials);
 

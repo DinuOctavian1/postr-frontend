@@ -19,6 +19,7 @@ import apiAgent from 'api/ApiAgent';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import IPost from 'models/interfaces/IPost';
 import useUploadFile from 'hooks/useUploadFile';
+import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
 
 export const CreatePost = () => {
   const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
@@ -58,6 +59,10 @@ export const CreatePost = () => {
 
   const handleUploadFile = (file: FormData) => {
     uploadFile(file);
+  };
+
+  const handleSchedulePost = (model: IFacebookSchedulePosts) => {
+    schedulePost(model);
   };
 
   const handleSetPost = (newPost: IPost) => {
@@ -119,7 +124,7 @@ export const CreatePost = () => {
           selectedPage={selectedPage}
           isLoading={isLoading}
           isScheduleBtnLoading={isScheduleBtnLoading}
-          handleSchedulePost={schedulePost}
+          handleSchedulePost={handleSchedulePost}
           handleSetPost={handleSetPost}
           handleGeneratePost={hanlePostGeneration}
         />

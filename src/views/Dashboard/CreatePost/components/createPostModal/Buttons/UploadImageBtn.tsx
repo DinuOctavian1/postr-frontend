@@ -1,6 +1,6 @@
 import ImageIcon from '@mui/icons-material/Image';
 import { IconButton } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 interface Props {
   handleUploadFile: (file: FormData) => void;

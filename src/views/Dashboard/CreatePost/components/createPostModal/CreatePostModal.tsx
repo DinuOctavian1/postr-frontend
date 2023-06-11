@@ -19,6 +19,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IPost from 'models/interfaces/IPost';
 import UploadImageBtn from './Buttons/UploadImageBtn';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
+import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
 
 interface CreatePostModalProps {
   handleUploadFile: (file: FormData) => void;
@@ -35,12 +36,7 @@ interface CreatePostModalProps {
   selectedPage: IFacebookPage;
   isLoading: boolean;
   isScheduleBtnLoading: boolean;
-  handleSchedulePost: (
-    text: string,
-    pageId: string,
-    pageAccessToken: string,
-    timestamp: number,
-  ) => void;
+  handleSchedulePost: (model: IFacebookSchedulePosts) => void;
   handleSetPost: (post: IPost) => void;
   handleGeneratePost: (data: IGeneratePostRequest) => void;
 }
@@ -169,8 +165,8 @@ const CreatePostModal = ({
       </Modal>
       <ScheduleModal
         open={openModal}
-        post={{
-          text: post?.text,
+        postDetails={{
+          post,
           pageId: selectedPage?.id,
           pageAccessToken: selectedPage?.access_token,
         }}

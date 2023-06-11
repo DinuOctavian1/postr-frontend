@@ -4,6 +4,7 @@ import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPage
 import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 import IExternalLoginService from './IExternalLoginService';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
+import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
 
 class FacebookService implements IExternalLoginService {
   static readonly fbAppId: string = process.env.REACT_APP_FACEBOOK_APP_ID;
@@ -51,22 +52,12 @@ class FacebookService implements IExternalLoginService {
     });
   }
 
-  async postAsync(requestModel: IFBPostRequest) {
-    return await apiAgent.Facebook.postNow(requestModel);
+  async postAsync(model: IFBPostRequest) {
+    return await apiAgent.Facebook.postNow(model);
   }
 
-  async schedulePostAsync(
-    text: string,
-    pageId: string,
-    pageAccessToken: string,
-    publishDate: number,
-  ) {
-    return await apiAgent.Facebook.schedulePost(
-      text,
-      pageId,
-      pageAccessToken,
-      publishDate,
-    );
+  async schedulePostAsync(model: IFacebookSchedulePosts) {
+    return await apiAgent.Facebook.schedulePost(model);
   }
 
   getAppId = () => {
