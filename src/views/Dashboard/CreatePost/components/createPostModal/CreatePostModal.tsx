@@ -5,10 +5,12 @@ import {
   IconButton,
   Modal,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PostNowBtn } from './Buttons';
 import ScheduleBtn from './Buttons/SchedultBtn';
 import { GeneratePostForm } from './GeneratePostForm/GeneratePostForm';
@@ -20,6 +22,7 @@ import IPost from 'models/interfaces/IPost';
 import UploadImageBtn from './Buttons/UploadImageBtn';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
+import SelectedImageCard from './SelectedImageCard/SelectedImageCard';
 
 interface CreatePostModalProps {
   handleUploadFile: (file: FormData) => void;
@@ -73,7 +76,24 @@ const CreatePostModal = ({
   handleSetPost,
   handleGeneratePost,
 }: CreatePostModalProps) => {
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up('md'), {
+    defaultMatches: true,
+  });
+
   const [openModal, setOpenModal] = useState(false);
+  const [showSelectedImage, setShowSelectedImage] = useState(false);
+
+  const handleSelectedImageOnClose = () => {
+    setShowSelectedImage(false);
+    handleSetPost({ ...post, imageUrl: '' });
+  };
+
+  useEffect(() => {
+    if (post.imageUrl !== '') {
+      setShowSelectedImage(true);
+    }
+  }, [post.imageUrl]);
 
   return (
     <>
@@ -112,7 +132,7 @@ const CreatePostModal = ({
                   </Typography>
                 </Box>
                 <SelectPage pages={pages} handleSetPageChange={handleSetPage} />
-                <Box mt={5}>
+                <Box mt={5} mb={3}>
                   <GeneratePostForm
                     post={post.text}
                     generatedPost={generatedPost}
@@ -122,12 +142,27 @@ const CreatePostModal = ({
                     handleSetPost={handleSetPost}
                   />
                 </Box>
-                <Box ml={4} display={'inline-block'}>
-                  <UploadImageBtn
-                    handleUploadFile={handleUploadFile}
-                    fileUrl={fileUrl}
-                    handleSetPost={handleSetPost}
-                  />
+                <Divider />
+                <Box
+                  mt={3}
+                  display="flex"
+                  flexDirection={'row'}
+                  width={!isMd ? '50%' : '30%'}
+                  justifyContent={'space-between'}
+                >
+                  <Box>
+                    <UploadImageBtn
+                      handleUploadFile={handleUploadFile}
+                      fileUrl={fileUrl}
+                      handleSetPost={handleSetPost}
+                    />
+                  </Box>
+                  {showSelectedImage && (
+                    <SelectedImageCard
+                      post={post}
+                      onClose={handleSelectedImageOnClose}
+                    />
+                  )}
                 </Box>
               </Grid>
               <Grid item xs={12} md={5}>

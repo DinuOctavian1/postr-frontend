@@ -80,7 +80,11 @@ const FacebookPostPreview = ({ post, iconUrl, name }: Props) => {
               <Skeleton animation={'wave'} sx={{ width: 200 }} />
             </Box>
           ) : (
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ whiteSpace: 'pre-wrap' }}
+            >
               {post.text}
             </Typography>
           )}

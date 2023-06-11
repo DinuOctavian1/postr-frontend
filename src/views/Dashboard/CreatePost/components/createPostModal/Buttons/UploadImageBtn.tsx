@@ -1,5 +1,5 @@
 import ImageIcon from '@mui/icons-material/Image';
-import { IconButton } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import { useEffect } from 'react';
 
 interface Props {
@@ -31,15 +31,38 @@ const UploadImageBtn = ({
   }, [fileUrl]);
 
   return (
-    <IconButton
-      color="warning"
-      aria-label="upload picture"
+    <Box
+      width={140}
+      height={140}
       component="label"
-      size={'large'}
+      display="flex"
+      justifyContent="center"
+      border="dashed"
+      borderRadius={0.1}
+      borderColor="primary.main"
+      p={1}
+      //sx={{ borderWidth: '2px', cursor: 'pointer' }}
+      sx={{
+        borderWidth: '2px',
+        cursor: 'pointer',
+      }}
     >
-      <input hidden accept="image/*" type="file" onInput={handleFileUpload} />
-      <ImageIcon sx={{ fontSize: '50px' }} />
-    </IconButton>
+      <IconButton
+        color="warning"
+        aria-label="upload picture"
+        component="label"
+        size={'large'}
+        sx={{
+          '&:hover': {
+            backgroundColor: 'transparent',
+            color: 'primary',
+          },
+        }}
+      >
+        <input hidden accept="image/*" type="file" onInput={handleFileUpload} />
+        <ImageIcon sx={{ fontSize: '90px' }} />
+      </IconButton>
+    </Box>
   );
 };
 

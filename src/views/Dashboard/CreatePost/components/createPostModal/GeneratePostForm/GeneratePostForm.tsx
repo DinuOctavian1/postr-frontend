@@ -83,7 +83,9 @@ export const GeneratePostForm = ({
               multiline
               rows={10}
               fullWidth
-              label={'Enter your post here'}
+              label={
+                'You can either enter a short description and we will generate the post for you, or you can enter the full post you want to publish:'
+              }
               error={formik.touched.post && Boolean(formik.errors.post)}
               // @ts-ignore
               helperText={formik.touched.post && formik.errors.post}
