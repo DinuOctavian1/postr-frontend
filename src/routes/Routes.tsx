@@ -1,6 +1,7 @@
 import FacebookSDKWrapper from 'config/FacebookSDKWrapper';
 import { Route, Routes as ReactRoutes } from 'react-router-dom';
 import { CreatePost } from 'views/Dashboard/CreatePost/CreatePost';
+import Dashboard from 'views/Dashboard/Dashboard';
 import EmailConfirmation from 'views/EmailConfirmation/EmailConfirmation';
 import Login from 'views/Login';
 import Signup from 'views/Signup';
@@ -17,6 +18,7 @@ const Routes = (): JSX.Element => {
 
       <Route element={<FacebookSDKWrapper />}>
         <Route path={ROUTE.CreatePost} element={<CreatePost />} />
+        <Route path={'dashboard'} element={<Dashboard />} />
       </Route>
     </ReactRoutes>
   );

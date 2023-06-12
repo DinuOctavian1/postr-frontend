@@ -31,7 +31,8 @@ const FacebookPostPreview = ({ post, iconUrl, name }: Props) => {
   });
 
   const cardStyle = {
-    width: isMd ? 400 : 300,
+    width: isMd ? 480 : 300,
+    height: isMd ? 550 : 500,
   };
 
   return (
@@ -91,7 +92,7 @@ const FacebookPostPreview = ({ post, iconUrl, name }: Props) => {
         </CardContent>
         {!post.imageUrl ? (
           <Skeleton
-            sx={{ height: 280 }}
+            sx={{ height: 330 }}
             animation="wave"
             variant="rectangular"
           />
