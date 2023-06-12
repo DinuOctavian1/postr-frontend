@@ -3,7 +3,7 @@ import FacebookService from 'services/FacebookService';
 import { Container } from '@mui/material';
 import useFbLogin from 'hooks/useFbLogin';
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
-import useFBGetLoginStatus from 'hooks/usFBGetLoginStatus';
+import useFBGetLoginStatus from 'hooks/useFBGetLoginStatus';
 import useFbGetUserPages from 'hooks/useFbGetUserPages';
 import usePostOnFacebook from 'hooks/usePostOnFacebook';
 import useFBLogout from 'hooks/useFBLogout';
@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 
 import { toast } from 'react-toastify';
-import { ConnectAccount } from './components/ConnectAccounts/ConnectAccount';
+import { ConnectAccount } from '../ConnectAccounts/ConnectAccount';
 import { useFbSchdulePost, useGeneratePost } from 'hooks';
 import { CreatePostModal } from './components/createPostModal';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
@@ -22,11 +22,11 @@ import useUploadFile from 'hooks/useUploadFile';
 import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
 
 export const CreatePost = () => {
-  const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
-    FacebookService.getInstance(),
-  );
+  // const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
+  //   FacebookService.getInstance(),
+  // );
   const [getPages, pages] = useFbGetUserPages(FacebookService.getInstance());
-  const { login, fbUser } = useFbLogin(FacebookService.getInstance());
+  // const { login, fbUser } = useFbLogin(FacebookService.getInstance());
   const { postOnFb, response, isLoading } = usePostOnFacebook(
     FacebookService.getInstance(),
     toast,
@@ -89,25 +89,25 @@ export const CreatePost = () => {
     setOpen(false);
   };
 
-  const showCreatePostModal = () => {
-    setOpen(true);
-  };
+  // const showCreatePostModal = () => {
+  //   setOpen(true);
+  // };
 
-  useEffect(() => {
-    if (loggedUser.isLogged || fbUser?.name) {
-      getPages(loggedUser.userId, loggedUser.token);
-      //logout();
-    }
-  }, [fbUser]);
+  // useEffect(() => {
+  //   if (loggedUser.isLogged || fbUser?.name) {
+  //     getPages(loggedUser.userId, loggedUser.token);
+  //     //logout();
+  //   }
+  // }, [fbUser]);
 
   return (
     <Main>
       <Container>
-        <ConnectAccount
+        {/* <ConnectAccount
           login={login}
           pages={pages ?? null}
           showModal={showCreatePostModal}
-        />
+        /> */}
 
         <CreatePostModal
           handleUploadFile={handleUploadFile}

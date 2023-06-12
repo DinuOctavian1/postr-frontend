@@ -36,7 +36,6 @@ export const ConnectAccount = ({ login, pages, showModal }: Props) => {
                     fontWeight: 700,
                   }}
                 >
-                  {/* Amplify Your Social Media Presence  */}
                   Choose a social network to add an account
                 </Typography>
               </Box>
@@ -52,7 +51,7 @@ export const ConnectAccount = ({ login, pages, showModal }: Props) => {
             </Box>
           </Grid>
         </Grid>
-        <Box display={'flex'} justifyContent="space-evenly" mb={5}>
+        <Box display={'flex'} justifyContent="space-evenly" mb={15}>
           <Button variant="contained" color="primary" onClick={() => login()}>
             <FacebookIcon sx={{ marginRight: 1 }} />
             Facebook

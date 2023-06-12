@@ -6,3 +6,6 @@ export { default as useFbLogin } from './useFbLogin';
 export { default as useGeneratePost } from './useGeneratePost';
 export { default as useFbSchdulePost } from './useFbSchedulePost';
 export { default as usePostOnFacebook } from './usePostOnFacebook';
+export { default as useFbGetUserPages } from './useFbGetUserPages';
+export { default as useFBGetLoginStatus } from './useFBGetLoginStatus';
+export { default as useFBLogout } from './useFBLogout';
