@@ -1,4 +1,4 @@
-import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 import { useState } from 'react';
 import IExternalLoginService from 'services/IExternalLoginService';
 
@@ -7,12 +7,12 @@ const useFbSchdulePost = (
 ): {
   isLoading: boolean;
   resp: any;
-  schedulePost: (model: IFacebookSchedulePosts) => void;
+  schedulePost: (model: IFacebookSchedulePost) => void;
 } => {
   const [isLoading, setIsLoading] = useState(false);
   const [resp, setResp] = useState<any>(null);
 
-  const schedulePost = (model: IFacebookSchedulePosts) => {
+  const schedulePost = (model: IFacebookSchedulePost) => {
     setIsLoading(true);
     loginProvider
       .schedulePostAsync(model)

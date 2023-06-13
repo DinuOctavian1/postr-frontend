@@ -8,12 +8,8 @@ import {
   usePostOnFacebook,
 } from 'hooks';
 import IFacebookPage from 'models/facebook/IFacebookPage';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
 import IPost from 'models/interfaces/IPost';
-import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IGeneratePostRequest from 'models/request/ICreatePostRequest';
-import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 
 import { useState } from 'react';
 import IExternalLoginService from 'services/IExternalLoginService';
@@ -49,76 +45,40 @@ const useFacebookAPI = (
   const { login, fbUser } = useFbLogin(socialMediaService);
   const logout = useFBLogout(socialMediaService);
 
-  const handleLogin = () => {
-    login();
-  };
+  // const handleLogin = () => {
+  //   login();
+  // };
 
-  const getFbUser = (): IFacebookGetUserfromLogin => {
-    return fbUser;
-  };
+  // const handleGetPages = (userId: string, accessToken: string) => {
+  //   getPages(userId, accessToken);
+  // };
 
-  const handleGetPages = (userId: string, accessToken: string) => {
-    getPages(userId, accessToken);
-  };
+  // const handleLogout = () => {
+  //   logout();
+  // };
 
-  const getPagesList = (): IFacebookPage[] => {
-    return pages;
-  };
+  // const handleSchedulePost = (model: IFacebookSchedulePost) => {
+  //   schedulePost(model);
+  // };
 
-  const handleLogout = () => {
-    logout();
-  };
+  // const handleSetPost = (newPost: IPost) => {
+  //   setPost((prevPost) => ({
+  //     ...prevPost,
+  //     ...newPost,
+  //   }));
+  // };
 
-  const getLoggedUser = (): IFBLoggedUser => {
-    return loggedUser;
-  };
+  // const handleSetPageChange = (page: IFacebookPage) => {
+  //   setSelectedPage(page);
+  // };
 
-  const handleSchedulePost = (model: IFacebookSchedulePost) => {
-    schedulePost(model);
-  };
+  // const handlePostNow = (postModel: IFBPostRequest) => {
+  //   postOnFb(postModel);
+  // };
 
-  const handleSetPost = (newPost: IPost) => {
-    setPost((prevPost) => ({
-      ...prevPost,
-      ...newPost,
-    }));
-  };
-
-  const getSelectedPage = (): IFacebookPage => {
-    return selectedPage;
-  };
-
-  const getPost = (): IPost => {
-    return post;
-  };
-
-  const getGeneratedPost = (): string => {
-    return generatedPost;
-  };
-
-  const getGeneratedPostLoadingState = (): boolean => {
-    return isGeneratedPostLoading;
-  };
-
-  const getScheduleLoadingState = (): boolean => {
-    return isScheduleBtnLoading;
-  };
-
-  const getPostLoadingState = (): boolean => {
-    return isLoadingPost;
-  };
-
-  const handleSetPageChange = (page: IFacebookPage) => {
-    setSelectedPage(page);
-  };
-
-  const handlePostNow = (postModel: IFBPostRequest) => {
-    postOnFb(postModel);
-  };
-
-  const handlePostGeneration = (data: IGeneratePostRequest) => {
-    generatePost(data);
-  };
+  // const handlePostGeneration = (data: IGeneratePostRequest) => {
+  //   generatePost(data);
+  // };
 
   //   useEffect(() => {
   //     const facebookService = socialMediaService;
@@ -142,23 +102,23 @@ const useFacebookAPI = (
   //   }, []);
 
   return {
-    getPagesList,
-    getSelectedPage,
-    getPost,
-    getPostLoadingState,
-    getScheduleLoadingState,
-    getGeneratedPostLoadingState,
-    getGeneratedPost,
-    getFbUser,
-    getLoggedUser,
-    handleGetPages,
-    handleLogin,
-    handleLogout,
-    handleSetPageChange,
-    handleSetPost,
-    handlePostNow,
-    handleSchedulePost,
-    handlePostGeneration,
+    pages,
+    selectedPage,
+    post,
+    isLoadingPost,
+    isScheduleBtnLoading,
+    isGeneratedPostLoading,
+    generatedPost,
+    fbUser,
+    loggedUser,
+    getPages,
+    login,
+    logout,
+    setSelectedPage,
+    setPost,
+    postOnFb,
+    schedulePost,
+    generatePost,
   };
 };
 

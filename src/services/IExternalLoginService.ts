@@ -2,7 +2,7 @@ import IFacebookLoginStatusResponse from 'models/response/facebook/IFacebookLogi
 import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
 import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 
 interface IExternalLoginService {
   getLoginStatus: () => IFacebookLoginStatusResponse;
@@ -14,7 +14,7 @@ interface IExternalLoginService {
   postAsync: (model: IFBPostRequest) => Promise<any>;
   logoutAsync: () => Promise<any>;
   generatePostUrl: (postId: string) => string;
-  schedulePostAsync: (model: IFacebookSchedulePosts) => Promise<any>;
+  schedulePostAsync: (model: IFacebookSchedulePost) => Promise<any>;
 }
 
 export default IExternalLoginService;

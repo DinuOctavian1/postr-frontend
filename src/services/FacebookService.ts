@@ -4,7 +4,7 @@ import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPage
 import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 import IExternalLoginService from './IExternalLoginService';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 
 class FacebookService implements IExternalLoginService {
   static readonly fbAppId: string = process.env.REACT_APP_FACEBOOK_APP_ID;
@@ -56,7 +56,7 @@ class FacebookService implements IExternalLoginService {
     return await apiAgent.Facebook.postNow(model);
   }
 
-  async schedulePostAsync(model: IFacebookSchedulePosts) {
+  async schedulePostAsync(model: IFacebookSchedulePost) {
     return await apiAgent.Facebook.schedulePost(model);
   }
 

@@ -12,7 +12,7 @@ import ILoginRequest from '../models/request/ILoginRequest';
 import IResetPasswordRequest from '../models/request/IResetPasswordRequest';
 import ISignupRequest from '../models/request/ISignupRequest';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -105,7 +105,7 @@ const Facebook = {
     return response;
   },
 
-  schedulePost: (model: IFacebookSchedulePosts) => {
+  schedulePost: (model: IFacebookSchedulePost) => {
     const facebookUrl = model.post.imageUrl
       ? ENDPOINT_FACEBOOK.SchedulePostWithPhoto(
           model.pageId,

@@ -1,10 +1,10 @@
 import IPost from 'models/interfaces/IPost';
 
-interface IFacebookSchedulePosts {
+interface IFacebookSchedulePost {
   pageId: string;
   pageAccessToken: string;
   post: IPost;
   publishDate: number;
 }
 
-export default IFacebookSchedulePosts;
+export default IFacebookSchedulePost;
