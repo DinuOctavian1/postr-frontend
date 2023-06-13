@@ -21,7 +21,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import IPost from 'models/interfaces/IPost';
 import UploadImageBtn from './Buttons/UploadImageBtn';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 import SelectedImageCard from './SelectedImageCard/SelectedImageCard';
 
 interface CreatePostModalProps {
@@ -37,9 +37,9 @@ interface CreatePostModalProps {
   isGeneratedPostLoading: boolean;
   handlePostNow: (postModel: IFBPostRequest) => void;
   selectedPage: IFacebookPage;
-  isLoading: boolean;
+  isPostBtnLoading: boolean;
   isScheduleBtnLoading: boolean;
-  handleSchedulePost: (model: IFacebookSchedulePosts) => void;
+  handleSchedulePost: (model: IFacebookSchedulePost) => void;
   handleSetPost: (post: IPost) => void;
   handleGeneratePost: (data: IGeneratePostRequest) => void;
 }
@@ -70,7 +70,7 @@ const CreatePostModal = ({
   isGeneratedPostLoading,
   handlePostNow,
   selectedPage,
-  isLoading,
+  isPostBtnLoading,
   isScheduleBtnLoading,
   handleSchedulePost,
   handleSetPost,
@@ -102,7 +102,12 @@ const CreatePostModal = ({
         //onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 1900,
+        }}
       >
         <>
           <Box sx={style}>
@@ -175,7 +180,7 @@ const CreatePostModal = ({
                 </Box>
                 <Box mt={5} display={'flex'} justifyContent={'space-evenly'}>
                   <PostNowBtn
-                    isLoading={isLoading}
+                    isLoading={isPostBtnLoading}
                     handleClick={() => {
                       const postModel: IFBPostRequest = {
                         text: post.text,

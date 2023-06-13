@@ -15,19 +15,47 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './ListItems';
 import { AppBar, Drawer } from './styles/Dashboard.styles';
 import { FacebookService } from 'services';
-import IFBLoggedUser from 'models/facebook/IFBLoggedUser';
-import { useFbLogin, useFbGetUserPages, useFBGetLoginStatus } from 'hooks';
+
 import { ConnectAccount } from './ConnectAccounts/ConnectAccount';
+import apiAgent from 'api/ApiAgent';
+import { toast } from 'react-toastify';
+import useFacebookAPI from 'hooks/facebook/useFacebookAPI';
+import useUploadFile from 'hooks/useUploadFile';
+import { CreatePostModal } from './CreatePost/components/createPostModal';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IPost from 'models/interfaces/IPost';
+import IFacebookPage from 'models/facebook/IFacebookPage';
+import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
+import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 
 function DashboardContent() {
   const [openSideNav, setOpenSideNav] = useState(true);
   const [openCreatePostModal, setOpenCreatePostModal] = useState(false);
+  const {
+    uploadFile,
+    fileUrl,
+    isLoading: isFileLoading,
+  } = useUploadFile(apiAgent);
 
-  const loggedUser: IFBLoggedUser = useFBGetLoginStatus(
-    FacebookService.getInstance(),
-  );
-  const [getPages, pages] = useFbGetUserPages(FacebookService.getInstance());
-  const { login, fbUser } = useFbLogin(FacebookService.getInstance());
+  const {
+    pages,
+    selectedPage,
+    post,
+    isLoadingPost,
+    isScheduleBtnLoading,
+    isGeneratedPostLoading,
+    generatedPost,
+    fbUser,
+    loggedUser,
+    getPages,
+    login,
+    logout,
+    setSelectedPage,
+    setPost,
+    postOnFb,
+    schedulePost,
+    generatePost,
+  } = useFacebookAPI(apiAgent, FacebookService.getInstance(), toast);
 
   const toggleDrawer = () => {
     setOpenSideNav(!openSideNav);
@@ -37,9 +65,48 @@ function DashboardContent() {
     setOpenCreatePostModal(true);
   };
 
+  const handleUploadFile = (file: FormData) => {
+    uploadFile(file);
+  };
+
+  const handleLogin = () => {
+    login();
+  };
+
+  const handleGetPages = (userId: string, accessToken: string) => {
+    getPages(userId, accessToken);
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
+
+  const handleSchedulePost = (model: IFacebookSchedulePost) => {
+    schedulePost(model);
+  };
+
+  const handleSetPost = (newPost: IPost) => {
+    setPost((prevPost) => ({
+      ...prevPost,
+      ...newPost,
+    }));
+  };
+
+  const handleSetPageChange = (page: IFacebookPage) => {
+    setSelectedPage(page);
+  };
+
+  const handlePostNow = (postModel: IFBPostRequest) => {
+    postOnFb(postModel);
+  };
+
+  const handlePostGeneration = (data: IGeneratePostRequest) => {
+    generatePost(data);
+  };
+
   useEffect(() => {
     if (loggedUser.isLogged || fbUser?.name) {
-      getPages(loggedUser.userId, loggedUser.token);
+      handleGetPages(loggedUser.userId, loggedUser.token);
     }
   }, [fbUser]);
 
@@ -114,16 +181,16 @@ function DashboardContent() {
       >
         <Toolbar />
         <ConnectAccount
-          login={login}
-          pages={pages ?? null}
+          login={handleLogin}
+          pages={pages}
           showModal={showCreatePostModal}
         />
-        {/* <CreatePostModal
+        <CreatePostModal
           handleUploadFile={handleUploadFile}
           fileUrl={fileUrl}
           isFileLoading={isFileLoading}
-          open={open}
-          handleClose={handleClose}
+          open={openCreatePostModal}
+          handleClose={() => setOpenCreatePostModal(false)}
           pages={pages}
           handleSetPage={handleSetPageChange}
           post={post}
@@ -131,12 +198,12 @@ function DashboardContent() {
           isGeneratedPostLoading={isGeneratedPostLoading}
           handlePostNow={handlePostNow}
           selectedPage={selectedPage}
-          isLoading={isLoading}
+          isPostBtnLoading={isLoadingPost}
           isScheduleBtnLoading={isScheduleBtnLoading}
           handleSchedulePost={handleSchedulePost}
           handleSetPost={handleSetPost}
-          handleGeneratePost={hanlePostGeneration}
-        /> */}
+          handleGeneratePost={handlePostGeneration}
+        />
       </Box>
     </Box>
   );

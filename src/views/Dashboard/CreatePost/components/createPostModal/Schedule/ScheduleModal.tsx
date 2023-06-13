@@ -1,6 +1,6 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import IFacebookSchedulePosts from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 import IPost from 'models/interfaces/IPost';
 import { useState } from 'react';
 import DatePiker from './DatePicker';
@@ -14,7 +14,7 @@ interface Props {
   };
 
   handleClose: () => void;
-  handleSchedulePost: (model: IFacebookSchedulePosts) => void;
+  handleSchedulePost: (model: IFacebookSchedulePost) => void;
 }
 
 const ScheduleModal = ({
@@ -47,6 +47,7 @@ const ScheduleModal = ({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      sx={{ zIndex: 1901 }}
     >
       <Box sx={style}>
         <Box
@@ -75,7 +76,7 @@ const ScheduleModal = ({
             onClick={() => {
               const timestamp = Math.floor(selectedDate.valueOf() / 1000);
 
-              const post: IFacebookSchedulePosts = {
+              const post: IFacebookSchedulePost = {
                 ...postDetails,
                 publishDate: timestamp,
               };

@@ -92,14 +92,14 @@ const FacebookPostPreview = ({ post, iconUrl, name }: Props) => {
         </CardContent>
         {!post.imageUrl ? (
           <Skeleton
-            sx={{ height: 330 }}
+            sx={{ height: 340 }}
             animation="wave"
             variant="rectangular"
           />
         ) : (
           <CardMedia
             component="img"
-            height="140"
+            height="340"
             image={post.imageUrl}
             alt="post image"
           />
