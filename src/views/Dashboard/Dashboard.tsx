@@ -1,21 +1,9 @@
+/* eslint-disable indent */
 import { useEffect, useState } from 'react';
-
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-
-import { mainListItems, secondaryListItems } from './ListItems';
-import { AppBar, Drawer } from './styles/Dashboard.styles';
 import { FacebookService } from 'services';
-
 import { ConnectAccount } from './ConnectAccounts/ConnectAccount';
 import apiAgent from 'api/ApiAgent';
 import { toast } from 'react-toastify';
@@ -27,8 +15,15 @@ import IPost from 'models/interfaces/IPost';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
+import { ActiveComponent, ActiveComponentType } from './Navigation/types';
+import TopBar from './Navigation/TopBar';
+import DashboardDrawer from './Navigation/DashboardDrawer';
 
-function DashboardContent() {
+const Dashboard = () => {
+  const [activeComponent, setActiveComponent] = useState<ActiveComponentType>(
+    ActiveComponent.CONNECT_ACCOUNTS,
+  );
+
   const [openSideNav, setOpenSideNav] = useState(true);
   const [openCreatePostModal, setOpenCreatePostModal] = useState(false);
   const {
@@ -59,6 +54,10 @@ function DashboardContent() {
 
   const toggleDrawer = () => {
     setOpenSideNav(!openSideNav);
+  };
+
+  const handleDashboardItemClick = (component: ActiveComponentType) => {
+    setActiveComponent(component);
   };
 
   const showCreatePostModal = () => {
@@ -104,6 +103,17 @@ function DashboardContent() {
     generatePost(data);
   };
 
+  const handleCreatePostModalClose = () => {
+    setOpenCreatePostModal(false);
+    setActiveComponent(ActiveComponent.CONNECT_ACCOUNTS);
+  };
+
+  useEffect(() => {
+    if (ActiveComponent.CREATE_POST === activeComponent) {
+      showCreatePostModal();
+    }
+  }, [activeComponent]);
+
   useEffect(() => {
     if (loggedUser.isLogged || fbUser?.name) {
       handleGetPages(loggedUser.userId, loggedUser.token);
@@ -117,60 +127,12 @@ function DashboardContent() {
       }}
     >
       <CssBaseline />
-      <AppBar position="absolute" open={openSideNav}>
-        <Toolbar
-          sx={{
-            pr: '24px', // keep right padding when drawer closed
-          }}
-        >
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
-            sx={{
-              marginRight: '36px',
-              ...(openSideNav && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
-            Dashboard
-          </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      <Drawer variant="permanent" open={openSideNav}>
-        <Toolbar
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            px: [1],
-          }}
-        >
-          <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </Toolbar>
-        <Divider />
-        <List component="nav">
-          {mainListItems}
-          <Divider sx={{ my: 1 }} />
-          {secondaryListItems}
-        </List>
-      </Drawer>
+      <TopBar openSideNav={openSideNav} toggleDrawer={toggleDrawer} />
+      <DashboardDrawer
+        openSideNav={openSideNav}
+        toggleDrawer={toggleDrawer}
+        handleDashboardItemClick={handleDashboardItemClick}
+      />
       <Box
         component="main"
         sx={{
@@ -180,17 +142,22 @@ function DashboardContent() {
         }}
       >
         <Toolbar />
-        <ConnectAccount
-          login={handleLogin}
-          pages={pages}
-          showModal={showCreatePostModal}
-        />
+        {activeComponent &&
+          activeComponent === ActiveComponent.CONNECT_ACCOUNTS && (
+            <ConnectAccount
+              key={ActiveComponent.CONNECT_ACCOUNTS}
+              login={handleLogin}
+              pages={pages}
+              showModal={showCreatePostModal}
+            />
+          )}
+
         <CreatePostModal
           handleUploadFile={handleUploadFile}
           fileUrl={fileUrl}
           isFileLoading={isFileLoading}
           open={openCreatePostModal}
-          handleClose={() => setOpenCreatePostModal(false)}
+          handleClose={handleCreatePostModalClose}
           pages={pages}
           handleSetPage={handleSetPageChange}
           post={post}
@@ -207,8 +174,6 @@ function DashboardContent() {
       </Box>
     </Box>
   );
-}
+};
 
-export default function Dashboard() {
-  return <DashboardContent />;
-}
+export default Dashboard;

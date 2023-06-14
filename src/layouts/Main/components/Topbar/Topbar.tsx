@@ -88,7 +88,7 @@ const Topbar = ({
             variant="contained"
             color="primary"
             component={Link}
-            to={ROUTE.CreatePost}
+            to={ROUTE.Dashboard}
             size="large"
           >
             Create Post
