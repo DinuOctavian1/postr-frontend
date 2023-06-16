@@ -1,5 +1,5 @@
 import { IconButton, Toolbar, Typography } from '@mui/material';
-import { AppBar, Drawer } from '../styles/Dashboard.styles';
+import { AppBar } from '../styles/Dashboard.styles';
 import MenuIcon from '@mui/icons-material/Menu';
 
 interface TopBarProps {

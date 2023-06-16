@@ -23,6 +23,7 @@ import UploadImageBtn from './Buttons/UploadImageBtn';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 import SelectedImageCard from './SelectedImageCard/SelectedImageCard';
+// import MultipleSelectChip from './SelectPage/TestPage';
 
 interface CreatePostModalProps {
   handleUploadFile: (file: FormData) => void;
@@ -106,7 +107,6 @@ const CreatePostModal = ({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 1900,
         }}
       >
         <>
@@ -136,7 +136,9 @@ const CreatePostModal = ({
                     Publish to:
                   </Typography>
                 </Box>
+
                 <SelectPage pages={pages} handleSetPageChange={handleSetPage} />
+
                 <Box mt={5} mb={3}>
                   <GeneratePostForm
                     post={post.text}

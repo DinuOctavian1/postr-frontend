@@ -35,17 +35,12 @@ export const SelectPage = ({ pages, handleSetPageChange }: IProps) => {
   const [selectedPage, setSelectedPage] = useState<IFacebookPage>(pages[0]);
 
   useEffect(() => {
-    setSelectedPage(pages[0]);
-    handleSetPageChange(pages[0]);
-  }, [pages]);
-
-  useEffect(() => {
     handleSetPageChange(selectedPage);
   }, [selectedPage]);
 
   const handle = (event: any) => {
     const page = pages.find((page) => page.name === event.target.value);
-    setSelectedPage(() => page);
+    setSelectedPage(page);
   };
 
   return (
@@ -66,7 +61,7 @@ export const SelectPage = ({ pages, handleSetPageChange }: IProps) => {
                 label={selectedPage.name}
                 icon={<FacebookIcon />}
                 onDelete={() => setSelectedPage(null)}
-                onMouseDown={(event) => event.stopPropagation()}
+                onClick={(event) => event.stopPropagation()}
               />
             </Box>
           )

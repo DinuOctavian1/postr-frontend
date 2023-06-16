@@ -92,7 +92,10 @@ const Dashboard = () => {
   };
 
   const handleSetPageChange = (page: IFacebookPage) => {
-    setSelectedPage(page);
+    setSelectedPage((prevPage) => ({
+      ...prevPage,
+      ...page,
+    }));
   };
 
   const handlePostNow = (postModel: IFBPostRequest) => {
@@ -151,7 +154,6 @@ const Dashboard = () => {
               showModal={showCreatePostModal}
             />
           )}
-
         <CreatePostModal
           handleUploadFile={handleUploadFile}
           fileUrl={fileUrl}

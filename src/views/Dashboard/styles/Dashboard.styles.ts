@@ -11,7 +11,8 @@ interface AppBarProps extends MuiAppBarProps {
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
+  zIndex: 2,
+  // zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -37,6 +38,7 @@ export const Drawer = styled(MuiDrawer, {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    zIndex: 1,
     boxSizing: 'border-box',
     ...(!open && {
       overflowX: 'hidden',
