@@ -22,7 +22,7 @@ const useLogin = (
         toast.success(rsp.message);
         setUser(rsp.data);
         setIsSuccess(true);
-        navigate(ROUTE.CreatePost);
+        navigate(ROUTE.Dashboard);
       })
       .catch((err) => {
         toast.error(err);

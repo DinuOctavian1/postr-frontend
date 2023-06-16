@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import {
   Box,
   Divider,
@@ -8,22 +10,23 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
-import { useEffect, useState } from 'react';
+import IPost from 'models/interfaces/IPost';
+import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
+import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+
 import { PostNowBtn } from './Buttons';
 import ScheduleBtn from './Buttons/SchedultBtn';
+import UploadImageBtn from './Buttons/UploadImageBtn';
+
 import { GeneratePostForm } from './GeneratePostForm/GeneratePostForm';
 import FacebookPostPreview from './PostPreview/FacebookPostPreview';
 import ScheduleModal from './Schedule/ScheduleModal';
 import { SelectPage } from './SelectPage/SelectPage';
-import CloseIcon from '@mui/icons-material/Close';
-import IPost from 'models/interfaces/IPost';
-import UploadImageBtn from './Buttons/UploadImageBtn';
-import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
 import SelectedImageCard from './SelectedImageCard/SelectedImageCard';
-// import MultipleSelectChip from './SelectPage/TestPage';
 
 interface CreatePostModalProps {
   handleUploadFile: (file: FormData) => void;
@@ -125,83 +128,88 @@ const CreatePostModal = ({
               Create Post
             </Typography>
             <Divider />
-            <Grid container spacing={2} mt={3}>
-              <Grid item xs={12} md={7}>
-                <Box mb={1}>
-                  <Typography
-                    variant="h6"
-                    id="modal-modal-title"
-                    component="h2"
-                  >
-                    Publish to:
-                  </Typography>
-                </Box>
+            <Box sx={{ maxHeight: 'calc(100vh - 150px)', overflow: 'auto' }}>
+              <Grid container spacing={2} mt={3}>
+                <Grid item xs={12} md={7}>
+                  <Box mb={1}>
+                    <Typography
+                      variant="h6"
+                      id="modal-modal-title"
+                      component="h2"
+                    >
+                      Publish to:
+                    </Typography>
+                  </Box>
 
-                <SelectPage pages={pages} handleSetPageChange={handleSetPage} />
-
-                <Box mt={5} mb={3}>
-                  <GeneratePostForm
-                    post={post.text}
-                    generatedPost={generatedPost}
-                    selectedPage={selectedPage}
-                    isGeneratedPostLoading={isGeneratedPostLoading}
-                    handleGeneratePost={handleGeneratePost}
-                    handleSetPost={handleSetPost}
+                  <SelectPage
+                    pages={pages}
+                    handleSetPageChange={handleSetPage}
                   />
-                </Box>
-                <Divider />
-                <Box
-                  mt={3}
-                  display="flex"
-                  flexDirection={'row'}
-                  width={!isMd ? '50%' : '30%'}
-                  justifyContent={'space-between'}
-                >
-                  <Box>
-                    <UploadImageBtn
-                      handleUploadFile={handleUploadFile}
-                      fileUrl={fileUrl}
+
+                  <Box mt={5} mb={3}>
+                    <GeneratePostForm
+                      post={post.text}
+                      generatedPost={generatedPost}
+                      selectedPage={selectedPage}
+                      isGeneratedPostLoading={isGeneratedPostLoading}
+                      handleGeneratePost={handleGeneratePost}
                       handleSetPost={handleSetPost}
                     />
                   </Box>
-                  {showSelectedImage && (
-                    <SelectedImageCard
+                  <Divider />
+                  <Box
+                    mt={3}
+                    display="flex"
+                    flexDirection={'row'}
+                    width={!isMd ? '50%' : '30%'}
+                    justifyContent={'space-between'}
+                  >
+                    <Box>
+                      <UploadImageBtn
+                        handleUploadFile={handleUploadFile}
+                        fileUrl={fileUrl}
+                        handleSetPost={handleSetPost}
+                      />
+                    </Box>
+                    {showSelectedImage && (
+                      <SelectedImageCard
+                        post={post}
+                        onClose={handleSelectedImageOnClose}
+                      />
+                    )}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={5}>
+                  <Box mb={1} display={'flex'} justifyContent={'center'}>
+                    <FacebookPostPreview
                       post={post}
-                      onClose={handleSelectedImageOnClose}
+                      iconUrl={selectedPage?.iconUrl}
+                      name={selectedPage?.name}
                     />
-                  )}
-                </Box>
+                  </Box>
+                  <Box mt={5} display={'flex'} justifyContent={'space-evenly'}>
+                    <PostNowBtn
+                      isLoading={isPostBtnLoading}
+                      handleClick={() => {
+                        const postModel: IFBPostRequest = {
+                          text: post.text,
+                          pageId: selectedPage.id,
+                          pageAccessToken: selectedPage.access_token,
+                          mediaUrl: post?.imageUrl,
+                        };
+                        handlePostNow(postModel);
+                      }}
+                      disabled={post?.text === ''}
+                    />
+                    <ScheduleBtn
+                      isLoading={isScheduleBtnLoading}
+                      handleClick={() => setOpenModal(true)}
+                      disabled={post?.text === ''}
+                    />
+                  </Box>
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={5}>
-                <Box mb={1} display={'flex'} justifyContent={'center'}>
-                  <FacebookPostPreview
-                    post={post}
-                    iconUrl={selectedPage?.iconUrl}
-                    name={selectedPage?.name}
-                  />
-                </Box>
-                <Box mt={5} display={'flex'} justifyContent={'space-evenly'}>
-                  <PostNowBtn
-                    isLoading={isPostBtnLoading}
-                    handleClick={() => {
-                      const postModel: IFBPostRequest = {
-                        text: post.text,
-                        pageId: selectedPage.id,
-                        pageAccessToken: selectedPage.access_token,
-                        mediaUrl: post?.imageUrl,
-                      };
-                      handlePostNow(postModel);
-                    }}
-                    disabled={post?.text === ''}
-                  />
-                  <ScheduleBtn
-                    isLoading={isScheduleBtnLoading}
-                    handleClick={() => setOpenModal(true)}
-                    disabled={post?.text === ''}
-                  />
-                </Box>
-              </Grid>
-            </Grid>
+            </Box>
           </Box>
         </>
       </Modal>
