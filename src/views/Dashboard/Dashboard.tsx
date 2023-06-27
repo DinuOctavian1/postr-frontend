@@ -18,6 +18,7 @@ import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import { ActiveComponent, ActiveComponentType } from './Navigation/types';
 import TopBar from './Navigation/TopBar';
 import DashboardDrawer from './Navigation/DashboardDrawer';
+import Calendar from './Calendar/Calendar';
 
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState<ActiveComponentType>(
@@ -174,6 +175,9 @@ const Dashboard = () => {
           handleGeneratePost={handlePostGeneration}
         />
       </Box>
+      {activeComponent && activeComponent === ActiveComponent.PLANNER && (
+        <Calendar />
+      )}
     </Box>
   );
 };

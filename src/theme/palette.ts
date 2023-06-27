@@ -55,6 +55,13 @@ export const dark = {
     dark: '#DBBE01',
     contrastText: 'rgba(0, 0, 0, 0.87)',
   },
+  custom: {
+    main: '#FF0000',
+    light: '#FF0000',
+    dark: '#FF0000',
+    contrastText: '#fff',
+  },
+
   text: {
     primary: '#EEEEEF',
     secondary: '#AEB0B4',

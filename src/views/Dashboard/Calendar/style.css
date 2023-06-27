@@ -1,0 +1,13 @@
+.rbc-header {
+    background: aliceblue;
+}
+
+.rbc-time-slot {
+    background-color: white;
+    color: #000;
+}
+
+.current-day-events {
+    background-color: #3174ad;
+    color:red;
+}
