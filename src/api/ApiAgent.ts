@@ -13,6 +13,7 @@ import IResetPasswordRequest from '../models/request/IResetPasswordRequest';
 import ISignupRequest from '../models/request/ISignupRequest';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFaceboookGetScheduledPostResoponse from 'models/response/facebook/IFaceboookGetScheduledPostResoponse';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.withCredentials = true;
@@ -137,6 +138,21 @@ const Facebook = {
     resetWithCredentials(currentWithCredentials);
 
     return response;
+  },
+
+  getScheduledPosts: (
+    pageId: string,
+    pageAccessToken: string,
+  ): Promise<IFaceboookGetScheduledPostResoponse> => {
+    const currentWithCredentials = modifyWithCredentials(false);
+
+    const response = request.get(
+      ENDPOINT_FACEBOOK.GetScheduledPosts(pageId, pageAccessToken),
+    );
+
+    resetWithCredentials(currentWithCredentials);
+
+    return response as Promise<IFaceboookGetScheduledPostResoponse>;
   },
 };
 

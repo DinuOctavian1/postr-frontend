@@ -5,6 +5,7 @@ import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUser
 import IExternalLoginService from './IExternalLoginService';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
 import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFaceboookGetScheduledPostResoponse from 'models/response/facebook/IFaceboookGetScheduledPostResoponse';
 
 class FacebookService implements IExternalLoginService {
   static readonly fbAppId: string = process.env.REACT_APP_FACEBOOK_APP_ID;
@@ -58,6 +59,13 @@ class FacebookService implements IExternalLoginService {
 
   async schedulePostAsync(model: IFacebookSchedulePost) {
     return await apiAgent.Facebook.schedulePost(model);
+  }
+
+  async getScheduledPostsAsync(
+    pageId: string,
+    pageAccessToken: string,
+  ): Promise<IFaceboookGetScheduledPostResoponse> {
+    return await apiAgent.Facebook.getScheduledPosts(pageId, pageAccessToken);
   }
 
   getAppId = () => {
