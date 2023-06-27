@@ -47,7 +47,6 @@ const ScheduleModal = ({
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      sx={{ zIndex: 1901 }}
     >
       <Box sx={style}>
         <Box
