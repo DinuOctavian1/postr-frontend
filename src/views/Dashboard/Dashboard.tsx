@@ -176,7 +176,7 @@ const Dashboard = () => {
         />
       </Box>
       {activeComponent && activeComponent === ActiveComponent.PLANNER && (
-        <Calendar />
+        <Calendar pages={pages} />
       )}
     </Box>
   );

@@ -3,6 +3,7 @@ interface IFacebookGetScheduledPosts {
   id: string;
   message: string;
   scheduled_publish_time: string;
+  pageId: string;
 }
 
 export default IFacebookGetScheduledPosts;
