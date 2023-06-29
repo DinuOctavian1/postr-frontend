@@ -16,7 +16,7 @@ import IFacebookPage from 'models/facebook/IFacebookPage';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import IPost from 'models/interfaces/IPost';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 
 import { PostNowBtn } from './Buttons';
 import ScheduleBtn from './Buttons/SchedultBtn';

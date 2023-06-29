@@ -19,7 +19,7 @@ import apiAgent from 'api/ApiAgent';
 import IGeneratePostRequest from 'models/request/ICreatePostRequest';
 import IPost from 'models/interfaces/IPost';
 import useUploadFile from 'hooks/useUploadFile';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 
 export const CreatePost = () => {
   // const loggedUser: IFBLoggedUser = useFBGetLoginStatus(

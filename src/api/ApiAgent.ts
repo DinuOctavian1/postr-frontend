@@ -12,7 +12,7 @@ import ILoginRequest from '../models/request/ILoginRequest';
 import IResetPasswordRequest from '../models/request/IResetPasswordRequest';
 import ISignupRequest from '../models/request/ISignupRequest';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 import IFaceboookGetScheduledPostResoponse from 'models/response/facebook/IFaceboookGetScheduledPostResoponse';
 
 axios.defaults.baseURL = BASE_URL;

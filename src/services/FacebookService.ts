@@ -4,7 +4,7 @@ import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPage
 import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 import IExternalLoginService from './IExternalLoginService';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 import IFaceboookGetScheduledPostResoponse from 'models/response/facebook/IFaceboookGetScheduledPostResoponse';
 
 class FacebookService implements IExternalLoginService {

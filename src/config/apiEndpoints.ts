@@ -25,5 +25,5 @@ export const ENDPOINT_FACEBOOK = {
     `https://graph.facebook.com/${pageId}/photos?access_token=${pageAccessToken}`,
   GetScheduledPosts: (pageId: string, pageAccessToken: string) =>
     //`https://graph.facebook.com/${pageId}/scheduled_posts?access_token=${pageAccessToken}`,
-    `https://graph.facebook.com/v16.0/${pageId}/scheduled_posts?fields=id,message,created_time,scheduled_publish_time&access_token=${pageAccessToken}`,
+    `https://graph.facebook.com/v16.0/${pageId}/scheduled_posts?fields=id,message,created_time,scheduled_publish_time,full_picture&access_token=${pageAccessToken}`,
 };

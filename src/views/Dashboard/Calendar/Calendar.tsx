@@ -22,7 +22,7 @@ interface Props {
 
 const Calendar = ({ pages }: Props) => {
   const localizer = dayjsLocalizer(dayjs);
-  const defaultDate = dayjs().startOf('day').add(7, 'hours');
+  const defaultDate = dayjs().startOf('day').add(9, 'hours');
 
   const [scheduledPosts, setScheduledPosts] = useState<
     IFacebookGetScheduledPosts[]

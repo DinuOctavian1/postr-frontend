@@ -22,7 +22,6 @@ const Utils = {
         scheduledTime.getDate(),
         scheduledTime.getHours() + 1,
       );
-
       return {
         title: post.message,
         allDay: false,
@@ -30,6 +29,7 @@ const Utils = {
         end: endDate,
         pageTitle: currentPage?.name,
         time: scheduledTime.getHours() + ':' + scheduledTime.getMinutes(),
+        imageUrl: post.full_picture || '',
       };
     });
 

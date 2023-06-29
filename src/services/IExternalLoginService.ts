@@ -2,7 +2,7 @@ import IFacebookLoginStatusResponse from 'models/response/facebook/IFacebookLogi
 import IGetFacebookPagesResponse from 'models/response/facebook/IFacebookGetPagesResponse';
 import IFacebookGetUserfromLogin from 'models/response/facebook/IFacebookGetUserFromLogin';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 import IFaceboookGetScheduledPostResoponse from 'models/response/facebook/IFaceboookGetScheduledPostResoponse';
 
 interface IExternalLoginService {

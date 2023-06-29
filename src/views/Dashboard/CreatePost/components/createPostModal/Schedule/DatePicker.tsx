@@ -20,7 +20,6 @@ export default function DatePiker({ handleSelectedDate }: Props) {
         format="DD/MM/YYYY HH:mm"
         //value={value}
         onChange={(newValue: Date) => {
-          console.log(newValue, 'newValue');
           handleSelectedDate(newValue);
           setOpen(false);
         }}

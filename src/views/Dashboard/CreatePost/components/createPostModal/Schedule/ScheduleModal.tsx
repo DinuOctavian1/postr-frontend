@@ -1,6 +1,6 @@
 import { Box, Button, Modal, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 import IPost from 'models/interfaces/IPost';
 import { useState } from 'react';
 import DatePiker from './DatePicker';

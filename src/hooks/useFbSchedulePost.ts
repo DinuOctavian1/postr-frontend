@@ -1,4 +1,4 @@
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import IExternalLoginService from 'services/IExternalLoginService';
@@ -23,7 +23,6 @@ const useFbSchdulePost = (
         toast.success('Post scheduled successfully');
       })
       .catch((err) => {
-        console.log(err);
         toast.error('Error scheduling post');
       })
       .finally(() => {

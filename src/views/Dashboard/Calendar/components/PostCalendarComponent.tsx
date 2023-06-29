@@ -4,7 +4,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import Utils from '../Utils';
 
 const PostCalendarComponent = ({ event }: any) => {
-  const MAX_TEXT_LENGTH = 80;
+  const MAX_TEXT_LENGTH = event.imageUrl ? 8 : 80;
 
   const truncatedTitle = Utils.truncateText(event.title, MAX_TEXT_LENGTH);
 
@@ -37,6 +37,16 @@ const PostCalendarComponent = ({ event }: any) => {
         <Typography variant="body2" component="span">
           {truncatedTitle}
         </Typography>
+      </Box>
+      <Box width={1} height={1}>
+        {event.imageUrl && (
+          <Box
+            component={'img'}
+            src={event.imageUrl}
+            height={'60%'}
+            width={'95%'}
+          />
+        )}
       </Box>
     </Box>
   );

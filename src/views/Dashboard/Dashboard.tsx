@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import useFacebookAPI from 'hooks/facebook/useFacebookAPI';
 import useUploadFile from 'hooks/useUploadFile';
 import { CreatePostModal } from './CreatePost/components/createPostModal';
-import IFacebookSchedulePost from 'models/facebook/IFacebookSchedulePosts';
+import IFacebookSchedulePost from 'models/request/facebook/IFacebookSchedulePosts';
 import IPost from 'models/interfaces/IPost';
 import IFacebookPage from 'models/facebook/IFacebookPage';
 import IFBPostRequest from 'models/request/facebook/IFBPostRRequest';
